@@ -1,4 +1,4 @@
-Qala Datagen
+Datagen
 ------------
 Generates random data (numbers, strings, dates) - mostly to facilitate 
 [Randomized Testing](http://qala.io/blog/randomized-testing.html).
@@ -10,7 +10,7 @@ length(10).english()
 ```
 ```java
 upTo(10).alphanumeric()
-> zGG
+> zG9G
 ```
 ```java
 between(1, 10).numeric()

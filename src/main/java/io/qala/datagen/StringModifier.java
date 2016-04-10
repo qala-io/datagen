@@ -7,42 +7,46 @@ import static io.qala.datagen.RandomValue.upTo;
 public interface StringModifier {
     String modify(String original);
 
-    static StringModifier spaces() {
-        return multipleOf(' ');
-    }
-    static StringModifier specialSymbol() {
-        return oneOf(Vocabulary.specialSymbols());
-    }
+    class Impls {
+        static StringModifier spaces() {
+            return multipleOf(' ');
+        }
 
-    static StringModifier oneOf(String chars) {
-        return oneOf(chars.toCharArray());
-    }
+        static StringModifier specialSymbol() {
+            return oneOf(Vocabulary.specialSymbols());
+        }
 
-    static StringModifier oneOf(char... chars) {
-        return new StringModifier() {
-            @Override public String modify(String original) {
-                int index = upTo(original.length()).integer();
-                String symbol = CommonsLang3RandomStringUtils.random(1, chars);
-                return new StringBuilder(original).replace(index, index + 1, symbol).toString();
-            }
-        };
-    }
+        static StringModifier oneOf(String chars) {
+            return oneOf(chars.toCharArray());
+        }
 
-    static StringModifier multipleOf(String chars) {
-        return multipleOf(chars.toCharArray());
-    }
-    static StringModifier multipleOf(char... chars) {
-        return new StringModifier() {
-            @Override public String modify(String original) {
-                int nOfSymbols = upTo(original.length()).integer();
-                StringBuilder stringBuilder = new StringBuilder(original);
-                for(int i = 0; i < nOfSymbols; i++) {
+        static StringModifier oneOf(final char... chars) {
+            return new StringModifier() {
+                @Override public String modify(String original) {
                     int index = upTo(original.length()).integer();
                     String symbol = CommonsLang3RandomStringUtils.random(1, chars);
-                    stringBuilder.replace(index, index + 1, symbol);
+                    return new StringBuilder(original).replace(index, index + 1, symbol).toString();
                 }
-                return stringBuilder.toString();
-            }
-        };
+            };
+        }
+
+        static StringModifier multipleOf(String chars) {
+            return multipleOf(chars.toCharArray());
+        }
+
+        static StringModifier multipleOf(final char... chars) {
+            return new StringModifier() {
+                @Override public String modify(String original) {
+                    int nOfSymbols = upTo(original.length()).integer();
+                    StringBuilder stringBuilder = new StringBuilder(original);
+                    for (int i = 0; i < nOfSymbols; i++) {
+                        int index = upTo(original.length()).integer();
+                        String symbol = CommonsLang3RandomStringUtils.random(1, chars);
+                        stringBuilder.replace(index, index + 1, symbol);
+                    }
+                    return stringBuilder.toString();
+                }
+            };
+        }
     }
 }

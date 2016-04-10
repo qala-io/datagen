@@ -6,13 +6,14 @@ import org.junit.gen5.api.Test;
 import org.junit.gen5.junit4.runner.JUnit5;
 import org.junit.runner.RunWith;
 
+import java.util.Date;
 import java.util.Random;
 
 import static io.qala.datagen.ContainsOneOfMatcher.containsOneOf;
 import static io.qala.datagen.RandomValue.*;
-import static io.qala.datagen.StringModifier.oneOf;
-import static io.qala.datagen.StringModifier.spaces;
-import static io.qala.datagen.StringModifier.specialSymbol;
+import static io.qala.datagen.StringModifier.Impls.oneOf;
+import static io.qala.datagen.StringModifier.Impls.spaces;
+import static io.qala.datagen.StringModifier.Impls.specialSymbol;
 import static io.qala.datagen.Vocabulary.specialSymbols;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
@@ -86,6 +87,14 @@ public class RandomValueTest {
 
         @Test void throwsIfMinBoundaryIsNegative() {
             expectThrows(NumberOutOfBoundaryException.class, () -> between(-1, 10).alphanumeric());
+        }
+    }
+    @Nested @DisplayName("Date Generator") class Dates {
+        @Test void returnsDateUpToMaxBoundary() {
+            assertThat(upTo(new Date()).date(), lessThanOrEqualTo(new Date()));
+        }
+        @Test void startsDatesFrom1970() {
+            assertThat(upTo(new Date()).date(), greaterThanOrEqualTo(new Date(0)));
         }
     }
 

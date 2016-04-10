@@ -1,8 +1,10 @@
 package io.qala.datagen;
 
 import io.qala.datagen.adaptors.CommonsLang3RandomStringUtils;
+import io.qala.datagen.adaptors.CommonsMath4;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -11,7 +13,7 @@ import static io.qala.datagen.adaptors.CommonsLang3RandomStringUtils.random;
 
 public class RandomValue {
     private static final Random RANDOM = new Random();
-    private final List<StringModifier> modifiers = new CopyOnWriteArrayList<>();
+    private final List<StringModifier> modifiers = new CopyOnWriteArrayList<StringModifier>();
     private final Long min;
     private final Long max;
 
@@ -28,6 +30,9 @@ public class RandomValue {
     public static RandomValue upTo(long to) {
         return new RandomValue(0L, to);
     }
+    public static RandomValue upTo(Date to) {
+        return new RandomValue(0L, to.getTime());
+    }
     public static RandomValue length(long length) {
         return new RandomValue(length, length);
     }
@@ -37,6 +42,10 @@ public class RandomValue {
     }
     public static int positiveInteger() {
         return upTo(Integer.MAX_VALUE).integer();
+    }
+
+    public Date date() {
+        return new Date(Long());
     }
 
     public RandomValue with(StringModifier ... modifiers) {
@@ -73,7 +82,6 @@ public class RandomValue {
         if(min < 0) throw new NumberOutOfBoundaryException("String length cannot be less than 0:" + min);
     }
     /**
-     * Mostly copied from Commons Math.
      * <p>
      * Generates a uniformly distributed random integer between {@code lower}
      * and {@code upper} (endpoints included).
@@ -85,21 +93,10 @@ public class RandomValue {
      *                                      boundaries
      */
     public int integer() {
-        int upper = maxInt();
-        int lower = minInt();
-        int max = (upper - lower) + 1;
-        if (max <= 0) {
-            // The range is too wide to fit in a positive int (larger
-            // than 2^31); as it covers more than half the integer range,
-            // we use a simple rejection method.
-            while (true) {
-                int r = RANDOM.nextInt();
-                if (r >= lower && r <= upper) return r;
-            }
-        } else {
-            // We can shift the range and directly generate a positive int.
-            return lower + RANDOM.nextInt(max);
-        }
+        return CommonsMath4.nextInt(RANDOM, maxInt(), minInt());
+    }
+    public long Long() {
+        return CommonsMath4.nextLong(RANDOM, min, max);
     }
 
     private int maxInt() {
