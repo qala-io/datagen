@@ -31,10 +31,22 @@ public class RandomValue {
     }
 
     public String alphanumeric() {
-        if(min < 0) throw new NumberOutOfBoundaryException("String length cannot be less than 0:" + min);
+        throwIfLowerBoundaryIsNegative();
         return CommonsLang3RandomStringUtils.randomAlphanumeric(integer());
     }
+    public String numeric() {
+        throwIfLowerBoundaryIsNegative();
+        return CommonsLang3RandomStringUtils.randomNumeric(integer());
+    }
 
+    public String english() {
+        throwIfLowerBoundaryIsNegative();
+        return CommonsLang3RandomStringUtils.randomAlphabetic(integer());
+    }
+
+    private void throwIfLowerBoundaryIsNegative() {
+        if(min < 0) throw new NumberOutOfBoundaryException("String length cannot be less than 0:" + min);
+    }
     /**
      * Mostly copied from Commons Math.
      * <p>
@@ -78,5 +90,4 @@ public class RandomValue {
         }
         return min.intValue();
     }
-
 }

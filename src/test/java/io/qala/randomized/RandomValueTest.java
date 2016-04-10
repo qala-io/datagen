@@ -51,6 +51,15 @@ public class RandomValueTest {
         @Test void returnsStringWithExactLength() {
             assertThat(length(100).alphanumeric().length(), equalTo(100));
         }
+        @Test void returnsEmptyStringIfLengthIsSetTo0() {
+            assertThat(length(0).alphanumeric(), isEmptyString());
+        }
+        @Test void returnsNumbersIfNumeric() {
+            assertThat(length(500).numeric(), containsString("1"));
+        }
+        @Test void doesNotReturnsNumbersIfEnglishRequested() {
+            assertThat(length(500).english(), not(containsString("1")));
+        }
         @Test void throwsIfMinBoundaryIsNegative() {
             expectThrows(NumberOutOfBoundaryException.class, () -> between(-1, 10).alphanumeric());
         }
