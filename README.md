@@ -24,5 +24,5 @@ length(10).with(oneOf("_,")).english()
 ```
 ```
 length(10).with(spaces()).numeric()
->  4 2 9 9   
+>  42 9 9   
 ```
