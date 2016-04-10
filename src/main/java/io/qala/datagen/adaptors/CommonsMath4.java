@@ -43,7 +43,8 @@ public class CommonsMath4 {
      * and less than or equal to {@code upper}
      */
     public static long nextLong(Random random, final long lower, final long upper) {
-        if (lower >= upper) throw new IllegalArgumentException();
+        if(lower == upper) return lower;
+        if (lower > upper) throw new IllegalArgumentException();
         final long max = (upper - lower) + 1;
         if (max <= 0) {
             // the range is too wide to fit in a positive long (larger than 2^63); as it covers

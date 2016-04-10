@@ -93,8 +93,14 @@ public class RandomValueTest {
         @Test void returnsDateUpToMaxBoundary() {
             assertThat(upTo(new Date()).date(), lessThanOrEqualTo(new Date()));
         }
-        @Test void startsDatesFrom1970() {
+        @Test void startsDatesFrom1970_ifUpToUsed() {
             assertThat(upTo(new Date()).date(), greaterThanOrEqualTo(new Date(0)));
+        }
+        @Test void createsDatesBetweenBoundaries() {
+            Date to = new Date();
+            Date from = new Date();
+            assertThat(between(from, to).date(), greaterThanOrEqualTo(from));
+            assertThat(between(from, to).date(), lessThanOrEqualTo(to));
         }
     }
 

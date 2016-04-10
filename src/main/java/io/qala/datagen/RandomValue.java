@@ -26,6 +26,9 @@ public class RandomValue {
     public static RandomValue between(long from, long to) {
         return new RandomValue(from, to);
     }
+    public static RandomValue between(Date from, Date to) {
+        return new RandomValue(from.getTime(), to.getTime());
+    }
 
     public static RandomValue upTo(long to) {
         return new RandomValue(0L, to);
