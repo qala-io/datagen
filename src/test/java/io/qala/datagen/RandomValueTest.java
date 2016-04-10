@@ -1,4 +1,4 @@
-package io.qala.randomized;
+package io.qala.datagen;
 
 import org.junit.gen5.api.DisplayName;
 import org.junit.gen5.api.Nested;
@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 
 import java.util.Random;
 
-import static io.qala.randomized.RandomValue.*;
+import static io.qala.datagen.RandomValue.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

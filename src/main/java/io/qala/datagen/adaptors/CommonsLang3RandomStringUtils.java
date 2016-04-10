@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.qala.randomized.adaptors;
+package io.qala.datagen.adaptors;
 
 import java.util.Random;
 

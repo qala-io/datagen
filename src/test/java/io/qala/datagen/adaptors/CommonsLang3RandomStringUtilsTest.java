@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.qala.randomized.adaptors;
+package io.qala.datagen.adaptors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -30,7 +30,7 @@ import java.util.Random;
 import org.junit.Test;
 
 /**
- * Unit tests {@link io.qala.randomized.adaptors.CommonsLang3RandomStringUtils}.
+ * Unit tests {@link io.qala.datagen.adaptors.CommonsLang3RandomStringUtils}.
  */
 public class CommonsLang3RandomStringUtilsTest {
 

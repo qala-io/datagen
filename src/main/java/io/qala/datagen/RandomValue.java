@@ -1,6 +1,6 @@
-package io.qala.randomized;
+package io.qala.datagen;
 
-import io.qala.randomized.adaptors.CommonsLang3RandomStringUtils;
+import io.qala.datagen.adaptors.CommonsLang3RandomStringUtils;
 
 import java.util.Random;
 
