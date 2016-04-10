@@ -2,10 +2,16 @@ package io.qala.datagen;
 
 import io.qala.datagen.adaptors.CommonsLang3RandomStringUtils;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import static io.qala.datagen.adaptors.CommonsLang3RandomStringUtils.random;
 
 public class RandomValue {
     private static final Random RANDOM = new Random();
+    private final List<StringModifier> modifiers = new CopyOnWriteArrayList<>();
     private final Long min;
     private final Long max;
 
@@ -22,28 +28,47 @@ public class RandomValue {
     public static RandomValue upTo(long to) {
         return new RandomValue(0L, to);
     }
-
-    public static int anyInteger() {
-        return between(Integer.MIN_VALUE, Integer.MAX_VALUE).integer();
-    }
     public static RandomValue length(long length) {
         return new RandomValue(length, length);
     }
 
+    public static int anyInteger() {
+        return between(Integer.MIN_VALUE, Integer.MAX_VALUE).integer();
+    }
+    public static int positiveInteger() {
+        return upTo(Integer.MAX_VALUE).integer();
+    }
+
+    public RandomValue with(StringModifier ... modifiers) {
+        this.modifiers.addAll(Arrays.asList(modifiers));
+        return this;
+    }
+
     public String alphanumeric() {
         throwIfLowerBoundaryIsNegative();
-        return CommonsLang3RandomStringUtils.randomAlphanumeric(integer());
+        return applyStringModifiers(CommonsLang3RandomStringUtils.randomAlphanumeric(integer()));
     }
     public String numeric() {
         throwIfLowerBoundaryIsNegative();
-        return CommonsLang3RandomStringUtils.randomNumeric(integer());
+        return applyStringModifiers(CommonsLang3RandomStringUtils.randomNumeric(integer()));
     }
 
     public String english() {
         throwIfLowerBoundaryIsNegative();
-        return CommonsLang3RandomStringUtils.randomAlphabetic(integer());
+        return applyStringModifiers(CommonsLang3RandomStringUtils.randomAlphabetic(integer()));
+    }
+    public String specialSymbols() {
+        throwIfLowerBoundaryIsNegative();
+        return applyStringModifiers(random(integer(), Vocabulary.specialSymbols()));
     }
 
+    private String applyStringModifiers(String value) {
+        String result = value;
+        for(StringModifier modifier: modifiers) {
+            result = modifier.modify(result);
+        }
+        return result;
+    }
     private void throwIfLowerBoundaryIsNegative() {
         if(min < 0) throw new NumberOutOfBoundaryException("String length cannot be less than 0:" + min);
     }
