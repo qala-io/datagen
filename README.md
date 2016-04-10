@@ -44,7 +44,7 @@ positiveInteger()
 
 ```java
 from("A", "B", "C", "D").sample()
-> [C]
+> C
 
 from("A", "B", "C", "D").sample(2)
 > [B, D]
