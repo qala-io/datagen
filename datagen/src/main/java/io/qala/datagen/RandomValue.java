@@ -3,10 +3,7 @@ package io.qala.datagen;
 import io.qala.datagen.adaptors.CommonsLang3RandomStringUtils;
 import io.qala.datagen.adaptors.CommonsMath4;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import static io.qala.datagen.adaptors.CommonsLang3RandomStringUtils.random;
@@ -17,7 +14,7 @@ public class RandomValue {
     private final Long min;
     private final Long max;
 
-    private RandomValue(Long min, Long max) {
+    RandomValue(Long min, Long max) {
         if (max < min) throw new IllegalArgumentException("Min [" + min + "] cannot be larger than max [" + max + "]");
         this.min = min;
         this.max = max;
@@ -59,6 +56,18 @@ public class RandomValue {
     public String alphanumeric() {
         throwIfLowerBoundaryIsNegative();
         return applyStringModifiers(CommonsLang3RandomStringUtils.randomAlphanumeric(integer()));
+    }
+    public List<String> alphanumerics() {
+        return alphanumerics(between(1, 100).integer());
+    }
+    public List<String> alphanumerics(int nOfElements) {
+        throwIfLowerBoundaryIsNegative();
+        List<String> result = new ArrayList<String>(nOfElements);
+        for(int i = 0; i < nOfElements; i++) {
+            String string = applyStringModifiers(CommonsLang3RandomStringUtils.randomAlphanumeric(integer()));
+            result.add(string);
+        }
+        return result;
     }
     public String numeric() {
         throwIfLowerBoundaryIsNegative();

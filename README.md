@@ -28,6 +28,10 @@ length(10).with(oneOf("_,")).english()
 length(10).with(spaces()).numeric()
 >  42 9 9   
 ```
+```java
+upTo(10).alphanumerics(5)
+> [cvA, mTMDj0, N, , iPOlGF9DsB]
+```
 
 ### Numbers
 
@@ -42,4 +46,13 @@ between(-100, 100).integer()
 ```java
 positiveInteger()
 > 3432145
+```
+
+### Collections/Arrays
+
+```java
+from("A", "B", "C", "D").sample()
+> [C]
+from("A", "B", "C", "D").sample(2)
+> [B, D]
 ```

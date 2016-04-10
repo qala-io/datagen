@@ -7,6 +7,7 @@ import org.junit.gen5.junit4.runner.JUnit5;
 import org.junit.runner.RunWith;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import static io.qala.datagen.ContainsOneOfMatcher.containsOneOf;
@@ -60,7 +61,7 @@ public class RandomValueTest {
             assertThat(length(100).alphanumeric().length(), equalTo(100));
         }
         @Test void returnsEmptyStringIfLengthIsSetTo0() {
-            assertThat(length(0).alphanumeric(), isEmptyString());
+            assertThat(length(0).alphanumeric(), emptyString());
         }
         @Test void returnsNumbersIfNumeric() {
             assertThat(length(1000).numeric(), containsString("1"));
@@ -83,6 +84,16 @@ public class RandomValueTest {
         }
         @Test void addsSpacesViaStringModifier() {
             assertThat(length(100).with(spaces()).numeric(), containsString(" "));
+        }
+
+        @Test void createsMultipleStringsInBatchMode() {
+            List<String> alphanumerics = upTo(10).alphanumerics(5);
+            assertThat(alphanumerics.size(), equalTo(5));
+        }
+        @Test void createsUpTo100StringsInBatchMode() {
+            List<String> alphanumerics = upTo(10).alphanumerics();
+            assertThat(alphanumerics.size(), greaterThanOrEqualTo(1));
+            assertThat(alphanumerics.size(), lessThanOrEqualTo(100));
         }
 
         @Test void throwsIfMinBoundaryIsNegative() {
