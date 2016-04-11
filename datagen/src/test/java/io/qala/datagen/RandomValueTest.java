@@ -13,12 +13,11 @@ import java.util.Random;
 import static io.qala.datagen.ContainsOneOfMatcher.containsOneOf;
 import static io.qala.datagen.RandomShortApi.*;
 import static io.qala.datagen.RandomValue.*;
+import static io.qala.datagen.StringModifier.Impls.oneOf;
 import static io.qala.datagen.StringModifier.Impls.*;
 import static io.qala.datagen.Vocabulary.specialSymbols;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.junit.gen5.api.Assertions.expectThrows;
 
 @RunWith(JUnit5.class)
@@ -151,8 +150,8 @@ public class RandomValueTest {
             assertThat(upTo(new Date()).date(), greaterThanOrEqualTo(new Date(0)));
         }
         @Test void createsDatesBetweenBoundaries() {
-            Date to = new Date();
             Date from = new Date();
+            Date to = new Date();
             assertThat(between(from, to).date(), greaterThanOrEqualTo(from));
             assertThat(between(from, to).date(), lessThanOrEqualTo(to));
         }
