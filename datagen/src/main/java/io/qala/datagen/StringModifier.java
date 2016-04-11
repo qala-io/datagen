@@ -46,7 +46,7 @@ public interface StringModifier {
         static StringModifier oneOf(final char... chars) {
             return new StringModifier() {
                 @Override public String modify(String original) {
-                    int index = upTo(original.length()).integer();
+                    int index = upTo(original.length() - 1).integer();
                     String symbol = CommonsLang3RandomStringUtils.random(1, chars);
                     return new StringBuilder(original).replace(index, index + 1, symbol).toString();
                 }
@@ -63,7 +63,7 @@ public interface StringModifier {
                     int nOfSymbols = between(1, original.length()).integer();
                     StringBuilder stringBuilder = new StringBuilder(original);
                     for (int i = 0; i < nOfSymbols; i++) {
-                        int index = upTo(original.length()).integer();
+                        int index = upTo(original.length() - 1).integer();
                         String symbol = CommonsLang3RandomStringUtils.random(1, chars);
                         stringBuilder.replace(index, index + 1, symbol);
                     }

@@ -59,4 +59,8 @@ from("A", "B", "C", "D").sample(2)
 > ["B", "D"]
 ```
 
-Support: Java5+
+### Special thanks
+
+To keep the lib tiny and get rid of extra dependencies (there are no 
+transitive dependencies) some of the code was borrowed from these libs:
+Commons Lang, Commons Math. Hail to opensource!

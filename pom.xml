@@ -7,10 +7,29 @@
     <groupId>io.qala.datagen</groupId>
     <artifactId>qala-datagen-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <name>Qala Datagen</name>
+    <description>Java lib to generate random data to facilitate Randomized Testing.</description>
+    <url>https://bitbucket.org/qala/datagen/</url>
+    <developers>
+        <developer>
+            <name>Stanislav Bashkyrtsev</name>
+            <email>stanislav.bashkirtsev@gmail.com</email>
+            <organization>Qala</organization>
+            <organizationUrl>http://qala.io</organizationUrl>
+        </developer>
+    </developers>
+
     <modules>
         <module>datagen</module>
-        <module>datagen-java8types</module>
+        <!--<module>datagen-java8types</module>-->
     </modules>
 
     <properties>
@@ -50,6 +69,20 @@
                         <id>attach-sources</id>
                         <goals>
                             <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <executions>
+                    <execution>
+                        <id>generate-javadocs</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -185,6 +218,8 @@
         </repository>
     </distributionManagement>
     <scm>
-        <url>https://bitbucket.org/qala/datagen</url>
+        <connection>scm:git:https://ctapobep@bitbucket.org/qala/datagen.git</connection>
+        <developerConnection>scm:git:https://ctapobep@bitbucket.org/qala/datagen.git</developerConnection>
+        <url>https://bitbucket.org/qala/datagen/</url>
     </scm>
 </project>

@@ -107,6 +107,9 @@ public class RandomValueTest {
         @Test void doesNotModifyLengthIfAddsSpecialSymbol() {
             assertThat(length(100).with(specialSymbol()).english().length(), equalTo(100));
         }
+        @Test void doesNotModifyLengthIfAddsMultipleChars() {
+            assertThat(length(100).with(multipleOf("!!_#")).english().length(), equalTo(100));
+        }
         @Test void addsOneOfPassedSymbols() {
             assertThat(length(100).with(oneOf(",")).english(), containsString(","));
         }
