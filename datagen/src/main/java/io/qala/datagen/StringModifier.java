@@ -2,13 +2,27 @@ package io.qala.datagen;
 
 import io.qala.datagen.adaptors.CommonsLang3RandomStringUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static io.qala.datagen.RandomValue.between;
 import static io.qala.datagen.RandomValue.upTo;
 
 public interface StringModifier {
     String modify(String original);
+
+    List<String> modify(List<String> original);
+
+    abstract class WithDefaultBatchModify implements StringModifier {
+        @Override public List<String> modify(List<String> original) {
+            List<String> result = new ArrayList<String>(original.size());
+            for (String originalStr : original) {
+                result.add(modify(originalStr));
+            }
+            return result;
+        }
+    }
 
     class Impls {
         static StringModifier spaces() {
@@ -44,7 +58,7 @@ public interface StringModifier {
         }
 
         static StringModifier oneOf(final char... chars) {
-            return new StringModifier() {
+            return new WithDefaultBatchModify() {
                 @Override public String modify(String original) {
                     int index = upTo(original.length() - 1).integer();
                     String symbol = CommonsLang3RandomStringUtils.random(1, chars);
@@ -58,7 +72,7 @@ public interface StringModifier {
         }
 
         static StringModifier multipleOf(final char... chars) {
-            return new StringModifier() {
+            return new WithDefaultBatchModify() {
                 @Override public String modify(String original) {
                     int nOfSymbols = between(1, original.length()).integer();
                     StringBuilder stringBuilder = new StringBuilder(original);
@@ -73,7 +87,7 @@ public interface StringModifier {
         }
 
         static StringModifier prefix(final String prefix) {
-            return new StringModifier() {
+            return new WithDefaultBatchModify() {
                 @Override public String modify(String original) {
                     if (original.length() < prefix.length())
                         throw new IllegalArgumentException("Prefix cannot be longer than the main string");
@@ -85,7 +99,7 @@ public interface StringModifier {
             };
         }
         static StringModifier suffix(final String suffix) {
-            return new StringModifier() {
+            return new WithDefaultBatchModify() {
                 @Override public String modify(String original) {
                     if(original.length() < suffix.length())
                         throw new IllegalArgumentException("Prefix cannot be longer than the main string");

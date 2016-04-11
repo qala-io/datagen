@@ -119,13 +119,24 @@ public class RandomValueTest {
         @Test void addsPrefixAtTheBeginning() {
             assertThat(length(10).with(prefix("BLAH")).numeric(), startsWith("BLAH"));
         }
+        @Test void addsPrefixAtTheBeginningInBatchMode() {
+            assertThat(length(10).with(prefix("BLAH")).alphanumerics(), everyItem(startsWith("BLAH")));
+        }
+        @Test void addsSuffixAtTheEnd() {
+            assertThat(length(10).with(suffix("BLAH")).numeric(), endsWith("BLAH"));
+        }
+        @Test void addsSuffixAtTheEndInBatchMode() {
+            assertThat(length(10).with(suffix("BLAH")).alphanumerics(), everyItem(endsWith("BLAH")));
+        }
         @Test void addsSpacesAtTheBeginning() {
             assertThat(length(10).with(spaceLeft()).numeric(), startsWith(" "));
             assertThat(length(10).with(spacesLeft(2)).numeric(), startsWith("  "));
+            assertThat(length(10).with(spacesLeft(2)).numerics(), everyItem(startsWith("  ")));
         }
         @Test void addsSpacesAtTheEnd() {
             assertThat(length(10).with(spaceRight()).english(), endsWith(" "));
             assertThat(length(10).with(spacesRight(2)).alphanumeric(), endsWith("  "));
+            assertThat(length(10).with(spacesRight(2)).alphanumerics(), everyItem(endsWith("  ")));
         }
         @Test void doesNotDamageRestOfStringIfSpacesAddedAtTheEnd() {
             assertThat(length(10).with(spacesRight(2)).alphanumeric().substring(0, 8), not(containsString(" ")));
@@ -139,6 +150,10 @@ public class RandomValueTest {
             List<String> alphanumerics = upTo(10).alphanumerics();
             assertThat(alphanumerics.size(), greaterThanOrEqualTo(1));
             assertThat(alphanumerics.size(), lessThanOrEqualTo(100));
+        }
+        @Test void appliesMultipleModifiersInBatchMode() {
+            List<String> result = between(5, 15).with(prefix("blah"), spaceRight(), spaceLeft()).alphanumerics();
+            assertThat(result, everyItem(allOf(startsWith(" lah"), endsWith(" "))));
         }
 
         @Test void throwsIfMinBoundaryIsNegative() {

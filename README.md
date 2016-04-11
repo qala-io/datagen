@@ -38,6 +38,9 @@ length(10).with(prefix("BLAH")).numeric()
 
 upTo(10).alphanumerics(5)
 > ["cvA", "mTMDj0", "N", "", "iPOlGF9DsB"]
+
+length(6).with(prefix("blah"), spaceRight()).numerics(3)
+> ["blah8 ", "blah9 ", "blah2 "]
 ```
 
 ### Numbers

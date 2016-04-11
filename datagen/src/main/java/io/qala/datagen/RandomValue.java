@@ -57,14 +57,25 @@ public class RandomValue {
         throwIfLowerBoundaryIsNegative();
         List<String> result = new ArrayList<String>(nOfElements);
         for(int i = 0; i < nOfElements; i++) {
-            String string = applyStringModifiers(CommonsLang3RandomStringUtils.randomAlphanumeric(integer()));
-            result.add(string);
+            result.add(CommonsLang3RandomStringUtils.randomAlphanumeric(integer()));
         }
-        return result;
+        return applyStringModifiers(result);
     }
     public String numeric() {
         throwIfLowerBoundaryIsNegative();
         return applyStringModifiers(CommonsLang3RandomStringUtils.randomNumeric(integer()));
+    }
+
+    public List<String> numerics() {
+        return numerics(between(1, 100).integer());
+    }
+    public List<String> numerics(int nOfElements) {
+        throwIfLowerBoundaryIsNegative();
+        List<String> result = new ArrayList<String>(nOfElements);
+        for(int i = 0; i < nOfElements; i++) {
+            result.add(CommonsLang3RandomStringUtils.randomNumeric(integer()));
+        }
+        return applyStringModifiers(result);
     }
 
     public String english() {
@@ -78,6 +89,13 @@ public class RandomValue {
 
     private String applyStringModifiers(String value) {
         String result = value;
+        for(StringModifier modifier: modifiers) {
+            result = modifier.modify(result);
+        }
+        return result;
+    }
+    private List<String> applyStringModifiers(List<String> value) {
+        List<String> result = value;
         for(StringModifier modifier: modifiers) {
             result = modifier.modify(result);
         }
