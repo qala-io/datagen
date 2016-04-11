@@ -11,10 +11,9 @@ import java.util.List;
 import java.util.Random;
 
 import static io.qala.datagen.ContainsOneOfMatcher.containsOneOf;
+import static io.qala.datagen.RandomShortApi.*;
 import static io.qala.datagen.RandomValue.*;
-import static io.qala.datagen.StringModifier.Impls.oneOf;
-import static io.qala.datagen.StringModifier.Impls.spaces;
-import static io.qala.datagen.StringModifier.Impls.specialSymbol;
+import static io.qala.datagen.StringModifier.Impls.*;
 import static io.qala.datagen.Vocabulary.specialSymbols;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
@@ -38,7 +37,7 @@ public class RandomValueTest {
             assertEquals(boundary, between(boundary, boundary).integer());
         }
         @Test void returnsAnyInteger() {
-            assertNotNull(anyInteger());
+            assertNotNull(integer());
         }
 
         @Test void throwsIfMaxBoundaryGreaterThanInteger() {
@@ -52,26 +51,56 @@ public class RandomValueTest {
     @Nested @DisplayName("String Generator") class Strings {
         @Test void returnsStringUpToMaxBoundary() {
             assertThat(upTo(100).alphanumeric().length(), lessThanOrEqualTo(100));
+            assertThat(alphanumeric(0, 100).length(), lessThanOrEqualTo(100));
         }
         @Test void returnsStringBetweenBoundaries() {
             assertThat(between(10, 100).alphanumeric().length(), lessThanOrEqualTo(100));
             assertThat(between(10, 100).alphanumeric().length(), greaterThanOrEqualTo(10));
+
+            assertThat(alphanumeric(10, 100).length(), lessThanOrEqualTo(100));
+            assertThat(alphanumeric(10, 100).length(), greaterThanOrEqualTo(10));
         }
         @Test void returnsStringWithExactLength() {
             assertThat(length(100).alphanumeric().length(), equalTo(100));
+            assertThat(alphanumeric(100).length(), equalTo(100));
         }
         @Test void returnsEmptyStringIfLengthIsSetTo0() {
             assertThat(length(0).alphanumeric(), emptyString());
+            assertThat(alphanumeric(0), emptyString());
         }
         @Test void returnsNumbersIfNumeric() {
             assertThat(length(1000).numeric(), containsString("1"));
+            assertThat(numeric(1000), containsString("1"));
+        }
+        @Test void returnsNumericStringBetweenBoundaries() {
+            assertThat(between(1, 2).numeric().length(), greaterThanOrEqualTo(1));
+            assertThat(between(1, 2).numeric().length(), lessThanOrEqualTo(2));
+
+            assertThat(numeric(1, 2).length(), greaterThanOrEqualTo(1));
+            assertThat(numeric(1, 2).length(), lessThanOrEqualTo(2));
         }
         @Test void doesNotReturnsNumbersIfEnglishRequested() {
             assertThat(length(100).english(), not(containsString("1")));
+            assertThat(english(100), not(containsString("1")));
+        }
+        @Test void returnsEnglishBetweenBoundaries() {
+            assertThat(between(10, 100).english().length(), greaterThanOrEqualTo(10));
+            assertThat(between(10, 100).english().length(), lessThanOrEqualTo(100));
+
+            assertThat(english(10, 100).length(), greaterThanOrEqualTo(10));
+            assertThat(english(10, 100).length(), lessThanOrEqualTo(100));
         }
 
         @Test void createsStringWithSpecialSymbols() {
             assertThat(length(1000).specialSymbols(), containsString(","));
+            assertThat(RandomShortApi.specialSymbols(1000), containsString(","));
+        }
+        @Test void createsStringWithSpecialSymbolsBetweenBoundaries() {
+            assertThat(between(1, 2).specialSymbols().length(), greaterThanOrEqualTo(1));
+            assertThat(between(1, 2).specialSymbols().length(), lessThanOrEqualTo(2));
+
+            assertThat(RandomShortApi.specialSymbols(1, 2).length(), greaterThanOrEqualTo(1));
+            assertThat(RandomShortApi.specialSymbols(1, 2).length(), lessThanOrEqualTo(2));
         }
         @Test void addsSpecialSymbolsViaStringModifiers() {
             assertThat(length(100).with(specialSymbol()).english(), containsOneOf(specialSymbols()));
@@ -84,6 +113,20 @@ public class RandomValueTest {
         }
         @Test void addsSpacesViaStringModifier() {
             assertThat(length(100).with(spaces()).numeric(), containsString(" "));
+        }
+        @Test void addsPrefixAtTheBeginning() {
+            assertThat(length(10).with(prefix("BLAH")).numeric(), startsWith("BLAH"));
+        }
+        @Test void addsSpacesAtTheBeginning() {
+            assertThat(length(10).with(spaceLeft()).numeric(), startsWith(" "));
+            assertThat(length(10).with(spacesLeft(2)).numeric(), startsWith("  "));
+        }
+        @Test void addsSpacesAtTheEnd() {
+            assertThat(length(10).with(spaceRight()).english(), endsWith(" "));
+            assertThat(length(10).with(spacesRight(2)).alphanumeric(), endsWith("  "));
+        }
+        @Test void doesNotDamageRestOfStringIfSpacesAddedAtTheEnd() {
+            assertThat(length(10).with(spacesRight(2)).alphanumeric().substring(0, 8), not(containsString(" ")));
         }
 
         @Test void createsMultipleStringsInBatchMode() {

@@ -2,38 +2,47 @@ Datagen
 ------------
 Generates random data (numbers, strings, dates) - mostly to facilitate 
 [Randomized Testing](http://qala.io/blog/randomized-testing.html).
-
+It has 2 types of APIs - flexible and the shorthand:
 ### Strings
 ```java
-length(10).english()
-> DcRZUNPrED
+length(10).english() or english(10)
+> "DcRZUNPrED"
 
-upTo(10).alphanumeric()
-> zG9G
+upTo(10).alphanumeric() or alphanumerics(0, 10)
+> "zG9G"
 
-between(1, 10).numeric()
-> 7167162
+between(1, 10).numeric() or numeric(1, 10)
+> "7167162"
 
 length(10).with(specialSymbol()).english()
-> hOzKEV#iWv
+> "hOzKEV#iWv"
 
 length(10).with(oneOf("_,")).english()
-> dwei,cNTfW
+> "dwei,cNTfW"
 
-length(10).with(spaces()).numeric()
->  42 9 9   
+length(5).with(spaces()).numeric()
+>  "874 9 "  
+
+length(3).with(spaceLeft()).english()
+> " mT"
+
+length(4).with(spacesRight(2)).english()
+> "hF  "
+
+length(10).with(prefix("BLAH")).numeric()
+> "BLAH453677"
 
 upTo(10).alphanumerics(5)
-> [cvA, mTMDj0, N, , iPOlGF9DsB]
+> ["cvA", "mTMDj0", "N", "", "iPOlGF9DsB"]
 ```
 
 ### Numbers
 
 ```java
-upTo(100).integer()
+upTo(100).integer() or integer(100)
 > 89
 
-between(-100, 100).integer()
+between(-100, 100).integer() or integer(-100, 100)
 > -19
 
 positiveInteger()
@@ -49,3 +58,5 @@ from("A", "B", "C", "D").sample()
 from("A", "B", "C", "D").sample(2)
 > [B, D]
 ```
+
+Support: Java5+

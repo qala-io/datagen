@@ -16,7 +16,7 @@ public class RandomElements<T> {
 
     RandomElements(Collection<T> elements) {
         if(elements == null || elements.isEmpty())
-            throw new IllegalArgumentException("We can't sample from empty/null collection: " + elements);
+            throw new IllegalArgumentException("Can't sample from zero elements: " + elements);
         this.elements = new ArrayList<T>(elements);
     }
 

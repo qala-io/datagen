@@ -37,13 +37,6 @@ public class RandomValue {
         return new RandomValue(length, length);
     }
 
-    public static int anyInteger() {
-        return between(Integer.MIN_VALUE, Integer.MAX_VALUE).integer();
-    }
-    public static int positiveInteger() {
-        return upTo(Integer.MAX_VALUE).integer();
-    }
-
     public Date date() {
         return new Date(Long());
     }
