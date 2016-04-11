@@ -5,6 +5,10 @@ Generates random data (numbers, strings, dates) - mostly to facilitate
 It has 2 types of APIs - flexible and the shorthand:
 ### Strings
 ```java
+import static io.qala.datagen.RandomValue.*;
+import static io.qala.datagen.StringModifier.Impls.*;
+import static io.qala.datagen.RandomShortApi.*;
+
 length(10).english() or english(10)
 > "DcRZUNPrED"
 
