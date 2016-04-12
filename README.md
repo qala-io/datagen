@@ -66,9 +66,18 @@ from("A", "B", "C", "D").sample(2)
 > ["B", "D"]
 ```
 
+### Dates
+
+```
+SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+between(f.parse("2015-01-01"), f.parse("2016-01-01")).date();
+> 2015-11-30T08:33:20.349
+```
+
 ### Other
 
 - [Maven Central coordinates](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.qala.datagen%22%20a%3A%22qala-datagen%22%20)
+- Coming soon: support for Java8 dates
 
 ### Special thanks
 
