@@ -8,7 +8,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import static io.qala.datagen.adaptors.CommonsLang3RandomStringUtils.random;
 
-public class RandomValue {
+public class RandomValue implements RandomString {
     private static final Random RANDOM = new Random();
     private final List<StringModifier> modifiers = new CopyOnWriteArrayList<StringModifier>();
     private final Long min;
@@ -41,19 +41,19 @@ public class RandomValue {
         return new Date(Long());
     }
 
-    public RandomValue with(StringModifier ... modifiers) {
+    public RandomString with(StringModifier ... modifiers) {
         this.modifiers.addAll(Arrays.asList(modifiers));
         return this;
     }
 
-    public String alphanumeric() {
+    @Override public String alphanumeric() {
         throwIfLowerBoundaryIsNegative();
         return applyStringModifiers(CommonsLang3RandomStringUtils.randomAlphanumeric(integer()));
     }
-    public List<String> alphanumerics() {
+    @Override public List<String> alphanumerics() {
         return alphanumerics(between(1, 100).integer());
     }
-    public List<String> alphanumerics(int nOfElements) {
+    @Override public List<String> alphanumerics(int nOfElements) {
         throwIfLowerBoundaryIsNegative();
         List<String> result = new ArrayList<String>(nOfElements);
         for(int i = 0; i < nOfElements; i++) {
@@ -61,15 +61,15 @@ public class RandomValue {
         }
         return applyStringModifiers(result);
     }
-    public String numeric() {
+    @Override public String numeric() {
         throwIfLowerBoundaryIsNegative();
         return applyStringModifiers(CommonsLang3RandomStringUtils.randomNumeric(integer()));
     }
 
-    public List<String> numerics() {
+    @Override public List<String> numerics() {
         return numerics(between(1, 100).integer());
     }
-    public List<String> numerics(int nOfElements) {
+    @Override public List<String> numerics(int nOfElements) {
         throwIfLowerBoundaryIsNegative();
         List<String> result = new ArrayList<String>(nOfElements);
         for(int i = 0; i < nOfElements; i++) {
@@ -78,11 +78,12 @@ public class RandomValue {
         return applyStringModifiers(result);
     }
 
-    public String english() {
+    @Override public String english() {
         throwIfLowerBoundaryIsNegative();
         return applyStringModifiers(CommonsLang3RandomStringUtils.randomAlphabetic(integer()));
     }
-    public String specialSymbols() {
+
+    @Override public String specialSymbols() {
         throwIfLowerBoundaryIsNegative();
         return applyStringModifiers(random(integer(), Vocabulary.specialSymbols()));
     }
