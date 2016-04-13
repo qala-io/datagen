@@ -9,7 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import static io.qala.datagen.adaptors.CommonsLang3RandomStringUtils.random;
 
 public class RandomValue implements RandomString {
-    private static final Random RANDOM = new Random();
+    static final Random RANDOM = new Random();
     private final List<StringModifier> modifiers = new CopyOnWriteArrayList<StringModifier>();
     private final Long min;
     private final Long max;

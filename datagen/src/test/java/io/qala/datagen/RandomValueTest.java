@@ -175,6 +175,33 @@ public class RandomValueTest {
         }
     }
 
+    @Nested @DisplayName("Boolean Generator") class Booleans {
+        @Test void canReturnTrueAndFalse() {
+            boolean[] bools = bools(500);
+            assertArrayContains(bools, true);
+            assertArrayContains(bools, false);
+        }
+        @Test void canReturnNulls() {
+            for(int i = 0; i < 1000; i++) if(nullableBool() == null) return;
+            fail("Nullable Boolean should've returned null at least once");
+        }
+        @Test void canReturnTrue() {
+            for(int i = 0; i < 1000; i++) if(nullableBool() == Boolean.TRUE) return;
+            fail("Nullable Boolean should've returned True at least once");
+        }
+        @Test void canReturnFalse() {
+            for(int i = 0; i < 1000; i++) if(nullableBool() == Boolean.FALSE) return;
+            fail("Nullable Boolean should've returned False at least once");
+        }
+        private void assertArrayContains(boolean[] array, boolean element) {
+            for (boolean anArray : array) {
+                if (anArray == element) return;
+            }
+            fail("Couldn't find element [" + element + "] in the array");
+        }
+    }
+
+
     private static final long
             LESS_THAN_INT_MIN = ((long) Integer.MIN_VALUE) - 1,
             GREATER_THAN_MAX_INT = ((long) Integer.MAX_VALUE) + 1;

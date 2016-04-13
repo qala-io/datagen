@@ -1,8 +1,7 @@
 package io.qala.datagen;
 
-import static io.qala.datagen.RandomValue.between;
-import static io.qala.datagen.RandomValue.length;
-import static io.qala.datagen.RandomValue.upTo;
+import static io.qala.datagen.RandomElements.from;
+import static io.qala.datagen.RandomValue.*;
 
 public class RandomShortApi {
     public static int integer(int max) {
@@ -44,5 +43,21 @@ public class RandomShortApi {
     }
     public static String specialSymbols(int min, int max) {
         return between(min, max).specialSymbols();
+    }
+
+    public static boolean[] bools(int n) {
+        boolean[] result = new boolean[n];
+        for (int i = 0; i < n; i++) {
+            result[i] = bool();
+        }
+        return result;
+    }
+
+    public static boolean bool() {
+        return RandomValue.RANDOM.nextBoolean();
+    }
+
+    public static Boolean nullableBool() {
+        return from(Boolean.TRUE, Boolean.FALSE, null).sample();
     }
 }
