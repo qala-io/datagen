@@ -21,7 +21,7 @@ public class RandomElements<T> {
     }
 
     public static <T> RandomElements<T> from(Collection<T> elements, T... others) {
-        Collection<T> coll = new ArrayList<>(elements);
+        Collection<T> coll = new ArrayList<T>(elements);
         coll.addAll(Arrays.asList(others));
         return new RandomElements<T>(coll);
     }
@@ -38,7 +38,7 @@ public class RandomElements<T> {
         if(nToReturn > this.elements.size())
             throw new IllegalArgumentException("Sample cannot be larger than the initial collection. " +
                     "If you want to allow the sample to contain duplicates, sample with replacement.");
-        List<T> elements = new ArrayList<>(this.elements);
+        List<T> elements = new ArrayList<T>(this.elements);
         List<T> result = new ArrayList<T>(nToReturn);
         for(int i = 0; i < nToReturn; i++) {
             int index = upTo(elements.size() - 1).integer();
