@@ -61,6 +61,11 @@ public class RandomValue implements RandomString {
         }
         return applyStringModifiers(result);
     }
+    @Override public List<String> alphanumerics(int minNOfElements, int maxNOfElements) {
+        throwIfLowerBoundaryIsNegative();
+        int n = between(minNOfElements, maxNOfElements).integer();
+        return alphanumerics(n);
+    }
     @Override public String numeric() {
         throwIfLowerBoundaryIsNegative();
         return applyStringModifiers(CommonsLang3RandomStringUtils.randomNumeric(integer()));

@@ -9,6 +9,8 @@ public interface RandomString {
 
     List<String> alphanumerics(int nOfElements);
 
+    List<String> alphanumerics(int minNOfElements, int maxNOfElements);
+
     String numeric();
 
     List<String> numerics();

@@ -11,7 +11,7 @@ public class RandomElements<T> {
     private final List<T> elements;
 
     RandomElements(T[] elements) {
-        this(new ArrayList<T>(Arrays.asList(elements)));
+        this(Arrays.asList(elements));
     }
 
     RandomElements(Collection<T> elements) {
@@ -20,8 +20,10 @@ public class RandomElements<T> {
         this.elements = new ArrayList<T>(elements);
     }
 
-    public static <T> RandomElements<T> from(Collection<T> elements) {
-        return new RandomElements<T>(elements);
+    public static <T> RandomElements<T> from(Collection<T> elements, T... others) {
+        Collection<T> coll = new ArrayList<>(elements);
+        coll.addAll(Arrays.asList(others));
+        return new RandomElements<T>(coll);
     }
 
     public static <T> RandomElements<T> from(T... elements) {
@@ -33,6 +35,18 @@ public class RandomElements<T> {
         return this.elements.get(index);
     }
     public List<T> sample(int nToReturn) {
+        if(nToReturn > this.elements.size())
+            throw new IllegalArgumentException("Sample cannot be larger than the initial collection. " +
+                    "If you want to allow the sample to contain duplicates, sample with replacement.");
+        List<T> elements = new ArrayList<>(this.elements);
+        List<T> result = new ArrayList<T>(nToReturn);
+        for(int i = 0; i < nToReturn; i++) {
+            int index = upTo(elements.size() - 1).integer();
+            result.add(elements.remove(index));
+        }
+        return result;
+    }
+    public List<T> sampleWithReplacement(int nToReturn) {
         List<T> result = new ArrayList<T>(nToReturn);
         for(int i = 0; i < nToReturn; i++) {
             int index = upTo(size() - 1).integer();
