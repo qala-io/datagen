@@ -7,6 +7,7 @@ import java.util.List;
 
 import static io.qala.datagen.RandomValue.upTo;
 
+@SuppressWarnings("Convert2Diamond")
 public class RandomElements<T> {
     private final List<T> elements;
 
@@ -20,13 +21,13 @@ public class RandomElements<T> {
         this.elements = new ArrayList<T>(elements);
     }
 
-    public static <T> RandomElements<T> from(Collection<T> elements, T... others) {
+    @SafeVarargs public static <T> RandomElements<T> from(Collection<T> elements, T... others) {
         Collection<T> coll = new ArrayList<T>(elements);
         coll.addAll(Arrays.asList(others));
         return new RandomElements<T>(coll);
     }
 
-    public static <T> RandomElements<T> from(T... elements) {
+    @SafeVarargs public static <T> RandomElements<T> from(T... elements) {
         return new RandomElements<T>(elements);
     }
 
@@ -34,6 +35,17 @@ public class RandomElements<T> {
         int index = upTo(size() - 1).integer();
         return this.elements.get(index);
     }
+
+    /**
+     * Returns random elements from the collection. This is a sampling without replacement. For sampling with
+     * replacement see {@link #sampleWithReplacement(int)} - it can return the same element multiple times.
+     *
+     * @param nToReturn number of items to return from the collection
+     * @return random elements of the collection, cannot be larger than the collection size
+     * @throws IllegalArgumentException if number of elements requested is larger than the number of available items
+     *                                  there. Use {@link #sampleWithReplacement(int)} if you want the same
+     *                                  element to be returned multiple times.
+     */
     public List<T> sample(int nToReturn) {
         if(nToReturn > this.elements.size())
             throw new IllegalArgumentException("Sample cannot be larger than the initial collection. " +
@@ -46,6 +58,16 @@ public class RandomElements<T> {
         }
         return result;
     }
+
+    /**
+     * Returns random elements of the collection, note that the same item could be returned multiple times (item is
+     * getting replaced back to the collection). To sample without replacement (cannot return same item twice) use
+     * {@link #sample(int)}.
+     *
+     * @param nToReturn number of elements from the collection to return - can be larger than the collection size as
+     *                  this sampling allows same elements to be returned multiple times
+     * @return collection of random elements picked from the initial collection
+     */
     public List<T> sampleWithReplacement(int nToReturn) {
         List<T> result = new ArrayList<T>(nToReturn);
         for(int i = 0; i < nToReturn; i++) {

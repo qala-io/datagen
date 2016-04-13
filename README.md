@@ -64,6 +64,9 @@ from("A", "B", "C", "D").sample()
 
 from("A", "B", "C", "D").sample(2)
 > ["B", "D"]
+
+from("A", "B").sampleWithReplacement(3)
+> ["A", "A", "B"]
 ```
 
 ### Dates
@@ -93,4 +96,4 @@ nullableBool()
 
 To keep the lib tiny and get rid of extra dependencies (there are no 
 transitive dependencies) some of the code was borrowed from these libs:
-Commons Lang, Commons Math. Hail to opensource!
+Commons Lang, Commons Math. Hail to open source!

@@ -19,6 +19,7 @@ import static org.junit.gen5.api.Assertions.assertThrows;
 
 @RunWith(JUnit5.class)
 @DisplayName("Random Elements")
+@SuppressWarnings("unused")
 public class RandomElementsTest {
     @Test void canSampleTheOnlyElementOfList() {
         assertEquals("ABC", from("ABC").sample());
