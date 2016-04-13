@@ -74,6 +74,16 @@ between(f.parse("2015-01-01"), f.parse("2016-01-01")).date();
 > "2015-11-30T08:33:20.349"
 ```
 
+### Booleans
+
+```java
+bools(4)
+> [false, true, true, false]
+
+nullableBool()
+> Boolean.TRUE
+```
+
 ### Other
 
 - [Maven Central coordinates](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.qala.datagen%22%20a%3A%22qala-datagen%22%20)
