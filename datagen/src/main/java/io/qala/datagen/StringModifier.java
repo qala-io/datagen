@@ -33,32 +33,32 @@ public interface StringModifier {
     }
 
     class Impls {
-        static StringModifier spaces() {
+        public static StringModifier spaces() {
             return multipleOf(' ');
         }
 
-        static StringModifier spaceLeft() {
+        public static StringModifier spaceLeft() {
             return prefix(" ");
         }
 
-        static StringModifier spacesLeft(int n) {
+        public static StringModifier spacesLeft(int n) {
             char[] prefix = new char[n];
             Arrays.fill(prefix, ' ');
             return prefix(String.valueOf(prefix));
         }
 
-        static StringModifier spaceRight() {
+        public static StringModifier spaceRight() {
             return suffix(" ");
         }
 
-        static StringModifier spacesRight(int n) {
+        public static StringModifier spacesRight(int n) {
             char[] suffix = new char[n];
             Arrays.fill(suffix, ' ');
             return suffix(String.valueOf(suffix));
         }
 
 
-        static StringModifier specialSymbol() {
+        public static StringModifier specialSymbol() {
             /**
              * You can customize what "special" means for your project by globally updating
              * {@link Vocabulary#SPECIAL_SYMBOLS}.
@@ -67,11 +67,11 @@ public interface StringModifier {
             return oneOf(Vocabulary.specialSymbols());
         }
 
-        static StringModifier oneOf(String chars) {
+        public static StringModifier oneOf(String chars) {
             return oneOf(chars.toCharArray());
         }
 
-        static StringModifier oneOf(final char... chars) {
+        public static StringModifier oneOf(final char... chars) {
             return new WithDefaultBatchModify() {
                 @Override public String modify(String original) {
                     int index = upTo(original.length() - 1).integer();
@@ -81,11 +81,11 @@ public interface StringModifier {
             };
         }
 
-        static StringModifier multipleOf(String chars) {
+        public static StringModifier multipleOf(String chars) {
             return multipleOf(chars.toCharArray());
         }
 
-        static StringModifier multipleOf(final char... chars) {
+        public static StringModifier multipleOf(final char... chars) {
             return new WithDefaultBatchModify() {
                 @Override public String modify(String original) {
                     int nOfSymbols = between(1, original.length()).integer();
@@ -100,7 +100,7 @@ public interface StringModifier {
             };
         }
 
-        static StringModifier prefix(final String prefix) {
+        public static StringModifier prefix(final String prefix) {
             return new WithDefaultBatchModify() {
                 @Override public String modify(String original) {
                     if (original.length() < prefix.length())
@@ -112,7 +112,7 @@ public interface StringModifier {
                 }
             };
         }
-        static StringModifier suffix(final String suffix) {
+        public static StringModifier suffix(final String suffix) {
             return new WithDefaultBatchModify() {
                 @Override public String modify(String original) {
                     if(original.length() < suffix.length())
