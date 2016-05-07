@@ -82,6 +82,7 @@ public class RandomValueTest {
         }
 
         @Test void returnsUnicodeStringThatContainsNonAlphanumerics() {
+            assertThat(length(1000).unicode(), containsNonAlphanumerics());
             assertThat(unicode(0, 1000), containsNonAlphanumerics());
         }
 

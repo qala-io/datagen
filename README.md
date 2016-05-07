@@ -18,6 +18,9 @@ upTo(10).alphanumeric() or alphanumerics(0, 10)
 between(1, 10).numeric() or numeric(1, 10)
 > "7167162"
 
+length(5).unicode() or unicode(5)
+> "䂞ꂣ뢧䯺婜"
+
 length(10).with(specialSymbol()).english()
 > "hOzKEV#iWv"
 
