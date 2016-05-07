@@ -100,6 +100,18 @@ public class RandomShortApi {
     }
 
     /**
+     * Returns true with the specified probability.
+     *
+     * @param probabilityOfTrue the probability that true is to be returned, must be between 0 and 1
+     * @return true with the specified probability. Always returns true if 1 is passed and always false if 0 is passed.
+     */
+    @SuppressWarnings("SimplifiableIfStatement")
+    public static boolean weighedTrue(double probabilityOfTrue) {
+        if (probabilityOfTrue == 0.0) return false;
+        if (probabilityOfTrue == 1.0) return true;
+        return probabilityOfTrue >= RANDOM.nextDouble();
+    }
+    /**
      * Besides returning TRUE or FALSE it can also return {@code null}.
      *
      * @return TRUE, FALSE or {@code null}

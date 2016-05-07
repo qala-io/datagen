@@ -23,6 +23,7 @@ import static io.qala.datagen.Vocabulary.specialSymbols;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import static org.junit.gen5.api.Assertions.assertThrows;
+import static org.junit.gen5.api.Assertions.assertTrue;
 import static org.junit.gen5.api.Assertions.expectThrows;
 
 @RunWith(JUnit5.class)
@@ -114,6 +115,13 @@ public class RandomValueTest {
         @Test void doesNotModifyLengthIfAddsMultipleChars() {
             assertThat(length(100).with(multipleOf("!!_#")).english().length(), equalTo(100));
         }
+        @SuppressWarnings("unchecked")
+        @Test void addsSymbolsOccasionally() {
+            List<String> alphanumerics = length(5).with(occasional("!#")).alphanumerics(500);
+            assertThat(alphanumerics, hasItems(containsString("!")));
+            assertThat(alphanumerics, hasItems(containsString("#")));
+            assertThat(alphanumerics, hasItems(not(containsString("!"))));
+        }
         @Test void addsOneOfPassedSymbols() {
             assertThat(length(100).with(oneOf(",")).english(), containsString(","));
         }
@@ -196,6 +204,13 @@ public class RandomValueTest {
         @Test void canReturnFalse() {
             for(int i = 0; i < 1000; i++) if(nullableBool() == Boolean.FALSE) return;
             fail("Nullable Boolean should've returned False at least once");
+        }
+
+        @Test void alwaysReturnsTrueIfProbabilityOfTrueIs1() {
+            assertTrue(weighedTrue(1));
+        }
+        @Test void alwaysReturnsFalseIfProbabilityOfTrueIs0() {
+            assertFalse(weighedTrue(0));
         }
         private void assertArrayContains(boolean[] array, boolean element) {
             for (boolean anArray : array) {

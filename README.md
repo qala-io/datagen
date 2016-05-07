@@ -97,6 +97,9 @@ between(f.parse("2015-01-01"), f.parse("2016-01-01")).date();
 ```java
 import static io.qala.datagen.RandomShortApi.*;
 
+bool() or weighedTrue(0.5)
+> false
+
 bools(4)
 > [false, true, true, false]
 
