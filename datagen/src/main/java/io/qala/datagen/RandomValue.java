@@ -93,6 +93,11 @@ public class RandomValue implements RandomString {
         return applyStringModifiers(random(integer(), Vocabulary.specialSymbols()));
     }
 
+    @Override public String unicode() {
+        throwIfLowerBoundaryIsNegative();
+        return applyStringModifiers(CommonsLang3RandomStringUtils.random(integer()));
+    }
+
     private String applyStringModifiers(String value) {
         String result = value;
         for(StringModifier modifier: modifiers) {

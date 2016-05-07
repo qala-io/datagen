@@ -31,6 +31,11 @@ public class RandomElements<T> {
         return new RandomElements<T>(elements);
     }
 
+    /**
+     * Returns random element from the collection.
+     *
+     * @return a random element from the collection
+     */
     public T sample() {
         int index = upTo(size() - 1).integer();
         return this.elements.get(index);

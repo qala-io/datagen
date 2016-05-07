@@ -38,6 +38,31 @@ public class RandomShortApi {
         return between(min, max).english();
     }
 
+    /**
+     * Generates unicode string of variable length that includes characters from different languages, weird symbols
+     * and <a href="https://docs.oracle.com/javase/tutorial/i18n/text/supplementaryChars.html">Supplementary Characters</a>
+     * that are comprised of multiple chars.
+     *
+     * @param exactLength length of the string to be returned
+     * @return unicode characters including different languages and weird symbols
+     */
+    public static String unicode(int exactLength) {
+        return length(exactLength).unicode();
+    }
+
+    /**
+     * Generates unicode string of variable length that includes characters from different languages, weird symbols
+     * and <a href="https://docs.oracle.com/javase/tutorial/i18n/text/supplementaryChars.html">Supplementary Characters</a>
+     * that are comprised of multiple chars.
+     *
+     * @param min min boundary of the string length
+     * @param max max boundary of the string length
+     * @return unicode characters including different languages and weird symbols
+     */
+    public static String unicode(int min, int max) {
+        return between(min, max).unicode();
+    }
+
     public static String specialSymbols(int exactLength) {
         return length(exactLength).specialSymbols();
     }

@@ -6,15 +6,18 @@ import org.junit.gen5.api.Test;
 import org.junit.gen5.junit4.runner.JUnit5;
 import org.junit.runner.RunWith;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import static io.qala.datagen.ContainsNonAlphanumericsMatcher.containsNonAlphanumerics;
 import static io.qala.datagen.ContainsOneOfMatcher.containsOneOf;
 import static io.qala.datagen.RandomShortApi.*;
 import static io.qala.datagen.RandomValue.*;
-import static io.qala.datagen.StringModifier.Impls.oneOf;
 import static io.qala.datagen.StringModifier.Impls.*;
+import static io.qala.datagen.StringModifier.Impls.oneOf;
 import static io.qala.datagen.Vocabulary.specialSymbols;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -48,58 +51,43 @@ public class RandomValueTest {
     }
 
     @Nested @DisplayName("String Generator") class Strings {
+        String[] allMethods = {"alphanumeric", "numeric", "unicode", "english", "specialSymbols"};
         @Test void returnsStringUpToMaxBoundary() {
-            assertThat(upTo(100).alphanumeric().length(), lessThanOrEqualTo(100));
-            assertThat(alphanumeric(0, 100).length(), lessThanOrEqualTo(100));
+            Assert.eachStringUpToMax(integer(1000), allMethods);
         }
         @Test void returnsStringBetweenBoundaries() {
-            assertThat(between(10, 100).alphanumeric().length(), lessThanOrEqualTo(100));
-            assertThat(between(10, 100).alphanumeric().length(), greaterThanOrEqualTo(10));
-
-            assertThat(alphanumeric(10, 100).length(), lessThanOrEqualTo(100));
-            assertThat(alphanumeric(10, 100).length(), greaterThanOrEqualTo(10));
+            int min = integer(1000), max = min + integer(1000);
+            Assert.eachStringBetweenBoundaries(min, max, allMethods);
+            Assert.eachStringGeneratedByShortApiBetweenBoundaries(min, max, allMethods);
         }
         @Test void returnsStringWithExactLength() {
-            assertThat(length(100).alphanumeric().length(), equalTo(100));
-            assertThat(alphanumeric(100).length(), equalTo(100));
+            Assert.eachStringExactlyOfRequiredLength(integer(5000), allMethods);
+            Assert.eachStringGeneratedByShortApiExactlyOfRequiredLength(integer(5000), allMethods);
         }
         @Test void returnsEmptyStringIfLengthIsSetTo0() {
-            assertThat(length(0).alphanumeric(), emptyString());
-            assertThat(alphanumeric(0), emptyString());
+            Assert.eachStringExactlyOfRequiredLength(0, allMethods);
+            Assert.eachStringGeneratedByShortApiExactlyOfRequiredLength(0, allMethods);
         }
         @Test void returnsNumbersIfNumeric() {
             assertThat(length(1000).numeric(), containsString("1"));
             assertThat(numeric(1000), containsString("1"));
         }
-        @Test void returnsNumericStringBetweenBoundaries() {
-            assertThat(between(1, 2).numeric().length(), greaterThanOrEqualTo(1));
-            assertThat(between(1, 2).numeric().length(), lessThanOrEqualTo(2));
-
-            assertThat(numeric(1, 2).length(), greaterThanOrEqualTo(1));
-            assertThat(numeric(1, 2).length(), lessThanOrEqualTo(2));
-        }
         @Test void doesNotReturnsNumbersIfEnglishRequested() {
             assertThat(length(100).english(), not(containsString("1")));
             assertThat(english(100), not(containsString("1")));
         }
-        @Test void returnsEnglishBetweenBoundaries() {
-            assertThat(between(10, 100).english().length(), greaterThanOrEqualTo(10));
-            assertThat(between(10, 100).english().length(), lessThanOrEqualTo(100));
+        @Test void doesNotReturnWeirdUnicodesIfEnglishRequested() {
+            assertThat(length(100).english(), not(containsNonAlphanumerics()));
+            assertThat(english(100), not(containsNonAlphanumerics()));
+        }
 
-            assertThat(english(10, 100).length(), greaterThanOrEqualTo(10));
-            assertThat(english(10, 100).length(), lessThanOrEqualTo(100));
+        @Test void returnsUnicodeStringThatContainsNonAlphanumerics() {
+            assertThat(unicode(0, 1000), containsNonAlphanumerics());
         }
 
         @Test void createsStringWithSpecialSymbols() {
             assertThat(length(1000).specialSymbols(), containsString(","));
             assertThat(RandomShortApi.specialSymbols(1000), containsString(","));
-        }
-        @Test void createsStringWithSpecialSymbolsBetweenBoundaries() {
-            assertThat(between(1, 2).specialSymbols().length(), greaterThanOrEqualTo(1));
-            assertThat(between(1, 2).specialSymbols().length(), lessThanOrEqualTo(2));
-
-            assertThat(RandomShortApi.specialSymbols(1, 2).length(), greaterThanOrEqualTo(1));
-            assertThat(RandomShortApi.specialSymbols(1, 2).length(), lessThanOrEqualTo(2));
         }
         @Test void addsSpecialSymbolsViaStringModifiers() {
             assertThat(length(100).with(specialSymbol()).english(), containsOneOf(specialSymbols()));
@@ -201,6 +189,81 @@ public class RandomValueTest {
         }
     }
 
+
+    private static class Assert {
+        public static void eachStringBetweenBoundaries(int min, int max, String... methods) {
+            for (String method : methods) {
+                RandomValue value = between(min, max);
+                String generated = invokeAndGetString(value, method);
+                String msg = "Method [" + method + "] returned: " + generated;
+                assertThat(msg, generated.length(), lessThanOrEqualTo(max));
+                assertThat(msg, generated.length(), greaterThanOrEqualTo(min));
+            }
+        }
+
+        public static void eachStringGeneratedByShortApiBetweenBoundaries(int min, int max, String... methods) {
+            for (String method : methods) {
+                String generated = invokeShortApiAndGetString(method, min, max);
+                String msg = "Static method [" + method + "] returned: " + generated;
+                assertThat(msg, generated.length(), lessThanOrEqualTo(max));
+                assertThat(msg, generated.length(), greaterThanOrEqualTo(min));
+            }
+        }
+
+        private static void eachStringUpToMax(int max, String... methods) {
+            for (String method : methods) {
+                RandomValue value = upTo(max);
+                String generated = invokeAndGetString(value, method);
+
+                String msg = "Method [" + method + "] returned: " + generated;
+                assertThat(msg, generated.length(), lessThanOrEqualTo(max));
+                assertThat(msg, generated.length(), greaterThanOrEqualTo(0));
+            }
+        }
+
+        public static void eachStringExactlyOfRequiredLength(int exactLength, String... methods) {
+            for (String method : methods) {
+                RandomValue value = length(exactLength);
+                String generated = invokeAndGetString(value, method);
+
+                String msg = "Static method [" + method + "] returned: " + generated;
+                assertThat(msg, generated.length(), lessThanOrEqualTo(exactLength));
+                assertThat(msg, generated.length(), greaterThanOrEqualTo(0));
+            }
+        }
+        public static void eachStringGeneratedByShortApiExactlyOfRequiredLength(int exactLength, String... methods) {
+            for (String method : methods) {
+                String generated = invokeShortApiAndGetString(method, exactLength);
+                String msg = "Static method [" + method + "] returned: " + generated;
+                assertThat(msg, generated.length(), lessThanOrEqualTo(exactLength));
+                assertThat(msg, generated.length(), greaterThanOrEqualTo(0));
+            }
+        }
+
+        private static String invokeAndGetString(RandomValue value, String method) {
+            try {
+                Method toInvoke = RandomValue.class.getDeclaredMethod(method);
+                return (String) toInvoke.invoke(value);
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                throw new IllegalStateException(e);
+            }
+        }
+
+        private static String invokeShortApiAndGetString(String method, Object... params) {
+            Class<?>[] paramClasses = new Class[params.length];
+            for(int i = 0; i < params.length; i++) {
+                if(params[i].getClass() == Integer.class) paramClasses[i] = int.class;
+                else throw new IllegalArgumentException("Wrong type of the parameter found - " +
+                        "no such randomized methods that can accept" + params[i].getClass());
+            }
+            try {
+                Method toInvoke = RandomShortApi.class.getDeclaredMethod(method, paramClasses);
+                return (String) toInvoke.invoke(null, params);
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                throw new IllegalStateException(e);
+            }
+        }
+    }
 
     private static final long
             LESS_THAN_INT_MIN = ((long) Integer.MIN_VALUE) - 1,
