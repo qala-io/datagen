@@ -49,6 +49,9 @@ length(6).with(prefix("blah"), spaceRight()).numerics(3)
 ### Numbers
 
 ```java
+import static io.qala.datagen.RandomValue.*;
+import static io.qala.datagen.RandomShortApi.*;
+
 upTo(100).integer() or integer(100)
 > 89
 
@@ -62,6 +65,9 @@ positiveInteger()
 ### Collections/Arrays
 
 ```java
+import static io.qala.datagen.RandomElements.*;
+import static io.qala.datagen.RandomShortApi.*;
+
 from("A", "B", "C", "D").sample() or sample("A", "B", "C", "D")
 > "C"
 
@@ -75,6 +81,8 @@ from("A", "B").sampleWithReplacement(3)
 ### Dates
 
 ```java
+import static io.qala.datagen.RandomValue.*;
+
 SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
 between(f.parse("2015-01-01"), f.parse("2016-01-01")).date();
 > "2015-11-30T08:33:20.349"
@@ -83,6 +91,8 @@ between(f.parse("2015-01-01"), f.parse("2016-01-01")).date();
 ### Booleans
 
 ```java
+import static io.qala.datagen.RandomShortApi.*;
+
 bools(4)
 > [false, true, true, false]
 
