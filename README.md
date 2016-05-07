@@ -1,5 +1,8 @@
 Datagen
-------------
+-------
+For convenience the repo is available both 
+[at BitBucket](https://bitbucket.org/qala/datagen/) and [at GitHub](https://github.com/qala-io/datagen).
+
 Generates random data (numbers, strings, dates) - mostly to facilitate 
 [Randomized Testing](http://qala.io/blog/randomized-testing.html).
 It has 2 types of APIs - flexible and the shorthand:
