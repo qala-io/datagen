@@ -1,7 +1,5 @@
 Datagen
 -------
-For convenience the repo is available both 
-[at BitBucket](https://bitbucket.org/qala/datagen/) and [at GitHub](https://github.com/qala-io/datagen).
 
 Generates random data (numbers, strings, dates) - mostly to facilitate 
 [Randomized Testing](http://qala.io/blog/randomized-testing.html).
@@ -108,6 +106,8 @@ nullableBool()
 
 ### Other
 
+- For convenience the repo is available both 
+  [at BitBucket](https://bitbucket.org/qala/datagen/) and [at GitHub](https://github.com/qala-io/datagen)
 - [Maven Central coordinates](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.qala.datagen%22%20a%3A%22qala-datagen%22%20)
 - Coming soon: support for Java8 dates
 
