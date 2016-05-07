@@ -21,6 +21,14 @@ public class RandomElements<T> {
         this.elements = new ArrayList<T>(elements);
     }
 
+    /**
+     * In case you have a collection and then couple of other elements you want to sample from too, but you don't want
+     * to create a collection that includes all of them combined.
+     *
+     * @param elements the collection
+     * @param others   other elements you'd like to include into population to sample from
+     * @return a random element from all the listed elements/other elements
+     */
     @SafeVarargs public static <T> RandomElements<T> from(Collection<T> elements, T... others) {
         Collection<T> coll = new ArrayList<T>(elements);
         coll.addAll(Arrays.asList(others));

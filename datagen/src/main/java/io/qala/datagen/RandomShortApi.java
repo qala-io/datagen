@@ -1,5 +1,10 @@
 package io.qala.datagen;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import static io.qala.datagen.RandomElements.from;
 import static io.qala.datagen.RandomValue.*;
 
@@ -8,6 +13,8 @@ import static io.qala.datagen.RandomValue.*;
  * suffixes, use {@link RandomValue}.
  */
 public class RandomShortApi {
+    private RandomShortApi() {
+    }
     public static int integer(int max) {
         return upTo(max).integer();
     }
@@ -74,6 +81,12 @@ public class RandomShortApi {
         return between(min, max).specialSymbols();
     }
 
+    /**
+     * Returns an array of random booleans (true/false).
+     *
+     * @param n size of the resulting array
+     * @return an array of random booleans
+     */
     public static boolean[] bools(int n) {
         boolean[] result = new boolean[n];
         for (int i = 0; i < n; i++) {
@@ -86,7 +99,89 @@ public class RandomShortApi {
         return RandomValue.RANDOM.nextBoolean();
     }
 
+    /**
+     * Besides returning TRUE or FALSE it can also return {@code null}.
+     *
+     * @return TRUE, FALSE or {@code null}
+     */
     public static Boolean nullableBool() {
         return from(Boolean.TRUE, Boolean.FALSE, null).sample();
+    }
+
+    /**
+     * Returns random element from the collection.
+     *
+     * @return a random element from the collection
+     * @see RandomElements
+     */
+    public static <T> T sample(Collection<T> toSampleFrom) {
+        return from(toSampleFrom).sample();
+    }
+
+    /**
+     * Returns random element from the collection.
+     *
+     * @param toSampleFrom the population of the elements you'd like to get a random value from
+     * @return a random element from the collection
+     * @see RandomElements
+     */
+    @SafeVarargs public static <T> T sample(T... toSampleFrom) {
+        return from(toSampleFrom).sample();
+    }
+
+    /**
+     * Returns a random element from the collection. Is used in case you have a collection and then couple of other
+     * elements you want to sample from too, but you don't want to create a collection that includes all of them
+     * combined.
+     *
+     * @param elements the main collection to sample from
+     * @param others   other elements you'd like to include into population to sample from
+     * @return a random element from all the listed elements/other elements
+     * @see RandomElements
+     */
+    @SafeVarargs public static <T> T sample(Collection<T> elements, T... others) {
+        return from(elements, others).sample();
+    }
+
+    /**
+     * Returns multiple random elements from the specified collection.
+     *
+     * @param toSampleFrom the population of the elements you'd like to get a random value from
+     * @return a random element from the collection
+     */
+    public static <T> List<T> sampleMultiple(Collection<T> toSampleFrom) {
+        return sampleMultiple(integer(toSampleFrom.size()), toSampleFrom);
+    }
+
+    /**
+     * Returns multiple random elements from the specified collection.
+     *
+     * @param toSampleFrom the population of the elements you'd like to get a random value from
+     * @return a random element from the collection
+     */
+    public static <T> Set<T> sampleMultiple(Set<T> toSampleFrom) {
+        return new HashSet<T>(sampleMultiple((Collection<T>) toSampleFrom));
+    }
+
+    /**
+     * Returns multiple random elements from the specified collection.
+     *
+     * @param toSampleFrom the population of the elements you'd like to get a random value from
+     * @param nToReturn    number of elements to be returned, must be smaller than the collection size
+     * @return a random element from the collection
+     */
+    public static <T> List<T> sampleMultiple(int nToReturn, Collection<T> toSampleFrom) {
+        return from(toSampleFrom).sample(nToReturn);
+    }
+
+    /**
+     * Returns random element from the collection.
+     *
+     * @param toSampleFrom the population of the elements you'd like to get a random value from
+     * @param nToReturn    number of elements to be returned, must be smaller than the collection size
+     * @return a random element from the collection
+     */
+    @SafeVarargs public static <T> List<T> sampleMultiple(int nToReturn, T... toSampleFrom) {
+        return from(toSampleFrom).sample(nToReturn);
     }
 }

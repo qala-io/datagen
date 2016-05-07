@@ -33,6 +33,7 @@ public interface StringModifier {
     }
 
     class Impls {
+        private Impls() {}
         public static StringModifier spaces() {
             return multipleOf(' ');
         }

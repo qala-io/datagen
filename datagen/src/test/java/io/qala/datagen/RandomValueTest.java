@@ -33,10 +33,12 @@ public class RandomValueTest {
         }
         @Test void returnsNegativeIntegers() {
             assertThat(between(Integer.MIN_VALUE, -1).integer(), lessThan(0));
+            assertThat(integer(Integer.MIN_VALUE, -1), lessThan(0));
         }
         @Test void returnsSameNumberIfBoundariesEqual() {
             int boundary = new Random().nextInt();
             assertEquals(boundary, between(boundary, boundary).integer());
+            assertEquals(boundary, integer(boundary, boundary));
         }
         @Test void returnsAnyInteger() {
             assertNotNull(integer());

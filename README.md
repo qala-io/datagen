@@ -62,10 +62,10 @@ positiveInteger()
 ### Collections/Arrays
 
 ```java
-from("A", "B", "C", "D").sample()
+from("A", "B", "C", "D").sample() or sample("A", "B", "C", "D")
 > "C"
 
-from("A", "B", "C", "D").sample(2)
+from("A", "B", "C", "D").sample(2) or sampleMultiple(2, "A", "B", "C", "D")
 > ["B", "D"]
 
 from("A", "B").sampleWithReplacement(3)

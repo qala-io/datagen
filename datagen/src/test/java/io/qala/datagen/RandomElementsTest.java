@@ -7,8 +7,11 @@ import org.junit.runner.RunWith;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static io.qala.datagen.RandomElements.from;
+import static io.qala.datagen.RandomShortApi.sample;
+import static io.qala.datagen.RandomShortApi.sampleMultiple;
 import static io.qala.datagen.RandomValue.length;
 import static io.qala.datagen.RandomValue.upTo;
 import static java.util.Collections.emptyList;
@@ -16,6 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.gen5.api.Assertions.assertEquals;
 import static org.junit.gen5.api.Assertions.assertThrows;
+import static org.junit.gen5.api.Assertions.assertTrue;
 
 @RunWith(JUnit5.class)
 @DisplayName("Random Elements")
@@ -28,24 +32,40 @@ public class RandomElementsTest {
     @Test void canSampleOneElementFromList() {
         List<String> list = upTo(10).alphanumerics();
         assertThat(list, hasItem(from(list).sample()));
+        assertThat(list, hasItem(sample(list)));
     }
 
     @Test void canSampleOneElementFromList_andAdditionalVarargs() {
         assertThat("element", equalTo(from(emptyList(), "element").sample()));
+        assertThat("element", equalTo(sample(emptyList(), "element")));
     }
 
     @Test void sampleDoesNotReturnDuplicates_ifWithoutReplacement() {
         List<String> population = length(500).alphanumerics(10);
         List<String> sample = from(population).sample(5);
+
         assertEquals(sample.size(), new HashSet<>(sample).size());
+        assertEquals(sampleMultiple(5, population).size(), new HashSet<>(sample).size());
+    }
+    @Test void samplingSets_returnsSets() {
+        HashSet<String> toSampleFrom = new HashSet<>();
+        toSampleFrom.add("a");
+        assertThat(sampleMultiple(toSampleFrom), instanceOf(Set.class));
     }
 
     @Test void canSampleOneElementFromArray() {
         assertThat(from("element1", "element2").sample(2), containsInAnyOrder("element1", "element2"));
+        assertThat(sampleMultiple(2, "element1", "element2"), containsInAnyOrder("element1", "element2"));
     }
 
     @Test void mustThrowIfSampleIsLargerThanPopulation() {
         assertThrows(IllegalArgumentException.class, () -> from("el", "el2").sample(3));
+        assertThrows(IllegalArgumentException.class, () -> sampleMultiple(3, "el", "el2"));
+    }
+    @Test void throwsIfCollectionToSampleFromIsEmpty() {
+        assertThrows(IllegalArgumentException.class, () -> from().sample(3));
+        assertThrows(IllegalArgumentException.class, () -> sampleMultiple(0));
+        assertThrows(IllegalArgumentException.class, () -> sample());
     }
     @Test void canSampleMultipleElementsFromList() {
         List<String> population = upTo(10).alphanumerics(5, 10);
