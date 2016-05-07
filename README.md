@@ -13,7 +13,7 @@ import static io.qala.datagen.RandomShortApi.*;
 length(10).english() or english(10)
 > "DcRZUNPrED"
 
-upTo(10).alphanumeric() or alphanumerics(0, 10)
+upTo(10).alphanumeric() or alphanumeric(0, 10)
 > "zG9G"
 
 between(1, 10).numeric() or numeric(1, 10)
