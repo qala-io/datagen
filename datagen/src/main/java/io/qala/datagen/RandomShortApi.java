@@ -3,6 +3,10 @@ package io.qala.datagen;
 import static io.qala.datagen.RandomElements.from;
 import static io.qala.datagen.RandomValue.*;
 
+/**
+ * If you need a more flexible way of generating the values including different string modifiers like prefixes and
+ * suffixes, use {@link RandomValue}.
+ */
 public class RandomShortApi {
     public static int integer(int max) {
         return upTo(max).integer();
