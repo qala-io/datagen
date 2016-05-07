@@ -20,6 +20,20 @@ public interface RandomString {
     String english();
 
     /**
+     * Generates a random string from the specified characters.
+     *
+     * @param vocabulary characters the resulting string will contain of, cannot be empty
+     * @return random string from the specified characters
+     */
+    String string(char... vocabulary);
+    /**
+     * Generates a random string from characters present in the specified string.
+     *
+     * @param vocabulary characters the resulting string will contain of, cannot be empty
+     * @return random string from the specified characters
+     */
+    String string(String vocabulary);
+    /**
      * Generates unicode string of variable length that includes characters from different languages, weird symbols
      * and <a href="https://docs.oracle.com/javase/tutorial/i18n/text/supplementaryChars.html">Supplementary Characters</a>
      * that are comprised of multiple chars.

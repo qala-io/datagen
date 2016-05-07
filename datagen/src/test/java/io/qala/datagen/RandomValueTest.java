@@ -14,6 +14,7 @@ import java.util.Random;
 
 import static io.qala.datagen.ContainsNonAlphanumericsMatcher.containsNonAlphanumerics;
 import static io.qala.datagen.ContainsOneOfMatcher.containsOneOf;
+import static io.qala.datagen.ContainsOnlyMatcher.containsOnly;
 import static io.qala.datagen.RandomShortApi.*;
 import static io.qala.datagen.RandomValue.*;
 import static io.qala.datagen.StringModifier.Impls.*;
@@ -21,6 +22,7 @@ import static io.qala.datagen.StringModifier.Impls.oneOf;
 import static io.qala.datagen.Vocabulary.specialSymbols;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
+import static org.junit.gen5.api.Assertions.assertThrows;
 import static org.junit.gen5.api.Assertions.expectThrows;
 
 @RunWith(JUnit5.class)
@@ -83,7 +85,7 @@ public class RandomValueTest {
             assertThat(english(100), not(containsNonAlphanumerics()));
         }
 
-        @Test void returnsUnicodeStringThatContainsNonAlphanumerics() {
+        @Test void createsUnicodeStringThatContainsNonAlphanumerics() {
             assertThat(length(1000).unicode(), containsNonAlphanumerics());
             assertThat(unicode(0, 1000), containsNonAlphanumerics());
         }
@@ -92,6 +94,17 @@ public class RandomValueTest {
             assertThat(length(1000).specialSymbols(), containsString(","));
             assertThat(RandomShortApi.specialSymbols(1000), containsString(","));
         }
+
+        @Test void createsStringFromGivenVocabulary() {
+            assertThat(length(100).string('A', 'b', ' '), containsOnly('A', 'b', ' '));
+            assertThat(length(100).string("AB "), containsOnly('A', 'B', ' '));
+        }
+
+        @Test void throwsIfVocabularyIsEmpty() {
+            assertThrows(IllegalArgumentException.class, () -> length(1000).string());
+            assertThrows(IllegalArgumentException.class, () -> length(10).string(""));
+        }
+
         @Test void addsSpecialSymbolsViaStringModifiers() {
             assertThat(length(100).with(specialSymbol()).english(), containsOneOf(specialSymbols()));
         }

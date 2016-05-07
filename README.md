@@ -21,6 +21,9 @@ between(1, 10).numeric() or numeric(1, 10)
 length(5).unicode() or unicode(5)
 > "䂞ꂣ뢧䯺婜"
 
+length(5).string("A_ B")
+> " _B B"
+
 length(10).with(specialSymbol()).english()
 > "hOzKEV#iWv"
 

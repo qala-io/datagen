@@ -98,6 +98,19 @@ public class RandomValue implements RandomString {
         return applyStringModifiers(CommonsLang3RandomStringUtils.random(integer()));
     }
 
+    @Override public String string(char... vocabulary) {
+        if (vocabulary == null || vocabulary.length == 0)
+            throw new IllegalArgumentException("You cannot generate string from an empty vocabulary. Either pass " +
+                    "the symbols the string is to be generated from, or use methods like alphanumerics(), unicode()," +
+                    " etc.");
+        throwIfLowerBoundaryIsNegative();
+        return applyStringModifiers(random(integer(), vocabulary));
+    }
+
+    @Override public String string(String vocabulary) {
+        return string(vocabulary.toCharArray());
+    }
+
     private String applyStringModifiers(String value) {
         String result = value;
         for(StringModifier modifier: modifiers) {
