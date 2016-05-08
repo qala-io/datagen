@@ -50,6 +50,17 @@ length(6).with(prefix("blah"), spaceRight()).numerics(3)
 > ["blah8 ", "blah9 ", "blah2 "]
 ```
 
+### Repeats
+
+```
+import static io.qala.datagen.RandomString.Type.*;
+import static io.qala.datagen.RandomValue.*;
+import static io.qala.datagen.Repeater.*;
+
+repeat(length(4), NUMERIC).string("-").times(4)
+> "9338-8349-6940-7714"
+```
+
 ### Numbers
 
 ```java

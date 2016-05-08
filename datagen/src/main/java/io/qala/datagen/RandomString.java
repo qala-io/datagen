@@ -3,6 +3,19 @@ package io.qala.datagen;
 import java.util.List;
 
 public interface RandomString {
+    enum Type {
+        ALPHANUMERIC, NUMERIC, UNICODE, ENGLISH, SPECIAL_SYMBOLS;
+        public String generate(RandomValue value) {
+            switch (this) {
+                case ALPHANUMERIC: return value.alphanumeric();
+                case NUMERIC: return value.numeric();
+                case UNICODE: return value.unicode();
+                case ENGLISH: return value.english();
+                case SPECIAL_SYMBOLS: return value.specialSymbols();
+                default: throw new IllegalStateException("Bug in Datagen: cannot dynamically generate " + this);
+            }
+        }
+    }
     String alphanumeric();
 
     List<String> alphanumerics();
