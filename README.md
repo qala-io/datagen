@@ -52,7 +52,7 @@ length(6).with(prefix("blah"), spaceRight()).numerics(3)
 
 ### Repeats
 
-```
+```java
 import static io.qala.datagen.RandomString.Type.*;
 import static io.qala.datagen.RandomValue.*;
 import static io.qala.datagen.Repeater.*;
