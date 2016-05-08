@@ -94,12 +94,12 @@ public interface StringModifier {
         }
 
         /**
-         * Same as {@link #multipleOf}, but there is a >50% chance that none of the specified symbols are inserted
-         * into resulting string.
+         * Same as {@link #multipleOf}, but there is a {@code >50%} chance that none of the specified symbols are
+         * inserted into resulting string.
          *
          * @param chars each of these characters can appear in the resulting string multiple times
          * @return a modifier that can add multiple characters from the specified string into the resulting random
-         * string, but there is a >50% chance that none of them are going to be inserted
+         * string, but there is a {@code >50%} chance that none of them are going to be inserted
          * @see #multipleOf(String)
          */
         public static StringModifier occasional(final String chars) {

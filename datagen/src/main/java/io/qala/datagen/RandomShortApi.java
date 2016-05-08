@@ -123,6 +123,7 @@ public class RandomShortApi {
     /**
      * Returns random element from the collection.
      *
+     * @param toSampleFrom retrieve random element from
      * @return a random element from the collection
      * @see RandomElements
      */
