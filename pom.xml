@@ -218,8 +218,8 @@
         </repository>
     </distributionManagement>
     <scm>
-        <connection>scm:git:https://ctapobep@bitbucket.org/qala/datagen.git</connection>
-        <developerConnection>scm:git:https://ctapobep@bitbucket.org/qala/datagen.git</developerConnection>
+        <connection>scm:git:https://bitbucket.org/qala/datagen.git</connection>
+        <developerConnection>scm:git:https://bitbucket.org/qala/datagen.git</developerConnection>
         <url>https://bitbucket.org/qala/datagen/</url>
     </scm>
 </project>
