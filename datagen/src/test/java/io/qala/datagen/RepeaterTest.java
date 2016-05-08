@@ -10,6 +10,7 @@ import static io.qala.datagen.Repeater.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.junit.gen5.api.Assertions.assertEquals;
+import static org.junit.gen5.api.Assertions.assertThrows;
 
 @RunWith(JUnit5.class)
 public class RepeaterTest {
@@ -25,5 +26,10 @@ public class RepeaterTest {
         assertThat(repeat(length(2), NUMERIC).string("-").times(3), matchesPattern("\\d{2}-\\d{2}-\\d{2}"));
         assertThat(repeat(length(2), ENGLISH).string(" ").times(1, 2), matchesPattern("[a-zA-Z]{2}|[a-zA-Z]{2} [a-zA-Z]{2}"));
         assertThat(repeat(length(2), ENGLISH).string(" ").includeLastSymbol().times(2), matchesPattern("[a-zA-Z]{2} [a-zA-Z]{2} "));
+    }
+
+    @Test void throwsIfRepeatingNegativeNumberOfTimes() {
+        assertThrows(IllegalArgumentException.class, () -> repeat("").times(-1));
+        assertThrows(IllegalArgumentException.class, () -> repeat("").times(-1, 5));
     }
 }

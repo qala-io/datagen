@@ -43,10 +43,12 @@ public class Repeater {
     }
 
     public String times(int min, int max) {
+        if(min < 0) throw new IllegalArgumentException("I cannot repeat string negative number of times");
         return times(integer(min, max));
     }
 
     public String times(int exactNumberOfTimes) {
+        if(exactNumberOfTimes < 0) throw new IllegalArgumentException("I cannot repeat string negative number of times");
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < exactNumberOfTimes; i++) {
             for (Object next : toRepeat) {
