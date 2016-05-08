@@ -141,7 +141,7 @@ public interface StringModifier {
             return new WithDefaultBatchModify() {
                 @Override public String modify(String original) {
                     if(original.length() < suffix.length())
-                        throw new IllegalArgumentException("Prefix cannot be longer than the main string");
+                        throw new IllegalArgumentException("Suffix cannot be longer than the main string");
                     StringBuilder stringBuilder = new StringBuilder(original);
                     stringBuilder.replace(original.length() - suffix.length(), original.length(), suffix);
                     return stringBuilder.toString();
