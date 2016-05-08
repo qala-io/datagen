@@ -14,6 +14,7 @@ import static org.junit.gen5.api.Assertions.assertEquals;
 @RunWith(JUnit5.class)
 public class RepeaterTest {
     @Test void stringsAreRepeated() {
+        assertEquals("", repeat("1-").times(0));
         assertEquals("1-1-1", repeat("1-").times(3));
         assertEquals("1-1-1", repeat("1").string("-").times(3));
         assertEquals("1-1-1-", repeat("1").string("-").includeLastSymbol().times(3));

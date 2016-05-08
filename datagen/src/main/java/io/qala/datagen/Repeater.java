@@ -58,6 +58,7 @@ public class Repeater {
                 }
             }
         }
+        if(str.length() == 0) return "";
         if (nOfLastSymbolsToRemove > str.length())
             throw new IllegalArgumentException("Number of symbols to remove was specified that's larger than the random string itself.");
         str.delete(str.length() - nOfLastSymbolsToRemove, str.length());
