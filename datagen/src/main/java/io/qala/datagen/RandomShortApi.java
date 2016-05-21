@@ -160,7 +160,7 @@ public class RandomShortApi {
      * Returns multiple random elements from the specified collection.
      *
      * @param toSampleFrom the population of the elements you'd like to get a random value from
-     * @return a random element from the collection
+     * @return 0 or more elements of the specified collection, elements don't repeat
      */
     public static <T> List<T> sampleMultiple(Collection<T> toSampleFrom) {
         return sampleMultiple(integer(toSampleFrom.size()), toSampleFrom);
@@ -181,7 +181,7 @@ public class RandomShortApi {
      *
      * @param toSampleFrom the population of the elements you'd like to get a random value from
      * @param nToReturn    number of elements to be returned, must be smaller than the collection size
-     * @return a random element from the collection
+     * @return list of size {@code nToReturn} - contains random elements from the specified collection
      */
     public static <T> List<T> sampleMultiple(int nToReturn, Collection<T> toSampleFrom) {
         return from(toSampleFrom).sample(nToReturn);
@@ -192,9 +192,38 @@ public class RandomShortApi {
      *
      * @param toSampleFrom the population of the elements you'd like to get a random value from
      * @param nToReturn    number of elements to be returned, must be smaller than the collection size
-     * @return a random element from the collection
+     * @return list of size {@code nToReturn} - contains random elements from the specified array
      */
     @SafeVarargs public static <T> List<T> sampleMultiple(int nToReturn, T... toSampleFrom) {
         return from(toSampleFrom).sample(nToReturn);
+    }
+
+    /**
+     * Invokes one and only one of the specified functions. This is an API for Java8 Lambdas.
+     *
+     * @param functions functions to choose from for invocation
+     */
+    public static void oneOf(Function... functions) {
+        sample(functions).call();
+    }
+
+    /**
+     * May invoke 0, 1 or more functions from the specified list.
+     *
+     * @param functions functions to choose from for invocation
+     */
+    public static void noneOrMore(Function... functions) {
+        List<Function> toCall = sampleMultiple(integer(functions.length), functions);
+        for (Function function : toCall) function.call();
+    }
+
+    /**
+     * Invokes one or more of the specified functions. This is an API for Java8 Lambdas.
+     *
+     * @param functions functions to choose from for invocation
+     */
+    public static void oneOrMore(Function... functions) {
+        List<Function> toCall = sampleMultiple(integer(1, functions.length), functions);
+        for (Function function : toCall) function.call();
     }
 }

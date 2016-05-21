@@ -118,6 +118,25 @@ nullableBool()
 > Boolean.TRUE
 ```
 
+### Functions (for Java8 lambdas)
+
+```java
+import static io.qala.datagen.RandomShortApi.*;
+Person person = new Person();
+
+oneOf(() -> person.firstName = english(5),
+      () -> person.lastName = english(5));
+> Person[null, "PDGRq"]
+      
+noneOrMore(() -> person.firstName = english(5),
+           () -> person.lastName = english(5));
+> Person[null, null]      
+
+oneOrMore(() -> person.firstName = english(5),
+          () -> person.lastName = english(5));
+> Person["LjxYh", "UXoBt"]
+```
+
 ### Other
 
 - For convenience the repo is available both 
