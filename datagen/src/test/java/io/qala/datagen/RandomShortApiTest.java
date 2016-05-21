@@ -21,10 +21,6 @@ import static org.junit.gen5.api.Assertions.assertNotNull;
 @SuppressWarnings("unused")
 public class RandomShortApiTest {
     @Test void onlyOneFunctionIsCalled() {
-        Person person = new Person();
-        oneOrMore(() -> person.firstName = english(5),
-                  () -> person.lastName = english(5));
-        System.out.println(person);
         List<Person> people = repeat((p) -> oneOf(
                 () -> p.firstName = english(5),
                 () -> p.lastName = english(5))
@@ -33,7 +29,6 @@ public class RandomShortApiTest {
     }
 
     @Test void sometimesNoneOfFunctionsAreCalled() {
-        Person person = new Person();
         List<Person> people = repeat((p) -> noneOrMore(
                 () -> p.firstName = english(5),
                 () -> p.lastName = english(5))
@@ -42,7 +37,6 @@ public class RandomShortApiTest {
     }
 
     @Test void atLeastOneFunctionIsAlwaysCalled() {
-        Person person = new Person();
         List<Person> people = repeat((p) -> oneOrMore(
                 () -> p.firstName = english(5),
                 () -> p.lastName = english(5))
