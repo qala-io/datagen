@@ -1,7 +1,7 @@
 Datagen
 -------
 
-Generates random data (numbers, strings, dates) - mostly to facilitate 
+Java library to generate random data (numbers, strings, dates) - to facilitate 
 [Randomized Testing](http://qala.io/blog/randomized-testing.html).
 It has 2 types of APIs - flexible and the shorthand:
 ### Strings
