@@ -103,6 +103,7 @@ between(f.parse("2015-01-01"), f.parse("2016-01-01")).date();
 > "2015-11-30T08:33:20.349"
 
 // Requires Java8 and qala-datagen-java8types dependency
+import static io.qala.datagen.RandomDate.*;
 
 plusMinus100Years().zonedDateTime()
 > "1937-09-27T01:16:15.925440485+01:00[Europe/Belgrade]"

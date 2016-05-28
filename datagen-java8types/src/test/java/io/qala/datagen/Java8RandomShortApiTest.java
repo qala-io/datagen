@@ -8,9 +8,6 @@ import java.time.*;
 
 import static io.qala.datagen.Java8RandomShortApi.*;
 import static io.qala.datagen.RandomDate.*;
-import static io.qala.datagen.RandomDate.afterNow;
-import static io.qala.datagen.RandomDate.beforeNow;
-import static io.qala.datagen.RandomDate.plusMinus100Years;
 import static io.qala.datagen.RandomValue.upTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -91,7 +88,6 @@ public class Java8RandomShortApiTest {
     }
 
     @Test void betweenForLocalDate() {
-        System.out.println(between(yearsAgo(2), startOfMonth()).localDate());
         assertThat(between(yearsAgo(2), startOfMonth()).localDateTime(), greaterThanOrEqualTo(yearsAgo(2).minusMinutes(1)));
         assertThat(between(yearsAgo(2), startOfMonth()).localDateTime(), lessThan(now()));
     }
