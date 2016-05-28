@@ -105,7 +105,7 @@ public class RandomDate {
         long maxSecond = to.getLong(ChronoField.INSTANT_SECONDS);
         int fromNano = from.getNano();
         int toNano = to.getNano();
-        long nano = fromNano < toNano ? RandomValue.between(fromNano, toNano).Long() : RandomValue.upTo(toNano).Long();
+        long nano = fromNano <= toNano ? RandomValue.between(fromNano, toNano).Long() : RandomValue.upTo(toNano).Long();
         return Instant.now().
                 with(ChronoField.INSTANT_SECONDS, RandomValue.between(minSecond, maxSecond).Long()).
                 with(ChronoField.NANO_OF_SECOND, nano);
