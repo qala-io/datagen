@@ -66,7 +66,16 @@ public class Java8RandomShortApiTest {
         assertThat(between(from, to).zonedDateTime(), greaterThanOrEqualTo(toZoned(from)));
         assertThat(between(from, to).zonedDateTime(), lessThanOrEqualTo(toZoned(to)));
     }
-
+    @Test void returnsSameValueIfFromAndToAreEqual() {
+        ZonedDateTime dateTime = ZonedDateTime.now();
+        assertThat(between(dateTime, dateTime).instant(), equalTo(dateTime.toInstant()));
+    }
+    @Test void returnsNanosUpToMaxIfMinBoundaryIsSmaller() {
+        ZonedDateTime from = ZonedDateTime.now();
+        ZonedDateTime to = from.plusSeconds(1);
+        assertThat(between(from.plusNanos(1), to).zonedDateTime(), greaterThanOrEqualTo(from));
+        assertThat(between(from.plusNanos(1), to).zonedDateTime(), lessThanOrEqualTo(to));
+    }
     @Test void beforeNowIsActuallyBefore() {
         assertThat(beforeNow().localDateTime(), lessThanOrEqualTo(LocalDateTime.now()));
     }
