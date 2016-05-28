@@ -107,13 +107,7 @@ between(f.parse("2015-01-01"), f.parse("2016-01-01")).date();
 plusMinus100Years().zonedDateTime()
 > "1937-09-27T01:16:15.925440485+01:00[Europe/Belgrade]"
 
-plusMinus100Years().zonedDateTime()
-> "1937-09-27T01:16:15.925440485+01:00[Europe/Belgrade]"
-
 since(yearAgo()).instant()
-> "2015-11-30T08:39:28.397051483Z"
-
-after(yearAgo()).instant()
 > "2015-11-30T08:39:28.397051483Z"
 
 before(now()).instant()
