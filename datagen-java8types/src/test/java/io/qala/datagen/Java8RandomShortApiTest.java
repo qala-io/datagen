@@ -11,15 +11,10 @@ import static io.qala.datagen.RandomDate.*;
 import static io.qala.datagen.RandomValue.upTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.gen5.api.Assertions.assertTrue;
 
 @RunWith(JUnit5.class)
 @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
 public class Java8RandomShortApiTest {
-    @Test void instantIsBetweenBoundaries() {
-        assertTrue(wideInstant().isAfter(Instant.MIN));
-        assertTrue(wideInstant().isBefore(Instant.MAX));
-    }
 
     @Test void instantCanBeBothBeforeAndAfterNow() {
         Instant now = Instant.now();
@@ -71,10 +66,10 @@ public class Java8RandomShortApiTest {
         assertThat(between(dateTime, dateTime).instant(), equalTo(dateTime.toInstant()));
     }
     @Test void returnsNanosUpToMaxIfMinBoundaryIsSmaller() {
-        ZonedDateTime from = ZonedDateTime.now();
-        ZonedDateTime to = from.plusSeconds(1);
-        assertThat(between(from.plusNanos(1), to).zonedDateTime(), greaterThanOrEqualTo(from));
-        assertThat(between(from.plusNanos(1), to).zonedDateTime(), lessThanOrEqualTo(to));
+        ZonedDateTime to = ZonedDateTime.now();
+        ZonedDateTime from = to.minusSeconds(1).plusNanos(upTo(999_999_999L).Long());
+        assertThat(between(from.plusNanos(1), to).instant(), greaterThanOrEqualTo(from.toInstant()));
+        assertThat(between(from.plusNanos(1), to).instant(), lessThanOrEqualTo(to.toInstant()));
     }
     @Test void beforeNowIsActuallyBefore() {
         assertThat(beforeNow().localDateTime(), lessThanOrEqualTo(LocalDateTime.now()));
@@ -90,10 +85,10 @@ public class Java8RandomShortApiTest {
     }
 
     @Test void plusMinus100YearsReturnsDateWithinThisPeriod() {
-        ZonedDateTime from = ZonedDateTime.now().minusYears(100);
-        ZonedDateTime to = ZonedDateTime.now().plusYears(100);
-        assertThat(plusMinus100Years().zonedDateTime(), greaterThanOrEqualTo(from));
-        assertThat(plusMinus100Years().zonedDateTime(), lessThanOrEqualTo(to));
+        ZoneOffset offset = ZoneId.systemDefault().getRules().getOffset(Instant.now());
+        ZonedDateTime from = ZonedDateTime.now(offset).minusYears(100);
+        assertThat(plusMinus100Years().instant(), greaterThan(from.toInstant()));
+        assertThat(plusMinus100Years().instant(), lessThan(ZonedDateTime.now(offset).plusYears(100).toInstant()));
     }
 
     @Test void betweenForLocalDate() {
