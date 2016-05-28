@@ -27,7 +27,12 @@ public class RandomShortApi {
     public static int positiveInteger() {
         return upTo(Integer.MAX_VALUE).integer();
     }
-
+    public static long Long() {
+        return between(Long.MIN_VALUE, Long.MAX_VALUE).Long();
+    }
+    public static long positiveLong() {
+        return upTo(Long.MAX_VALUE).Long();
+    }
     public static String alphanumeric(int exactLength) {
         return length(exactLength).alphanumeric();
     }
