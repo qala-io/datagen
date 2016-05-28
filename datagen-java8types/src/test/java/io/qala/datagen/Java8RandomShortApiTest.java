@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import java.time.*;
 
 import static io.qala.datagen.Java8RandomShortApi.*;
+import static io.qala.datagen.RandomDate.*;
 import static io.qala.datagen.RandomDate.afterNow;
 import static io.qala.datagen.RandomDate.beforeNow;
 import static io.qala.datagen.RandomDate.plusMinus100Years;
@@ -50,17 +51,23 @@ public class Java8RandomShortApiTest {
     @Test void generatesTemporalsBetween() {
         Instant from = instant();
         Instant to = from.plusSeconds(upTo(100000L).Long());
-        assertThat(RandomDate.between(from, to).instant(), greaterThanOrEqualTo(from));
-        assertThat(RandomDate.between(from, to).instant(), lessThanOrEqualTo(to));
+        assertThat(between(from, to).instant(), greaterThanOrEqualTo(from));
+        assertThat(between(from, to).instant(), lessThanOrEqualTo(to));
 
-        assertThat(RandomDate.between(from, to).zonedDateTime(), greaterThanOrEqualTo(toZoned(from)));
-        assertThat(RandomDate.between(from, to).zonedDateTime(), lessThanOrEqualTo(toZoned(to)));
+        assertThat(between(from, to).zonedDateTime(), greaterThanOrEqualTo(toZoned(from)));
+        assertThat(between(from, to).zonedDateTime(), lessThanOrEqualTo(toZoned(to)));
 
-        assertThat(RandomDate.between(from, to).localDateTime(), greaterThanOrEqualTo(toLocal(from)));
-        assertThat(RandomDate.between(from, to).localDateTime(), lessThanOrEqualTo(toLocal(to)));
+        assertThat(between(from, to).localDateTime(), greaterThanOrEqualTo(toLocal(from)));
+        assertThat(between(from, to).localDateTime(), lessThanOrEqualTo(toLocal(to)));
 
-        assertThat(RandomDate.between(from, to).localDate(), greaterThanOrEqualTo(toLocalDate(from)));
-        assertThat(RandomDate.between(from, to).localDate(), lessThanOrEqualTo(toLocalDate(to)));
+        assertThat(between(from, to).localDate(), greaterThanOrEqualTo(toLocalDate(from)));
+        assertThat(between(from, to).localDate(), lessThanOrEqualTo(toLocalDate(to)));
+    }
+    @Test void generatesTemporalsBetweenStrings() {
+        String from = "2007-12-03T10:15:30+01:00[Europe/Paris]";
+        String to = "2007-12-10T00:15:30+01:00[Europe/Paris]";
+        assertThat(between(from, to).zonedDateTime(), greaterThanOrEqualTo(toZoned(from)));
+        assertThat(between(from, to).zonedDateTime(), lessThanOrEqualTo(toZoned(to)));
     }
 
     @Test void beforeNowIsActuallyBefore() {
@@ -70,6 +77,11 @@ public class Java8RandomShortApiTest {
     @Test void afterNowIsActuallyAfter() {
         assertThat(afterNow().localDateTime(), greaterThanOrEqualTo(LocalDateTime.now()));
     }
+    @Test void sinceIsReturningDatesTillNow() {
+        LocalDateTime secondAgo = secondAgo();
+        assertThat(since(secondAgo).localDateTime(), lessThanOrEqualTo(LocalDateTime.now()));
+        assertThat(since(secondAgo).localDateTime(), greaterThanOrEqualTo(secondAgo));
+    }
 
     @Test void plusMinus100YearsReturnsDateWithinThisPeriod() {
         ZonedDateTime from = ZonedDateTime.now().minusYears(100);
@@ -78,10 +90,18 @@ public class Java8RandomShortApiTest {
         assertThat(plusMinus100Years().zonedDateTime(), lessThanOrEqualTo(to));
     }
 
+    @Test void betweenForLocalDate() {
+        System.out.println(between(yearsAgo(2), startOfMonth()).localDate());
+        assertThat(between(yearsAgo(2), startOfMonth()).localDateTime(), greaterThanOrEqualTo(yearsAgo(2).minusMinutes(1)));
+        assertThat(between(yearsAgo(2), startOfMonth()).localDateTime(), lessThan(now()));
+    }
+
     private ZonedDateTime toZoned(Instant instant) {
         return ZonedDateTime.ofInstant(instant, ZoneId.systemDefault());
     }
-
+    private ZonedDateTime toZoned(String string) {
+        return ZonedDateTime.parse(string);
+    }
     private LocalDateTime toLocal(Instant instant) {
         return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     }

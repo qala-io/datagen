@@ -8,13 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.qala.datagen.RandomShortApi.sample;
+import static java.time.temporal.ChronoUnit.HOURS;
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static java.time.temporal.ChronoUnit.YEARS;
 
 public class RandomDate {
     private Instant from = LocalDateTime.MIN.toInstant(ZoneOffset.UTC);
     private Instant to = LocalDateTime.MAX.toInstant(ZoneOffset.UTC);
 
     public static RandomDate between(Instant from, Instant to) {
-        if (from.isAfter(to)) throw new IllegalArgumentException("'from' cannot be larger than 'to'");
+        if (from.isAfter(to))
+            throw new IllegalArgumentException("from(" + from + ") cannot be larger than to(" + to + ")");
         RandomDate date = new RandomDate();
         date.from = from;
         date.to = to;
@@ -22,6 +26,18 @@ public class RandomDate {
     }
     public static RandomDate between(ChronoLocalDateTime from, ChronoLocalDateTime to) {
         return between(from.toInstant(ZoneOffset.UTC), to.toInstant(ZoneOffset.UTC));
+    }
+
+    public static RandomDate between(ChronoZonedDateTime from, ChronoZonedDateTime to) {
+        return between(from.toInstant(), to.toInstant());
+    }
+
+    public static RandomDate between(LocalDate from, LocalDate to) {
+        return between(from.atStartOfDay(), to.atStartOfDay());
+    }
+
+    public static RandomDate between(String from, String to) {
+        return between(ZonedDateTime.parse(from), ZonedDateTime.parse(to));
     }
 
     public static RandomDate before(Instant before) {
@@ -37,27 +53,62 @@ public class RandomDate {
     public static RandomDate beforeNow() {
         return before(Instant.now());
     }
+
+    /** Since specified time till max possible date. */
     public static RandomDate after(Instant after) {
         return between(after, LocalDateTime.MAX.toInstant(ZoneOffset.UTC));
     }
+
+    /** Since specified time till max possible date. */
     public static RandomDate after(ChronoLocalDateTime after) {
         return after(after.toInstant(ZoneOffset.UTC));
     }
+
+    /** Since specified time till max possible date. */
     public static RandomDate after(ChronoZonedDateTime after) {
         return after(after.toInstant());
+    }
+
+    public static RandomDate yesterday() {
+        return between(LocalDate.now().minusDays(1).atStartOfDay(), LocalDate.now().atStartOfDay().minusSeconds(1));
+    }
+
+    public static RandomDate thisYear() {
+        return between(LocalDateTime.now().truncatedTo(YEARS), LocalDateTime.now().truncatedTo(YEARS).plusYears(1).minusSeconds(1));
+    }
+
+    /** Since specified time till now. */
+    public static RandomDate since(Instant since) {
+        return between(since, Instant.now(Clock.systemUTC()));
+    }
+
+    /** Since specified time till now. */
+    public static RandomDate since(ChronoLocalDateTime since) {
+        return since(since.toInstant(ZoneId.systemDefault().getRules().getOffset(Instant.now())));
+    }
+
+    /** Since specified time till now. */
+    public static RandomDate since(ChronoZonedDateTime since) {
+        return since(since.toInstant());
     }
     public static RandomDate afterNow() {
         return after(Instant.now());
     }
+
     public static RandomDate plusMinus100Years() {
-        return between(LocalDateTime.now().minusYears(100), LocalDateTime.now().plusYears(100));
+        return between(
+                LocalDateTime.now().minusYears(100).withDayOfYear(1),
+                LocalDateTime.now().plusYears(101).withDayOfYear(1).minusSeconds(1));//last second of the last in 100th year
     }
     public Instant instant() {
         long minSecond = from.getLong(ChronoField.INSTANT_SECONDS);
         long maxSecond = to.getLong(ChronoField.INSTANT_SECONDS);
+        int fromNano = from.getNano();
+        int toNano = to.getNano();
+        long nano = fromNano < toNano ? RandomValue.between(fromNano, toNano).Long() : RandomValue.upTo(toNano).Long();
         return Instant.now().
                 with(ChronoField.INSTANT_SECONDS, RandomValue.between(minSecond, maxSecond).Long()).
-                with(ChronoField.NANO_OF_SECOND, RandomValue.upTo(to.getNano()).Long());
+                with(ChronoField.NANO_OF_SECOND, nano);
     }
     public List<Instant> instants(int n) {
         return multiply(n, this::instant);
@@ -90,5 +141,45 @@ public class RandomDate {
             result.add(function.get());
         }
         return result;
+    }
+
+    public static LocalDateTime yearAgo() {
+        return LocalDateTime.now().minusYears(1);
+    }
+    public static LocalDateTime yearsAgo(int n) {
+        return LocalDateTime.now().minusYears(n);
+    }
+    public static LocalDateTime dayAgo() {
+        return LocalDateTime.now().minusDays(1);
+    }
+    public static LocalDateTime daysAgo(int n) {
+        return LocalDateTime.now().minusDays(n);
+    }
+    public static LocalDateTime hourAgo() {
+        return LocalDateTime.now().minusHours(1);
+    }
+    public static LocalDateTime secondAgo() {
+        return LocalDateTime.now().minusSeconds(1);
+    }
+    public static LocalDateTime startOfYear() {
+        return startOfMonth().withMonth(1);
+    }
+    public static LocalDateTime startOfMonth() {
+        return startOfDay().withDayOfMonth(1);
+    }
+    public static LocalDateTime startOfDay() {
+        return startOfHour().withHour(0);
+    }
+    public static LocalDateTime startOfHour() {
+        return startOfMinute().truncatedTo(HOURS);
+    }
+    public static LocalDateTime startOfMinute() {
+        return LocalDateTime.now().withSecond(0).truncatedTo(SECONDS);
+    }
+    public static LocalDateTime now() {
+        return LocalDateTime.now();
+    }
+    public static LocalDateTime minusYears(int n) {
+        return LocalDateTime.now().minusYears(n);
     }
 }

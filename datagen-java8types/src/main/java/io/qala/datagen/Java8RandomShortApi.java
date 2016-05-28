@@ -13,9 +13,7 @@ import static io.qala.datagen.RandomValue.upTo;
 
 public class Java8RandomShortApi {
 
-    /**
-     * {@link Instant} is 1 year wider than {@link LocalDateTime}.
-     */
+    /** {@link Instant} is 1 year wider than {@link LocalDateTime}. */
     public static Instant wideInstant() {
         long minSecond = Instant.MIN.getLong(ChronoField.INSTANT_SECONDS);
         long maxSecond = Instant.MAX.getLong(ChronoField.INSTANT_SECONDS);

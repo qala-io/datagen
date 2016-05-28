@@ -101,6 +101,26 @@ import static io.qala.datagen.RandomValue.*;
 SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
 between(f.parse("2015-01-01"), f.parse("2016-01-01")).date();
 > "2015-11-30T08:33:20.349"
+
+// Requires Java8 and qala-datagen-java8types dependency
+
+plusMinus100Years().zonedDateTime()
+> "1937-09-27T01:16:15.925440485+01:00[Europe/Belgrade]"
+
+plusMinus100Years().zonedDateTime()
+> "1937-09-27T01:16:15.925440485+01:00[Europe/Belgrade]"
+
+since(yearAgo()).instant()
+> "2015-11-30T08:39:28.397051483Z"
+
+after(yearAgo()).instant()
+> "2015-11-30T08:39:28.397051483Z"
+
+before(now()).instant()
+>"-241279778-02-14T16:07:18.061693370Z"
+
+between(yearsAgo(2), startOfMonth()).localDate()
+> "2014-09-30"
 ```
 
 ### Booleans
