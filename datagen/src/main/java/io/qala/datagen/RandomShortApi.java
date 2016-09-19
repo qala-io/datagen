@@ -148,6 +148,35 @@ public class RandomShortApi {
     }
 
     /**
+     * Returns either null or the specified object.
+     *
+     * @param obj object to return in 50% of cases
+     * @param <T> type of the specified object
+     * @return null or the specified object with the 50/50 odds
+     */
+    public static <T> T nullOr(T obj) {
+        return sample(obj, null);
+    }
+
+    /**
+     * Returns either null or empty string with the 50/50 odds.
+     *
+     * @return either null or empty string
+     */
+    public static String nullOrEmpty() {
+        return sample("", null);
+    }
+
+    /**
+     * Returns either null or empty string or string with only spaces each with equal chance.
+     *
+     * @return either null or empty string or string with whitespaces only
+     */
+    public static String nullOrBlank() {
+        return sample("", between(1, 100).string(' '), null);
+    }
+
+    /**
      * Returns a random element from the collection. Is used in case you have a collection and then couple of other
      * elements you want to sample from too, but you don't want to create a collection that includes all of them
      * combined.

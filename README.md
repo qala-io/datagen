@@ -48,6 +48,12 @@ upTo(10).alphanumerics(5)
 
 length(6).with(prefix("blah"), spaceRight()).numerics(3)
 > ["blah8 ", "blah9 ", "blah2 "]
+
+nullOrEmpty()
+> ""
+
+nullOrBlank()
+> "    "
 ```
 
 ### Repeats
@@ -91,6 +97,9 @@ from("A", "B", "C", "D").sample(2) or sampleMultiple(2, "A", "B", "C", "D")
 
 from("A", "B").sampleWithReplacement(3)
 > ["A", "A", "B"]
+
+nullOr("string")
+> "string"
 ```
 
 ### Dates

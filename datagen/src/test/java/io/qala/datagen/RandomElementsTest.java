@@ -1,5 +1,6 @@
 package io.qala.datagen;
 
+import org.junit.Assert;
 import org.junit.gen5.api.DisplayName;
 import org.junit.gen5.api.Test;
 import org.junit.gen5.junit4.runner.JUnit5;
@@ -8,15 +9,16 @@ import org.junit.runner.RunWith;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import static io.qala.datagen.RandomElements.from;
-import static io.qala.datagen.RandomShortApi.sample;
-import static io.qala.datagen.RandomShortApi.sampleMultiple;
+import static io.qala.datagen.RandomShortApi.*;
 import static io.qala.datagen.RandomValue.length;
 import static io.qala.datagen.RandomValue.upTo;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.fail;
 import static org.junit.gen5.api.Assertions.assertEquals;
 import static org.junit.gen5.api.Assertions.assertThrows;
 import static org.junit.gen5.api.Assertions.assertTrue;
@@ -80,5 +82,49 @@ public class RandomElementsTest {
 
         assertEquals(5, sample.size());
         assertThat(population, hasItems(sample.toArray(new String[sample.size()])));
+    }
+
+    @Test void nullOrObj_returnsNull_sometimes() {
+        for(int i = 0; i < 100; i++) if (nullOr("str") == null) return;
+        fail("nullOr() had to return null at least once, but it didn't");
+    }
+    @Test void nullOrObj_returnsObj_sometimes() {
+        for(int i = 0; i < 100; i++) if (nullOr("str") == "str") return;
+        fail("nullOr() had to return Obj at least once, but it didn't");
+    }
+    @Test void nullOrObj_doesNotReturnAnything_butNullOrObj() {
+        String result = nullOr("str");
+        assertTrue(result == "str" || result == null);
+    }
+    @Test void nullOrEmpty_doesNotReturnAnything_butNullOrEmptyString() {
+        String result = nullOrEmpty();
+        assertTrue(result == null || result.isEmpty());
+    }
+    @Test void nullOrEmpty_returnsEmpty_sometimes() {
+        for(int i = 0; i < 100; i++) if (nullOrEmpty() == "") return;
+        fail("nullOrEmpty() had to return Empty String at least once, but it didn't");
+    }
+    @Test void nullOrEmpty_returnsNull_sometimes() {
+        for(int i = 0; i < 100; i++) if (nullOrEmpty() == null) return;
+        fail("nullOrEmpty() had to return null at least once, but it didn't");
+    }
+    @Test void nullOrBlank_doesNotReturnAnything_butNullOrBlankString() {
+        String result = nullOrBlank();
+        assertTrue(result == null || result.trim().isEmpty());
+    }
+    @Test void nullOrBlank_returnsEmpty_sometimes() {
+        for(int i = 0; i < 100; i++) if (nullOrBlank() == "") return;
+        fail("nullOrBlank() had to return Empty String at least once, but it didn't");
+    }
+    @Test void nullOrBlank_returnsNull_sometimes() {
+        for(int i = 0; i < 100; i++) if (nullOrBlank() == null) return;
+        fail("nullOrBlank() had to return null at least once, but it didn't");
+    }
+    @Test void nullOrBlank_returnsWhitespaces_sometimes() {
+        for(int i = 0; i < 100; i++) {
+            String nullOrBlank = nullOrBlank();
+            if (nullOrBlank != null &&  nullOrBlank.contains(" ")) return;
+        }
+        fail("nullOrBlank() had to return whitespaces at least once, but it didn't");
     }
 }
