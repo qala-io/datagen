@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 class RestService {
     static final RestService instance = new RestService();
 
-    private final Map<String, Person> db = new ConcurrentHashMap<>();
+    private final Map<String, Person> db = new ConcurrentHashMap<String, Person>();
 
     private RestService() {}
 
