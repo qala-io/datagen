@@ -2,8 +2,13 @@ Datagen
 -------
 
 Java library to generate random data (numbers, strings, dates) - to facilitate 
-[Randomized Testing](http://qala.io/blog/randomized-testing.html).
-It has 2 types of APIs - flexible and the shorthand:
+[Randomized Testing](http://qala.io/blog/randomized-testing.html). Some tips on randomization:
+
+* [Combinatorial Testing](./datagen-examples/combinatorial.md) - helps reducing the number of test cases you need 
+to write and run
+* [Fighting with Unique Constraints](./datagen-examples/unique-constraints.md) - a test registered a user with unique 
+username? The next time you run the test it fails because such user already exists.  
+
 ### Strings
 ```java
 import static io.qala.datagen.RandomValue.*;
