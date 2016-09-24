@@ -12,18 +12,18 @@ import static org.junit.Assert.assertEquals;
  */
 public class CombinatorialGreetingsTest {
     @Test public void ifOneOrBoth_firstAndLastName_isBlank_greetWithUsername() {
-        String firstName = sample("", " ", null, unicode(1, 10));
-        String lastName = isBlank(firstName) ? sample(nullOrBlank(), unicode(10)) : nullOrBlank();
+        String firstName = sample("", " ", null, english(1, 10));
+        String lastName = isBlank(firstName) ? sample(nullOrBlank(), english(10)) : nullOrBlank();
 
-        Person person = new Person(unicode(1, 10)).firstName(firstName).lastName(lastName);
+        Person person = new Person(english(1, 10)).firstName(firstName).lastName(lastName);
         assertEquals(person.username(), person.greeting());
     }
 
     @Test public void ifBoth_firstAndLastNameAreNotBlank_greetWithFirstAndLastName() {
-        String firstName = unicode(1, 10);
-        String lastName = unicode(1, 10);
+        String firstName = english(1, 10);
+        String lastName = english(1, 10);
 
-        Person person = new Person(unicode(1, 10)).firstName(firstName).lastName(lastName);
+        Person person = new Person(english(1, 10)).firstName(firstName).lastName(lastName);
         assertEquals(firstName + " " + lastName, person.greeting());
     }
 
