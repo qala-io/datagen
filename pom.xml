@@ -30,6 +30,7 @@
     <modules>
         <module>datagen</module>
         <module>datagen-java8types</module>
+        <module>datagen-examples</module>
     </modules>
 
     <properties>
