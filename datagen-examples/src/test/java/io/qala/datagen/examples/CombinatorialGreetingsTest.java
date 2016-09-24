@@ -12,8 +12,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class CombinatorialGreetingsTest {
     @Test public void ifOneOrBoth_firstAndLastName_isBlank_greetWithUsername() {
-        String firstName = sample("", " ", null, english(1, 10));
-        String lastName = isBlank(firstName) ? sample(nullOrBlank(), english(10)) : nullOrBlank();
+        String firstName = sample("", " ", null, english(1, 10)); // can be replaced with blankOr(english(1, 10))
+        String lastName = isBlank(firstName) ? blankOr(english(10)) : nullOrBlank();
 
         Person person = new Person(english(1, 10)).firstName(firstName).lastName(lastName);
         assertEquals(person.username(), person.greeting());

@@ -8,6 +8,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import static io.qala.datagen.adaptors.CommonsLang3RandomStringUtils.random;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class RandomValue implements RandomString {
     static final Random RANDOM = new Random();
     private final List<StringModifier> modifiers = new CopyOnWriteArrayList<StringModifier>();

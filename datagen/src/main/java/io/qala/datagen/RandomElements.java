@@ -7,15 +7,15 @@ import java.util.List;
 
 import static io.qala.datagen.RandomValue.upTo;
 
-@SuppressWarnings("Convert2Diamond")
+@SuppressWarnings({"Convert2Diamond", "WeakerAccess"})
 public class RandomElements<T> {
     private final List<T> elements;
 
-    RandomElements(T[] elements) {
+    private RandomElements(T[] elements) {
         this(Arrays.asList(elements));
     }
 
-    RandomElements(Collection<T> elements) {
+    private RandomElements(Collection<T> elements) {
         if(elements == null || elements.isEmpty())
             throw new IllegalArgumentException("Can't sample from zero elements: " + elements);
         this.elements = new ArrayList<T>(elements);

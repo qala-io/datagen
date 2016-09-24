@@ -12,7 +12,7 @@ import static io.qala.datagen.RandomValue.*;
  * If you need a more flexible way of generating the values including different string modifiers like prefixes and
  * suffixes, use {@link RandomValue}.
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond", "Convert2streamapi"})
 public class RandomShortApi {
     private RandomShortApi() {
     }
