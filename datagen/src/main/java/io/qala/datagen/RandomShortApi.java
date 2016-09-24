@@ -1,5 +1,7 @@
 package io.qala.datagen;
 
+import io.qala.datagen.adaptors.CommonsMath4;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -31,8 +33,59 @@ public class RandomShortApi {
     public static long Long() {
         return between(Long.MIN_VALUE, Long.MAX_VALUE).Long();
     }
+
+    public static double Double() {
+        return CommonsMath4.nextUniform(RANDOM, Long.MIN_VALUE, Long.MAX_VALUE, true);
+    }
+
+    public static double positiveDouble() {
+        return Double(Long.MAX_VALUE);
+    }
+
+    public static double negativeDouble() {
+        return Double(Long.MIN_VALUE, 0);
+    }
+
+    public static double Double(double max) {
+        return CommonsMath4.nextUniform(RANDOM, 0, max, true);
+    }
+
+    /**
+     * Returns random double.
+     *
+     * @param min min boundary (inclusive), cannot be equal to {@code max}
+     * @param max max boundary (exclusive), cannot be equal to {@code min}
+     * @return uniformly distributed random double between 2 boundaries
+     */
+    public static double Double(double min, double max) {
+        return CommonsMath4.nextUniform(RANDOM, min, max, true);
+    }
+
+    /**
+     * Long between 0 to {@link Long#MAX_VALUE} inclusive.
+     *
+     * @return between 0 to {@link Long#MAX_VALUE} inclusive.
+     */
     public static long positiveLong() {
-        return upTo(Long.MAX_VALUE).Long();
+        return Long(0, Long.MAX_VALUE);
+    }
+
+    /**
+     * Long between {@link Long#MIN_VALUE} to -1
+     *
+     * @return between {@link Long#MIN_VALUE} to -1
+     */
+    public static long negativeLong() {
+        return Long(Long.MIN_VALUE, -1);
+    }
+
+    /**
+     * @param min inclusive
+     * @param max inclusive
+     * @return a long from min boundary to max
+     */
+    public static long Long(long min, long max) {
+        return between(min, max).Long();
     }
     public static String alphanumeric(int exactLength) {
         return length(exactLength).alphanumeric();

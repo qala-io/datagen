@@ -90,6 +90,12 @@ between(-100, 100).integer() or integer(-100, 100)
 
 positiveInteger()
 > 3432145
+
+Long()
+> 7635811362052252913
+
+negativeDouble()
+> -8.9946257128846746E18
 ```
 
 ### Collections/Arrays

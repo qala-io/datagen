@@ -2,15 +2,19 @@ package io.qala.datagen;
 
 import io.qala.datagen.adaptors.CommonsLang3RandomStringUtils;
 import io.qala.datagen.adaptors.CommonsMath4;
+import io.qala.datagen.adaptors.JavaRandom;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import static io.qala.datagen.adaptors.CommonsLang3RandomStringUtils.random;
 
 @SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class RandomValue implements RandomString {
-    static final Random RANDOM = new Random();
+    static final JavaRandom RANDOM = new JavaRandom();
     private final List<StringModifier> modifiers = new CopyOnWriteArrayList<StringModifier>();
     private final Long min;
     private final Long max;
@@ -143,6 +147,12 @@ public class RandomValue implements RandomString {
     public int integer() {
         return CommonsMath4.nextInt(RANDOM, maxInt(), minInt());
     }
+
+    /**
+     * Returns any Long from {@link Long#MIN_VALUE} to {@link Long#MAX_VALUE}.
+     *
+     * @return long from {@link Long#MIN_VALUE} to {@link Long#MAX_VALUE}
+     */
     public long Long() {
         return CommonsMath4.nextLong(RANDOM, min, max);
     }

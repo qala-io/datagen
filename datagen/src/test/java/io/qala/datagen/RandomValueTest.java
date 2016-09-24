@@ -27,7 +27,7 @@ import static org.junit.gen5.api.Assertions.assertTrue;
 import static org.junit.gen5.api.Assertions.expectThrows;
 
 @RunWith(JUnit5.class)
-@SuppressWarnings("ThrowableResultOfMethodCallIgnored")
+@SuppressWarnings({"ThrowableResultOfMethodCallIgnored", "unused"})
 public class RandomValueTest {
     @Nested @DisplayName("Integer Generator") class Integers {
         @Test void returnsPositiveIntegers() {
@@ -52,6 +52,62 @@ public class RandomValueTest {
         }
         @Test void throwsIfMinBoundaryLessThanInteger() {
             expectThrows(NumberOutOfBoundaryException.class, () -> between(LESS_THAN_INT_MIN, LESS_THAN_INT_MIN).integer());
+        }
+    }
+
+    @Nested @DisplayName("Long Generator") class Longs {
+        @Test void returnsPositiveLong() {
+            assertThat(upTo(Long.MAX_VALUE).Long(), greaterThan(0L));
+            assertThat(positiveLong(), greaterThan(0L));
+        }
+        @Test void returnsNegativeLongs() {
+            assertThat(Long(Long.MIN_VALUE, -1), lessThan(0L));
+            assertThat(negativeLong(), lessThan(0L));
+        }
+        @Test void returnsSameNumberIfBoundariesEqual() {
+            int boundary = new Random().nextInt();
+            assertEquals(boundary, between(boundary, boundary).Long());
+            assertEquals(boundary, Long(boundary, boundary));
+        }
+        @Test void returnsLongs_thatAreGreaterThan0_sometimes() {
+            for(int i = 0; i < 50; i++) if(Long() > 0) return;
+            fail("Random Long should've returned a positive number at least once");
+        }
+        @Test void returnsLong_thatAreLessThan0_sometimes() {
+            for(int i = 0; i < 50; i++) if(Long() < 0) return;
+            fail("Random Long should've returned a negative number at least once");
+        }
+    }
+
+    @Nested @DisplayName("Double Generator") class Doubles {
+        @Test void returnsDouble_betweenBoundaries() {
+            double aDouble = Double(-100, 100);
+            assertThat(aDouble, greaterThan(-100.));
+            assertThat(aDouble, lessThan(100.));
+        }
+        @Test void returnsPositiveDoubles() {
+            assertThat(Double(Double.MAX_VALUE), greaterThan(0.0));
+            assertThat(positiveDouble(), greaterThan(0.0));
+        }
+        @Test void returnsNegativeDoubles() {
+            assertThat(Double(Long.MIN_VALUE, 0.0), lessThan(0.0));
+            assertThat(negativeDouble(), lessThan(0.0));
+        }
+        @Test void returnsDouble_thatAreGreaterThan0_sometimes() {
+            for(int i = 0; i < 50; i++) if(Double() > 0) return;
+            fail("Random Double should've returned a positive number at least once");
+        }
+        @Test void returnsDouble_thatAreLessThan0_sometimes() {
+            for(int i = 0; i < 50; i++) if(Double() < 0) return;
+            fail("Random Double should've returned a negative number at least once");
+        }
+
+        @Test void throwsIfBoundariesEqual() {
+            long boundary = Long();
+            expectThrows(IllegalArgumentException.class, () -> Double(boundary, boundary));
+        }
+        @Test void throwsIfLowerIsGreaterThanUpper() {
+            expectThrows(IllegalArgumentException.class, () -> Double(1, 0));
         }
     }
 
@@ -222,7 +278,7 @@ public class RandomValueTest {
 
 
     private static class Assert {
-        public static void eachStringBetweenBoundaries(int min, int max, String... methods) {
+        static void eachStringBetweenBoundaries(int min, int max, String... methods) {
             for (String method : methods) {
                 RandomValue value = between(min, max);
                 String generated = invokeAndGetString(value, method);
@@ -232,7 +288,7 @@ public class RandomValueTest {
             }
         }
 
-        public static void eachStringGeneratedByShortApiBetweenBoundaries(int min, int max, String... methods) {
+        static void eachStringGeneratedByShortApiBetweenBoundaries(int min, int max, String... methods) {
             for (String method : methods) {
                 String generated = invokeShortApiAndGetString(method, min, max);
                 String msg = "Static method [" + method + "] returned: " + generated;
@@ -252,7 +308,7 @@ public class RandomValueTest {
             }
         }
 
-        public static void eachStringExactlyOfRequiredLength(int exactLength, String... methods) {
+        static void eachStringExactlyOfRequiredLength(int exactLength, String... methods) {
             for (String method : methods) {
                 RandomValue value = length(exactLength);
                 String generated = invokeAndGetString(value, method);
@@ -262,7 +318,7 @@ public class RandomValueTest {
                 assertThat(msg, generated.length(), greaterThanOrEqualTo(0));
             }
         }
-        public static void eachStringGeneratedByShortApiExactlyOfRequiredLength(int exactLength, String... methods) {
+        static void eachStringGeneratedByShortApiExactlyOfRequiredLength(int exactLength, String... methods) {
             for (String method : methods) {
                 String generated = invokeShortApiAndGetString(method, exactLength);
                 String msg = "Static method [" + method + "] returned: " + generated;
