@@ -2,7 +2,8 @@ Datagen
 -------
 
 Java library to generate random data (numbers, strings, dates) - to facilitate 
-[Randomized Testing](http://qala.io/blog/randomized-testing.html). Some tips on randomization:
+[Randomized Testing](http://qala.io/blog/randomized-testing.html). Randomization helps writing and running tests quicker
+as well improving the coverage. Just _some_ use cases for randomization:
 
 * [Combinatorial Testing](./datagen-examples/combinatorial.md) - helps reducing the number of test cases you need 
 to write and run
@@ -59,6 +60,9 @@ nullOrEmpty()
 
 nullOrBlank()
 > "    "
+
+blankOr("string")
+> null
 ```
 
 ### Repeats

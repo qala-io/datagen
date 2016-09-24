@@ -12,6 +12,7 @@ import static io.qala.datagen.RandomValue.*;
  * If you need a more flexible way of generating the values including different string modifiers like prefixes and
  * suffixes, use {@link RandomValue}.
  */
+@SuppressWarnings("WeakerAccess")
 public class RandomShortApi {
     private RandomShortApi() {
     }
@@ -174,6 +175,15 @@ public class RandomShortApi {
      */
     public static String nullOrBlank() {
         return sample("", between(1, 100).string(' '), null);
+    }
+
+    /**
+     * Returns either the specified string or null or empty string or string with only spaces each with equal chance.
+     *
+     * @return either the specified string or null or empty string or string with whitespaces only
+     */
+    public static String blankOr(String string) {
+        return sample(nullOrBlank(), string);
     }
 
     /**
