@@ -26,4 +26,12 @@ class Person {
     }
 
     String username() { return username; }
+
+    private static final int USERNAME_MAX_LENGTH = 50;
+    void validate() throws IllegalStateException {
+        if (StringUtils.isBlank(username()))
+            throw new IllegalStateException("Java Constraints violation: username is mandatory! Passed: [" + username() + "]");
+        if (username().length() > USERNAME_MAX_LENGTH)
+            throw new IllegalStateException("Java Constraints violation: username [" + username() + "] cannot be more than 100 bytes!");
+    }
 }

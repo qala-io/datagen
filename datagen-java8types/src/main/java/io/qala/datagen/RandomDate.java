@@ -3,7 +3,6 @@ package io.qala.datagen;
 import java.time.*;
 import java.time.chrono.ChronoLocalDateTime;
 import java.time.chrono.ChronoZonedDateTime;
-import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +11,7 @@ import static io.qala.datagen.RandomValue.upTo;
 import static java.time.temporal.ChronoUnit.HOURS;
 import static java.time.temporal.ChronoUnit.SECONDS;
 
+@SuppressWarnings("WeakerAccess")
 public class RandomDate {
     private Instant from = LocalDateTime.MIN.toInstant(systemOffset());
     private Instant to = LocalDateTime.MAX.toInstant(systemOffset());

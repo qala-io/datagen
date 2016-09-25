@@ -8,7 +8,9 @@ as well improving the coverage. Just _some_ use cases for randomization:
 * [Combinatorial Testing](./datagen-examples/combinatorial.md) - helps reducing the number of test cases you need 
 to write and run
 * [Fighting with Unique Constraints](./datagen-examples/unique-constraints.md) - a test registered a user with unique 
-username? The next time you run the test it fails because such user already exists.  
+username? The next time you run the test it fails because such user already exists.
+* ["Wow, I didn't know about that"](./datagen-examples/wow-i-did-not-know-that.md) effect - sometimes randomization
+may discover tricky cases that you couldn't think of.
 
 ### Strings
 ```java

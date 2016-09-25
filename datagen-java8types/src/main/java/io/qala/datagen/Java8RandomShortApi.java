@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class Java8RandomShortApi {
 
     /**
