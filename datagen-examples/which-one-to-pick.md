@@ -44,3 +44,11 @@ table by one of the team members.
     new Person(english(1, 50)).country(Country.random()).validate();
 }
 ```
+
+`Country.random()` method:
+
+```java
+public static Country random() {
+    return sample(values());
+}
+```
