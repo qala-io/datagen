@@ -268,6 +268,14 @@ public class RandomValueTest {
         @Test void alwaysReturnsFalseIfProbabilityOfTrueIs0() {
             assertFalse(weighedTrue(0));
         }
+        @Test void weighedTrueCanReturnsTrue_sometimes() {
+            for(int i = 0; i < 50; i++) if(weighedTrue(.5)) return;
+            fail("weighedTrue() had to return True at least once, but it didn't");
+        }
+        @Test void weighedTrueCanReturnsFalse_sometimes() {
+            for(int i = 0; i < 50; i++) if(!weighedTrue(.5)) return;
+            fail("weighedTrue() had to return False at least once, but it didn't");
+        }
         private void assertArrayContains(boolean[] array, boolean element) {
             for (boolean anArray : array) {
                 if (anArray == element) return;

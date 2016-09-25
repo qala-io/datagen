@@ -32,6 +32,7 @@ import java.util.Random;
  * <p>#ThreadSafe#</p>
  * @since 1.0
  */
+@SuppressWarnings("WeakerAccess")
 public class CommonsLang3RandomStringUtils {
 
     /**

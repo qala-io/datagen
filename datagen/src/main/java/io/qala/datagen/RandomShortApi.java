@@ -16,8 +16,8 @@ import static io.qala.datagen.RandomValue.*;
  */
 @SuppressWarnings({"WeakerAccess", "Convert2Diamond", "Convert2streamapi"})
 public class RandomShortApi {
-    private RandomShortApi() {
-    }
+    private RandomShortApi() {}
+
     public static int integer(int max) {
         return upTo(max).integer();
     }

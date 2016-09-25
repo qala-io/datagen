@@ -17,6 +17,7 @@ import static io.qala.datagen.RandomValue.*;
  * add a special symbol, but then {@link Impls#spaces()} could replace it with the space. So be careful when using
  * multiple modifiers at the same time.</p>
  */
+@SuppressWarnings("WeakerAccess")
 public interface StringModifier {
     String modify(String original);
 

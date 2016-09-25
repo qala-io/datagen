@@ -1,5 +1,7 @@
 package io.qala.datagen;
 
+
+@SuppressWarnings("WeakerAccess")
 public class Vocabulary {
     /** Can be globally overwritten for your particular project. */
     public static String SPECIAL_SYMBOLS = "!@#$%^&*()_+{}[]'\"|:?><~`§\\,/;.";
