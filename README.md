@@ -11,6 +11,8 @@ to write and run
 username? The next time you run the test it fails because such user already exists.
 * ["Wow, I didn't know about that"](./datagen-examples/wow-i-did-not-know-that.md) effect - sometimes randomization
 may discover tricky cases that you couldn't think of.
+* [Which one to pick?](./datagen-examples/which-one-to-pick.md) - often when choosing test data there is no clear winner
+of what value to pick. Randomization helps with that and ensures we're not prone to Pesticides Effect. 
 
 ### Strings
 ```java

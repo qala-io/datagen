@@ -27,6 +27,11 @@ class Person {
 
     String username() { return username; }
 
+    @SuppressWarnings("UnusedParameters")//this is an example that doesn't actually save anything
+    Person country(Country country) {
+        return this;
+    }
+
     private static final int USERNAME_MAX_LENGTH = 50;
     void validate() throws IllegalStateException {
         if (StringUtils.isBlank(username()))
