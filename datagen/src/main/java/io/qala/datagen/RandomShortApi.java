@@ -348,7 +348,7 @@ public class RandomShortApi {
      */
     @Deprecated
     public static void oneOf(Function... functions) {
-        sample(functions).call();
+        callOneOf(functions);
     }
 
     /**
@@ -359,8 +359,7 @@ public class RandomShortApi {
      */
     @Deprecated
     public static void noneOrMore(Function... functions) {
-        List<Function> toCall = sampleMultiple(integer(functions.length), functions);
-        for (Function function : toCall) function.call();
+        callNoneOrMore(functions);
     }
 
     /**
@@ -371,7 +370,6 @@ public class RandomShortApi {
      */
     @Deprecated
     public static void oneOrMore(Function... functions) {
-        List<Function> toCall = sampleMultiple(integer(1, functions.length), functions);
-        for (Function function : toCall) function.call();
+        callOneOrMore(functions);
     }
 }
