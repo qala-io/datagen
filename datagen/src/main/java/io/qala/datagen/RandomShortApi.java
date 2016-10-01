@@ -38,6 +38,11 @@ public class RandomShortApi {
         return CommonsMath4.nextUniform(RANDOM, Long.MIN_VALUE, Long.MAX_VALUE, true);
     }
 
+    /**
+     * Creates double that's {@code >=} 0.
+     *
+     * @return double that's {@code >=} 0
+     */
     public static double positiveDouble() {
         return Double(Long.MAX_VALUE);
     }
@@ -48,6 +53,15 @@ public class RandomShortApi {
 
     public static double Double(double max) {
         return CommonsMath4.nextUniform(RANDOM, 0, max, true);
+    }
+
+    /**
+     * Returns double that's greater than what was specified.
+     * @param from lower boundary
+     * @return double that's greater than what was specified
+     */
+    static double greaterDouble(double from) {//todo: not released!
+        return Double(from + Double.MIN_VALUE, Long.MAX_VALUE);
     }
 
     /**

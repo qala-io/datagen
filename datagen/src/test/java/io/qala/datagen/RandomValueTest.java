@@ -101,6 +101,10 @@ public class RandomValueTest {
             for(int i = 0; i < 50; i++) if(Double() < 0) return;
             fail("Random Double should've returned a negative number at least once");
         }
+        @Test void returnsDoubleGreaterThanTheSpecifiedOne() {
+            double original = Long.MAX_VALUE - 10000;
+            assertThat(original, lessThan(greaterDouble(original)));
+        }
 
         @Test void throwsIfBoundariesEqual() {
             long boundary = Long();
