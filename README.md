@@ -167,16 +167,16 @@ nullableBool()
 import static io.qala.datagen.RandomShortApi.*;
 Person person = new Person();
 
-oneOf(() -> person.firstName = english(5),
-      () -> person.lastName = english(5));
+callOneOf(() -> person.firstName = english(5),
+          () -> person.lastName = english(5));
 > Person[null, "PDGRq"]
       
-noneOrMore(() -> person.firstName = english(5),
-           () -> person.lastName = english(5));
+callNoneOrMore(() -> person.firstName = english(5),
+               () -> person.lastName = english(5));
 > Person[null, null]      
 
-oneOrMore(() -> person.firstName = english(5),
-          () -> person.lastName = english(5));
+callOneOrMore(() -> person.firstName = english(5),
+              () -> person.lastName = english(5));
 > Person["LjxYh", "UXoBt"]
 ```
 
