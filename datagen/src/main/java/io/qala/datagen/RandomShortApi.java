@@ -323,7 +323,6 @@ public class RandomShortApi {
      *
      * @param functions functions to choose from for invocation
      */
-    @Deprecated
     public static void callNoneOrMore(Function... functions) {
         List<Function> toCall = sampleMultiple(integer(functions.length), functions);
         for (Function function : toCall) function.call();
@@ -333,7 +332,6 @@ public class RandomShortApi {
      * Invokes one or more of the specified functions. This is an API for Java8 Lambdas.
      *
      * @param functions functions to choose from for invocation
-     * @deprecated use callOneOrMore()
      */
     public static void callOneOrMore(Function... functions) {
         List<Function> toCall = sampleMultiple(integer(1, functions.length), functions);
