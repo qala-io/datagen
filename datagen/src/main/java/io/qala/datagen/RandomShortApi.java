@@ -314,7 +314,7 @@ public class RandomShortApi {
      *
      * @param functions functions to choose from for invocation
      */
-    public static void oneOf(Function... functions) {
+    public static void callOneOf(Function... functions) {
         sample(functions).call();
     }
 
@@ -323,6 +323,41 @@ public class RandomShortApi {
      *
      * @param functions functions to choose from for invocation
      */
+    @Deprecated
+    public static void callNoneOrMore(Function... functions) {
+        List<Function> toCall = sampleMultiple(integer(functions.length), functions);
+        for (Function function : toCall) function.call();
+    }
+
+    /**
+     * Invokes one or more of the specified functions. This is an API for Java8 Lambdas.
+     *
+     * @param functions functions to choose from for invocation
+     * @deprecated use callOneOrMore()
+     */
+    public static void callOneOrMore(Function... functions) {
+        List<Function> toCall = sampleMultiple(integer(1, functions.length), functions);
+        for (Function function : toCall) function.call();
+    }
+
+    /**
+     * Invokes one and only one of the specified functions. This is an API for Java8 Lambdas.
+     *
+     * @param functions functions to choose from for invocation
+     * @deprecated use callOneOf()
+     */
+    @Deprecated
+    public static void oneOf(Function... functions) {
+        sample(functions).call();
+    }
+
+    /**
+     * May invoke 0, 1 or more functions from the specified list.
+     *
+     * @param functions functions to choose from for invocation
+     * @deprecated use callNoneOrMore()
+     */
+    @Deprecated
     public static void noneOrMore(Function... functions) {
         List<Function> toCall = sampleMultiple(integer(functions.length), functions);
         for (Function function : toCall) function.call();
@@ -332,7 +367,9 @@ public class RandomShortApi {
      * Invokes one or more of the specified functions. This is an API for Java8 Lambdas.
      *
      * @param functions functions to choose from for invocation
+     * @deprecated use callOneOrMore()
      */
+    @Deprecated
     public static void oneOrMore(Function... functions) {
         List<Function> toCall = sampleMultiple(integer(1, functions.length), functions);
         for (Function function : toCall) function.call();

@@ -2,7 +2,7 @@ package io.qala.datagen.examples;
 
 import org.junit.Test;
 
-import static io.qala.datagen.NotReleasedAdaptor.greaterDouble;
+import static io.qala.datagen.NotReleasedFeatures.greaterDouble;
 import static io.qala.datagen.RandomShortApi.positiveDouble;
 import static io.qala.datagen.examples.OverageCalculation.overage;
 import static org.junit.Assert.assertEquals;

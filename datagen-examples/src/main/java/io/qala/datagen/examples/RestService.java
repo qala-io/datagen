@@ -18,4 +18,19 @@ class RestService {
         db.put(username, newPerson);
         return newPerson;
     }
+
+    Person searchByUsername(String username) {//a.k.a searching by query params
+        return db.get(username);
+    }
+    Person searchByUsername(SearchRequest req) {//a.k.a searching by request body
+        return db.get(req.username);
+    }
+
+    static class SearchRequest {
+        String username;
+
+        SearchRequest(String username) {
+            this.username = username;
+        }
+    }
 }
