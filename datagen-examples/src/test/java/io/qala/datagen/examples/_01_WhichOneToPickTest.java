@@ -3,10 +3,8 @@ package io.qala.datagen.examples;
 import org.junit.Test;
 
 import static io.qala.datagen.RandomShortApi.english;
-import static io.qala.datagen.RandomShortApi.sample;
-import static io.qala.datagen.RandomShortApi.unicode;
 
-public class WhichOneToPickTest {
+public class _01_WhichOneToPickTest {
     @Test public void usernameValidation_passesHappyPath_traditional() {
         new Person("John").validate();
     }

@@ -37,6 +37,6 @@ class Person {
         if (StringUtils.isBlank(username()))
             throw new IllegalStateException("Java Constraints violation: username is mandatory! Passed: [" + username() + "]");
         if (username().length() > USERNAME_MAX_LENGTH)
-            throw new IllegalStateException("Java Constraints violation: username [" + username() + "] cannot be more than 100 bytes!");
+            throw new IllegalStateException("Java Constraints violation: username [" + username() + "] cannot be more than " + USERNAME_MAX_LENGTH + "!");
     }
 }
