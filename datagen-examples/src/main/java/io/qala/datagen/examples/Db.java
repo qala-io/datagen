@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @SuppressWarnings("Convert2Diamond")
 class Db {
     private final Map<String, Person> db = new ConcurrentHashMap<String, Person>();
-    private static final int USERNAME_MAX_LENGTH = 128;
+    private static final int USERNAME_MAX_LENGTH = 32;
 
     Person save(Person newPerson) {
         newPerson.validate();

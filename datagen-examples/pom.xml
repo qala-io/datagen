@@ -21,5 +21,9 @@
             <groupId>io.qala.datagen</groupId>
             <artifactId>qala-datagen</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.qala.datagen</groupId>
+            <artifactId>qala-datagen-java8types</artifactId>
+        </dependency>
     </dependencies>
 </project>

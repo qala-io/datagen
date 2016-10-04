@@ -168,6 +168,11 @@
                 <artifactId>qala-datagen</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.qala.datagen</groupId>
+                <artifactId>qala-datagen-java8types</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>

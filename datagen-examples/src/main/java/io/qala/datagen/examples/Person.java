@@ -2,6 +2,9 @@ package io.qala.datagen.examples;
 
 import org.apache.commons.lang3.StringUtils;
 
+import static io.qala.datagen.RandomShortApi.blankOr;
+import static io.qala.datagen.RandomShortApi.english;
+
 class Person {
     private final String username;
     private String firstName;
@@ -32,11 +35,16 @@ class Person {
         return this;
     }
 
-    private static final int USERNAME_MAX_LENGTH = 50;
+    private static final int USERNAME_MAX_LENGTH = 20;
     void validate() throws IllegalStateException {
         if (StringUtils.isBlank(username()))
             throw new IllegalStateException("Java Constraints violation: username is mandatory! Passed: [" + username() + "]");
         if (username().length() > USERNAME_MAX_LENGTH)
             throw new IllegalStateException("Java Constraints violation: username [" + username() + "] cannot be more than " + USERNAME_MAX_LENGTH + "!");
+    }
+
+    static Person random() {
+        return new Person(english(1, 20)).country(Country.random())
+                .firstName(blankOr(english(1, 20))).lastName(blankOr(english(1, 20)));
     }
 }

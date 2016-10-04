@@ -9,13 +9,13 @@ public class _01_WhichOneToPickTest {
         new Person("John").validate();
     }
     @Test public void usernameValidation_passesHappyPath_randomization() {
-        new Person(english(1, 50)).validate();
+        new Person(english(1, 20)).validate();
     }
 
     @Test public void countryValidation_passesHappyPath_traditional() {
         new Person("John").country(Country.US).validate();
     }
     @Test public void countryValidation_passesHappyPath_randomization() {
-        new Person(english(1, 50)).country(Country.random()).validate();
+        new Person(english(1, 20)).country(Country.random()).validate();
     }
 }
