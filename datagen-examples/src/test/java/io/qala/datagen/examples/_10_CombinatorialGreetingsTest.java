@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
  * If either first name or last name is blank (or both) then in greetings use username. E.g. "Hello, admin".
  * Otherwise greet with last and first name. E.g. "Hello, Mickey Mouse".
  */
-public class _03_CombinatorialGreetingsTest {
+public class _10_CombinatorialGreetingsTest {
     @Test public void ifOneOrBoth_firstAndLastName_isBlank_greetWithUsername() {
         String firstName = blankOr(english(1, 10));
         String lastName = isBlank(firstName) ? blankOr(english(10)) : nullOrBlank();

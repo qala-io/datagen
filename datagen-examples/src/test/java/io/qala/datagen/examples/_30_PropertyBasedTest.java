@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 /**
  * Source: <a href="http://fsharpforfunandprofit.com/posts/property-based-testing/">click</a>
  */
-public class _07_PropertyBasedTest {
+public class _30_PropertyBasedTest {
     @Test public void orderDoesNotMatter() {
         int a = integer(), b = integer();
         assertEquals(MyMath.sum(a, b), MyMath.sum(b, a));

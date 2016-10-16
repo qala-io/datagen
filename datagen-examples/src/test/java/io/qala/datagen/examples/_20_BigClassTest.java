@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 
 import static io.qala.datagen.RandomShortApi.numeric;
 
-public class _05_BigClassTest {
+public class _20_BigClassTest {
     @Test public void accountNumberValidation_passesForHappyPath() {
         Account account = new Account();
         account.setCreatedTime(ZonedDateTime.now().minus(100, ChronoUnit.DAYS));

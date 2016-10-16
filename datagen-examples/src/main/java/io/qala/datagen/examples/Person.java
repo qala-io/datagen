@@ -6,9 +6,10 @@ import static io.qala.datagen.RandomShortApi.blankOr;
 import static io.qala.datagen.RandomShortApi.english;
 
 class Person {
-    private final String username;
+    private String username;
     private String firstName;
     private String lastName;
+    private Country country;
 
     public Person(String username) { this.username = username; }
 
@@ -22,17 +23,26 @@ class Person {
         this.firstName = firstName;
         return this;
     }
+    String firstName() {
+        return firstName;
+    }
 
     Person lastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
+    String lastName() {
+        return lastName;
+    }
 
     String username() { return username; }
 
-    @SuppressWarnings("UnusedParameters")//this is an example that doesn't actually save anything
-    Person country(Country country) {
+    Person country(Country country) {//String - not Country
+        this.country = country;
         return this;
+    }
+    Country country() {
+        return country;
     }
 
     private static final int USERNAME_MAX_LENGTH = 20;

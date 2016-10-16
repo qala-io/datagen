@@ -8,7 +8,7 @@ import static io.qala.datagen.examples.OverageCalculation.overage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class _08_HomeMadePropertyBasedTest {
+public class _35_HomeMadePropertyBasedTest {
     @Test public void overageExamples() {
         assertEquals(.3333, overage(9, 12), .0001);
         assertEquals(-.25, overage(12, 9), .0001);

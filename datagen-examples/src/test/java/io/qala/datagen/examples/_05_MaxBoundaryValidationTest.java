@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static io.qala.datagen.RandomShortApi.unicode;
 
-public class _02_MaxBoundaryValidationTest {
+public class _05_MaxBoundaryValidationTest {
     private Db db = new Db();
 
     @Test public void usernameValidation_passesForMaxBoundary_inTraditionalApproach() {

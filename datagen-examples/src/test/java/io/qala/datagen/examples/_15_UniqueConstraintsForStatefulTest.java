@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
  * hardcoded, the 2nd time you run it the test will fail since the records in DB are persisted between multiple test
  * runs.
  */
-public class _04_UniqueConstraintsForStatefulTest {
+public class _15_UniqueConstraintsForStatefulTest {
     @Test public void canRegisterNewUser() {
         String username = alphanumeric(1, 20);
         RestService.instance.save(new Person(username));

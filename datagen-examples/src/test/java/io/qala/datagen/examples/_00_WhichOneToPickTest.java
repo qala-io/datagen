@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static io.qala.datagen.RandomShortApi.english;
 
-public class _01_WhichOneToPickTest {
+public class _00_WhichOneToPickTest {
     @Test public void usernameValidation_passesHappyPath_traditional() {
         new Person("John").validate();
     }

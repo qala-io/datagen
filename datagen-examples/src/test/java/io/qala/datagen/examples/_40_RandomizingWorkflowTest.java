@@ -5,7 +5,7 @@ import org.junit.Test;
 import static io.qala.datagen.RandomShortApi.*;
 import static org.junit.Assert.assertEquals;
 
-public class _09_RandomizingWorkflowTest {
+public class _40_RandomizingWorkflowTest {
 
     @Test public void findsPersonByUsername_inSearchApi() {
         Person person = new Person(english(1, 50));
