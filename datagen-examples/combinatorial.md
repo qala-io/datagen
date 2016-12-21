@@ -42,7 +42,7 @@ Given person with `Username`, `First Name`, `Last Name`:
 
 ## Resume 
 
-See **[example in JUnit + Datagen](./src/test/java/io/qala/datagen/examples/CombinatorialGreetingsTest.java)**
+See **[example in JUnit + Datagen](./src/test/java/io/qala/datagen/examples/_10_CombinatorialGreetingsTest.java)**
 
 **Bonuses** that you get from randomization:
 

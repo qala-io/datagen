@@ -23,7 +23,7 @@ class Db {
         if (StringUtils.isBlank(username))
             throw new IllegalArgumentException("DB Constraints violation: username is mandatory! Passed: [" + username + "]");
         if (nOfBytes(username) > USERNAME_MAX_LENGTH)
-            throw new IllegalStateException("DB Constraints violation: username [" + username + "] cannot exceed " + USERNAME_MAX_LENGTH + " bytes!");
+            throw new IllegalStateException("java.sql.SQLException: ORA-01461: can bind a LONG value only for insert into a LONG column");
         if (db.containsKey(username))
             throw new IllegalArgumentException("DB Unique constraint violation for username: " + username);
     }

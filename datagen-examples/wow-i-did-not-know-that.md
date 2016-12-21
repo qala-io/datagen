@@ -51,4 +51,4 @@ is larger than 128 (our DB constraint).
 Randomization may find very tricky situations that not everyone may know of. Whether those are bugs or not - that's a
 question to the BAs, but we probably want to be aware of them.
 
-Check out [the unicode example in Java](./src/test/java/io/qala/datagen/examples/ValidationTest.java).
+Check out [the unicode example in Java](./src/test/java/io/qala/datagen/examples/_05_MaxBoundaryValidationTest.java).
