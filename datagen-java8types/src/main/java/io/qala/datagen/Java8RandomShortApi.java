@@ -1,13 +1,10 @@
 package io.qala.datagen;
 
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "SameParameterValue"})
 public class Java8RandomShortApi {
 
     /**
@@ -35,6 +32,13 @@ public class Java8RandomShortApi {
 
     public static List<ZonedDateTime> zonedDateTimes(int nOfTimes) {
         return new RandomDate().zonedDateTimes(nOfTimes);
+    }
+    public static OffsetDateTime offsetDateTime() {
+        return new RandomDate().offsetDateTime();
+    }
+
+    public static List<OffsetDateTime> offsetDateTimes(int nOfTimes) {
+        return new RandomDate().offsetDateTime(nOfTimes);
     }
 
     public static LocalDate localDate() {

@@ -16,44 +16,25 @@ import static org.hamcrest.Matchers.*;
 @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
 public class Java8RandomShortApiTest {
 
-    @Test void instantCanBeBothBeforeAndAfterNow() {
+    @Test void temporalCanBeBothBeforeAndAfterNow() {
         Instant now = Instant.now();
-        assertThat(instants(500), hasItem(greaterThan(now)));
-        assertThat(instants(500), hasItem(lessThan(now)));
-    }
 
-    @Test void localDateCanBeBothBeforeAndAfterNow() {
-        LocalDate now = LocalDate.now();
-        assertThat(localDates(500), hasItem(greaterThan(now)));
-        assertThat(localDates(500), hasItem(lessThan(now)));
-    }
-
-    @Test void localDateTimeCanBeBothBeforeAndAfterNow() {
-        LocalDateTime now = LocalDateTime.now();
-        assertThat(localDateTimes(500), hasItem(greaterThan(now)));
-        assertThat(localDateTimes(500), hasItem(lessThan(now)));
-    }
-
-    @Test void zonedDateTimeCanBeBothBeforeAndAfterNow() {
-        ZonedDateTime now = ZonedDateTime.now();
-        assertThat(zonedDateTimes(500), hasItem(greaterThan(now)));
-        assertThat(zonedDateTimes(500), hasItem(lessThan(now)));
+        assertThat(instants(50), allOf(hasItem(greaterThan(now)), hasItem(lessThan(now))));
+        assertThat(localDates(50), allOf(hasItem(greaterThan(toLocalDate(now))), hasItem(lessThan(toLocalDate(now)))));
+        assertThat(localDateTimes(50), allOf(hasItem(greaterThan(toLocal(now))), hasItem(lessThan(toLocal(now)))));
+        assertThat(zonedDateTimes(50), allOf(hasItem(greaterThan(toZoned(now))), hasItem(lessThan(toZoned(now)))));
+        assertThat(offsetDateTimes(50), allOf(hasItem(greaterThan(toOffsetted(now))), hasItem(lessThan(toOffsetted(now)))));
     }
 
     @Test void generatesTemporalsBetween() {
         Instant from = instant();
         Instant to = from.plusSeconds(upTo(100000L).Long());
-        assertThat(between(from, to).instant(), greaterThanOrEqualTo(from));
-        assertThat(between(from, to).instant(), lessThanOrEqualTo(to));
 
-        assertThat(between(from, to).zonedDateTime(), greaterThanOrEqualTo(toZoned(from)));
-        assertThat(between(from, to).zonedDateTime(), lessThanOrEqualTo(toZoned(to)));
-
-        assertThat(between(from, to).localDateTime(), greaterThanOrEqualTo(toLocal(from)));
-        assertThat(between(from, to).localDateTime(), lessThanOrEqualTo(toLocal(to)));
-
-        assertThat(between(from, to).localDate(), greaterThanOrEqualTo(toLocalDate(from)));
-        assertThat(between(from, to).localDate(), lessThanOrEqualTo(toLocalDate(to)));
+        assertThat(between(from, to).instant(), allOf(greaterThanOrEqualTo(from), lessThanOrEqualTo(to)));
+        assertThat(between(from, to).zonedDateTime(), allOf(greaterThanOrEqualTo(toZoned(from)), lessThanOrEqualTo(toZoned(to))));
+        assertThat(between(from, to).offsetDateTime(), allOf(greaterThanOrEqualTo(toOffsetted(from)), lessThanOrEqualTo(toOffsetted(to))));
+        assertThat(between(from, to).localDateTime(), allOf(greaterThanOrEqualTo(toLocal(from)), lessThanOrEqualTo(toLocal(to))));
+        assertThat(between(from, to).localDate(), allOf(greaterThanOrEqualTo(toLocalDate(from)), lessThanOrEqualTo(toLocalDate(to))));
     }
     @Test void generatesTemporalsBetweenStrings() {
         String from = "2007-12-03T10:15:30+01:00[Europe/Paris]";
@@ -98,6 +79,9 @@ public class Java8RandomShortApiTest {
 
     private ZonedDateTime toZoned(Instant instant) {
         return ZonedDateTime.ofInstant(instant, ZoneId.systemDefault());
+    }
+    private OffsetDateTime toOffsetted(Instant instant) {
+        return OffsetDateTime.ofInstant(instant, ZoneId.systemDefault());
     }
     private ZonedDateTime toZoned(String string) {
         return ZonedDateTime.parse(string);

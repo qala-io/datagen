@@ -129,7 +129,12 @@ public class RandomDate {
     public List<ZonedDateTime> zonedDateTimes(int nOfTimes) {
         return multiply(nOfTimes, this::zonedDateTime);
     }
-
+    public OffsetDateTime offsetDateTime() {
+        return zonedDateTime().toOffsetDateTime();
+    }
+    public List<OffsetDateTime> offsetDateTime(int nOfTimes) {
+        return multiply(nOfTimes, this::offsetDateTime);
+    }
     public LocalDate localDate() {
         return localDateTime().toLocalDate();
     }
