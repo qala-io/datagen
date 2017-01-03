@@ -147,6 +147,14 @@ public class RandomShortApi {
         return between(min, max).unicode();
     }
 
+    /** @see RandomString#unicodeWithoutBoundarySpaces() */
+    public static String unicodeWithoutBoundarySpaces(int exactLength) {
+        return length(exactLength).unicodeWithoutBoundarySpaces();
+    }
+    /** @see RandomString#unicodeWithoutBoundarySpaces() */
+    public static String unicodeWithoutBoundarySpaces(int min, int max) {
+        return between(min, max).unicodeWithoutBoundarySpaces();
+    }
     public static String specialSymbols(int exactLength) {
         return length(exactLength).specialSymbols();
     }

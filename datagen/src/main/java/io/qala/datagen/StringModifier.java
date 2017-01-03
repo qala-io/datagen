@@ -33,7 +33,7 @@ public interface StringModifier {
         }
     }
 
-    class Impls {
+    @SuppressWarnings("SameParameterValue") class Impls {
         private Impls() {}
         public static StringModifier spaces() {
             return multipleOf(' ');
@@ -61,7 +61,7 @@ public interface StringModifier {
 
 
         public static StringModifier specialSymbol() {
-            /**
+            /*
              * You can customize what "special" means for your project by globally updating
              * {@link Vocabulary#SPECIAL_SYMBOLS}.
              * @return modifies random string by introducing special characters inside it
@@ -149,5 +149,19 @@ public interface StringModifier {
                 }
             };
         }
+        public static StringModifier whitespaceReplacement(final String replacement) {
+            return new WithDefaultBatchModify() {
+                @Override public String modify(String original) {
+                    StringBuilder stringBuilder = new StringBuilder(original);
+                    for(int i = 0; i < original.length(); i++) {
+                        if (Character.isWhitespace(original.charAt(i))) {
+                            stringBuilder.replace(i, i, replacement);
+                        }
+                    }
+                    return stringBuilder.toString();
+                }
+            };
+        }
+
     }
 }

@@ -4,8 +4,13 @@ Change Log
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project SOMEWHAT (but not strictly) 
 adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## [release-1.9.4] - 2017-01-03
 ### Added
+* `unicodeWithoutBoundarySpaces()`
+
+## [release-1.9.3] - 2017-01-02
+### Added
+* Support for `OffsetDateTime`
 * `greaterDouble()`
 
 ## [release-1.9.2] - 2016-10-01

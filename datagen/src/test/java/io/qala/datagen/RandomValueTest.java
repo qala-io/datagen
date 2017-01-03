@@ -145,12 +145,10 @@ public class RandomValueTest {
             assertThat(length(100).english(), not(containsNonAlphanumerics()));
             assertThat(english(100), not(containsNonAlphanumerics()));
         }
-
-        @Test void createsUnicodeStringThatContainsNonAlphanumerics() {
+        @Test public void createsUnicodeStringThatContainsNonAlphanumerics() {
             assertThat(length(1000).unicode(), containsNonAlphanumerics());
-            assertThat(unicode(0, 1000), containsNonAlphanumerics());
+            assertThat(unicode(100, 1000), containsNonAlphanumerics());
         }
-
         @Test void createsStringWithSpecialSymbols() {
             assertThat(length(1000).specialSymbols(), containsString(","));
             assertThat(RandomShortApi.specialSymbols(1000), containsString(","));
@@ -212,6 +210,15 @@ public class RandomValueTest {
         }
         @Test void doesNotDamageRestOfStringIfSpacesAddedAtTheEnd() {
             assertThat(length(10).with(spacesRight(2)).alphanumeric().substring(0, 8), not(containsString(" ")));
+        }
+        @Test void returnsNoSpacesAtBorders_ifUnicodeWithSuchReqsRequested() {
+            String original = unicodeWithoutBoundarySpaces(2);
+            assertFalse(Character.isWhitespace(original.codePointAt(0)));
+            assertFalse(Character.isWhitespace(original.codePointAt(1)));
+
+            original = unicodeWithoutBoundarySpaces(2, 5);
+            assertFalse(Character.isWhitespace(original.codePointAt(0)));
+            assertFalse(Character.isWhitespace(original.codePointAt(original.length() - 1)));
         }
 
         @Test void createsMultipleStringsInBatchMode() {

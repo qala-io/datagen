@@ -56,6 +56,13 @@ public interface RandomString {
     String unicode();
 
     /**
+     * Generates a {@link #unicode()} that doesn't have leading or trailing whitespaces. Whitespaces are defined by
+     * {@link Character#isWhitespace(char)}.
+     *
+     * @return a unicode string that is guaranteed not to have whitespaces both at the beginning and at the end
+     */
+    String unicodeWithoutBoundarySpaces();
+    /**
      * You can customize what "special" means for your project by globally updating {@link Vocabulary#SPECIAL_SYMBOLS}.
      * @return a string consisting of special characters only
      */
