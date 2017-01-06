@@ -105,13 +105,18 @@ public class RandomValue implements RandomString {
     @Override public String unicodeWithoutBoundarySpaces() {
         String s = applyStringModifiers(CommonsLang3RandomStringUtils.random(integer()));
         int lastIndex = s.length() - 1;
-        if(Character.isWhitespace(s.charAt(0)) || Character.isWhitespace(s.charAt(lastIndex))) {
+        if(isWhitespace(s.charAt(0)) || isWhitespace(s.charAt(lastIndex))) {
             char[] characters = s.toCharArray();
             if(Character.isWhitespace(characters[0])) characters[0] = length(1).alphanumeric().charAt(0);
             if(Character.isWhitespace(characters[lastIndex])) characters[lastIndex] = length(1).alphanumeric().charAt(0);
             s = String.valueOf(characters);
         }
         return s;
+    }
+
+    /** See {@link RandomString#unicodeWithoutBoundarySpaces()}. */
+    private static boolean isWhitespace(int codePoint) {
+        return Character.isWhitespace(codePoint) || Character.isSpaceChar(codePoint) || codePoint < ' ';
     }
 
     @Override public String string(char... vocabulary) {

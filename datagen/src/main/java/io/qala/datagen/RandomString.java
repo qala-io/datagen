@@ -56,9 +56,25 @@ public interface RandomString {
     String unicode();
 
     /**
-     * Generates a {@link #unicode()} that doesn't have leading or trailing whitespaces. Whitespaces are defined by
-     * {@link Character#isWhitespace(char)}.
-     *
+     * Generates a {@link #unicode()} that doesn't have leading or trailing whitespaces. A character is a whitespaces
+     * if:
+     * <ul>
+     *     <li>It's a {@link Character#isWhitespace(int)} which is a Java's personal definition of a whitespace.</li>
+     *     <li>It's a {@link Character#isSpaceChar(int)}.</li>
+     *     <li>It's a control ACII character (<20)</li>
+     * </ul>
+     * This is done because in Java there is bugs (they call them features) related to whitespaces:
+     * <ul>
+     *     <li>Their definition is not always compatible with Unicode notion of a whitespace (especially
+     *     {@link Character#isWhitespace(int)}, but also {@link Character#isSpaceChar(char)}</li>
+     *     <li>{@link String#trim()} ignores all the notions of the whitespace and introduces its own which is not
+     *     compatible neither with Unicode nor with Character class. For this method
+     *     "whitespace"=="control ASCII symbol".</li>
+     * </ul>
+     * So to please everyone all these kinds of the whitespaces are trimmed (except for some Unicode characters that
+     * Java doesn't recognize as whitespaces at all), see
+     * <a href="https://closingbraces.net/2008/11/11/javastringtrim/">Java’s String.trim has a strange idea of whitespace</a>
+     * for more details.
      * @return a unicode string that is guaranteed not to have whitespaces both at the beginning and at the end
      */
     String unicodeWithoutBoundarySpaces();

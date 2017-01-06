@@ -220,6 +220,10 @@ public class RandomValueTest {
             assertFalse(Character.isWhitespace(original.codePointAt(0)));
             assertFalse(Character.isWhitespace(original.codePointAt(original.length() - 1)));
         }
+        @Test void trimDoesNotChange_unicodeWithoutSpacesStrings() {
+            String original = unicodeWithoutBoundarySpaces(2);
+            assertEquals(original, original.trim());
+        }
 
         @Test void createsMultipleStringsInBatchMode() {
             List<String> alphanumerics = upTo(10).alphanumerics(5);
