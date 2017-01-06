@@ -61,7 +61,7 @@ public interface RandomString {
      * <ul>
      *     <li>It's a {@link Character#isWhitespace(int)} which is a Java's personal definition of a whitespace.</li>
      *     <li>It's a {@link Character#isSpaceChar(int)}.</li>
-     *     <li>It's a control ACII character (<20)</li>
+     *     <li>It's a control ACII character ({@code <20} in ACII table)</li>
      * </ul>
      * This is done because in Java there is bugs (they call them features) related to whitespaces:
      * <ul>
