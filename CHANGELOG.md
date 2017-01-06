@@ -4,7 +4,12 @@ Change Log
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project SOMEWHAT (but not strictly) 
 adheres to [Semantic Versioning](http://semver.org/).
 
-## [release-1.9.4] - 2017-01-03
+## [release-1.10.1] - 2017-01-06
+### Fixed
+* `unicodeWithoutBoundarySpaces()` returned symbols that were treated as whitespaces by `String#trim()`. Now these 
+symbols are also not returned by the method (as well as `Character#isWhitespace()` and `Character#isSpaceChar()`). 
+
+## [release-1.10.0] - 2017-01-03
 ### Added
 * `unicodeWithoutBoundarySpaces()`
 
