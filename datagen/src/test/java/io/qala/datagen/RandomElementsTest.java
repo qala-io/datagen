@@ -1,9 +1,7 @@
 package io.qala.datagen;
 
-import org.junit.gen5.api.DisplayName;
-import org.junit.gen5.api.Test;
-import org.junit.gen5.junit4.runner.JUnit5;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.List;
@@ -16,14 +14,9 @@ import static io.qala.datagen.RandomValue.upTo;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.fail;
-import static org.junit.gen5.api.Assertions.assertEquals;
-import static org.junit.gen5.api.Assertions.assertThrows;
-import static org.junit.gen5.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(JUnit5.class)
 @DisplayName("Random Elements")
-@SuppressWarnings("unused")
 public class RandomElementsTest {
     @Test void canSampleTheOnlyElementOfList() {
         assertEquals("ABC", from("ABC").sample());

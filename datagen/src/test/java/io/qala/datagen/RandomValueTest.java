@@ -1,10 +1,9 @@
 package io.qala.datagen;
 
-import org.junit.gen5.api.DisplayName;
-import org.junit.gen5.api.Nested;
-import org.junit.gen5.api.Test;
-import org.junit.gen5.junit4.runner.JUnit5;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -20,14 +19,11 @@ import static io.qala.datagen.RandomValue.*;
 import static io.qala.datagen.StringModifier.Impls.*;
 import static io.qala.datagen.StringModifier.Impls.oneOf;
 import static io.qala.datagen.Vocabulary.specialSymbols;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
-import static org.junit.gen5.api.Assertions.assertThrows;
-import static org.junit.gen5.api.Assertions.assertTrue;
-import static org.junit.gen5.api.Assertions.expectThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(JUnit5.class)
-@SuppressWarnings({"ThrowableResultOfMethodCallIgnored", "unused"})
+@SuppressWarnings({"ThrowableResultOfMethodCallIgnored", "unchecked"})
 public class RandomValueTest {
     @Nested @DisplayName("Integer Generator") class Integers {
         @Test void returnsPositiveIntegers() {
@@ -48,10 +44,10 @@ public class RandomValueTest {
         }
 
         @Test void throwsIfMaxBoundaryGreaterThanInteger() {
-            expectThrows(NumberOutOfBoundaryException.class, () -> upTo(GREATER_THAN_MAX_INT).integer());
+            assertThrows(NumberOutOfBoundaryException.class, () -> upTo(GREATER_THAN_MAX_INT).integer());
         }
         @Test void throwsIfMinBoundaryLessThanInteger() {
-            expectThrows(NumberOutOfBoundaryException.class, () -> between(LESS_THAN_INT_MIN, LESS_THAN_INT_MIN).integer());
+            assertThrows(NumberOutOfBoundaryException.class, () -> between(LESS_THAN_INT_MIN, LESS_THAN_INT_MIN).integer());
         }
     }
 
@@ -108,10 +104,10 @@ public class RandomValueTest {
 
         @Test void throwsIfBoundariesEqual() {
             long boundary = Long();
-            expectThrows(IllegalArgumentException.class, () -> Double(boundary, boundary));
+            assertThrows(IllegalArgumentException.class, () -> Double(boundary, boundary));
         }
         @Test void throwsIfLowerIsGreaterThanUpper() {
-            expectThrows(IllegalArgumentException.class, () -> Double(1, 0));
+            assertThrows(IllegalArgumentException.class, () -> Double(1, 0));
         }
     }
 
@@ -173,7 +169,7 @@ public class RandomValueTest {
         @Test void doesNotModifyLengthIfAddsMultipleChars() {
             assertThat(length(100).with(multipleOf("!!_#")).english().length(), equalTo(100));
         }
-        @SuppressWarnings("unchecked")
+
         @Test void addsSymbolsOccasionally() {
             List<String> alphanumerics = length(5).with(occasional("!#")).alphanumerics(500);
             assertThat(alphanumerics, hasItems(containsString("!")));
@@ -240,7 +236,7 @@ public class RandomValueTest {
         }
 
         @Test void throwsIfMinBoundaryIsNegative() {
-            expectThrows(NumberOutOfBoundaryException.class, () -> between(-1, 10).alphanumeric());
+            assertThrows(NumberOutOfBoundaryException.class, () -> between(-1, 10).alphanumeric());
         }
     }
     @Nested @DisplayName("Date Generator") class Dates {

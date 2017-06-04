@@ -1,8 +1,6 @@
 package io.qala.datagen;
 
-import org.junit.gen5.api.Test;
-import org.junit.gen5.junit4.runner.JUnit5;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
 import java.time.*;
 
@@ -12,7 +10,6 @@ import static io.qala.datagen.RandomValue.upTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-@RunWith(JUnit5.class)
 @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
 public class Java8RandomShortApiTest {
 

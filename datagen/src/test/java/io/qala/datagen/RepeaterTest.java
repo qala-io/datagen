@@ -1,18 +1,15 @@
 package io.qala.datagen;
 
-import org.junit.gen5.api.Test;
-import org.junit.gen5.junit4.runner.JUnit5;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
 import static io.qala.datagen.RandomString.Type.*;
 import static io.qala.datagen.RandomValue.*;
 import static io.qala.datagen.Repeater.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.matchesPattern;
-import static org.junit.gen5.api.Assertions.assertEquals;
-import static org.junit.gen5.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@RunWith(JUnit5.class)
 public class RepeaterTest {
     @Test void stringsAreRepeated() {
         assertEquals("", repeat("1-").times(0));

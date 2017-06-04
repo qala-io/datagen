@@ -16,18 +16,14 @@
  */
 package io.qala.datagen.adaptors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
 import java.util.Random;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests {@link io.qala.datagen.adaptors.CommonsLang3RandomStringUtils}.
@@ -52,80 +48,80 @@ public class CommonsLang3RandomStringUtilsTest {
     @Test
     public void testCommonsLang3RandomStringUtils() {
         String r1 = CommonsLang3RandomStringUtils.random(50);
-        assertEquals("random(50) length", 50, r1.length());
+        assertEquals(50, r1.length(), "random(50) length");
         String r2 = CommonsLang3RandomStringUtils.random(50);
-        assertEquals("random(50) length", 50, r2.length());
-        assertTrue("!r1.equals(r2)", !r1.equals(r2));
+        assertEquals(50, r2.length(), "random(50) length");
+        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
         
         r1 = CommonsLang3RandomStringUtils.randomAscii(50);
-        assertEquals("randomAscii(50) length", 50, r1.length());
+        assertEquals(50, r1.length(), "randomAscii(50) length");
         for(int i = 0; i < r1.length(); i++) {
-            assertTrue("char between 32 and 127", r1.charAt(i) >= 32 && r1.charAt(i) <= 127);
+            assertTrue(r1.charAt(i) >= 32 && r1.charAt(i) <= 127, "char between 32 and 127");
         }        
         r2 = CommonsLang3RandomStringUtils.randomAscii(50);
-        assertTrue("!r1.equals(r2)", !r1.equals(r2));
+        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
 
         r1 = CommonsLang3RandomStringUtils.randomAlphabetic(50);
-        assertEquals("randomAlphabetic(50)", 50, r1.length());
+        assertEquals(50, r1.length(), "randomAlphabetic(50)");
         for(int i = 0; i < r1.length(); i++) {
-            assertTrue("r1 contains alphabetic", Character.isLetter(r1.charAt(i)) && !Character.isDigit(r1.charAt(i)));
+            assertTrue(Character.isLetter(r1.charAt(i)) && !Character.isDigit(r1.charAt(i)), "r1 contains alphabetic");
         }
         r2 = CommonsLang3RandomStringUtils.randomAlphabetic(50);
-        assertTrue("!r1.equals(r2)", !r1.equals(r2));
+        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
         
         r1 = CommonsLang3RandomStringUtils.randomAlphanumeric(50);
-        assertEquals("randomAlphanumeric(50)", 50, r1.length());
+        assertEquals(50, r1.length(), "randomAlphanumeric(50)");
         for(int i = 0; i < r1.length(); i++) {
-            assertTrue("r1 contains alphanumeric", Character.isLetterOrDigit(r1.charAt(i)));
+            assertTrue(Character.isLetterOrDigit(r1.charAt(i)), "r1 contains alphanumeric");
         }
         r2 = CommonsLang3RandomStringUtils.randomAlphabetic(50);
-        assertTrue("!r1.equals(r2)", !r1.equals(r2));
+        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
         
         r1 = CommonsLang3RandomStringUtils.randomNumeric(50);
-        assertEquals("randomNumeric(50)", 50, r1.length());
+        assertEquals(50, r1.length(), "randomNumeric(50)");
         for(int i = 0; i < r1.length(); i++) {
-            assertTrue("r1 contains numeric", Character.isDigit(r1.charAt(i)) && !Character.isLetter(r1.charAt(i)));
+            assertTrue(Character.isDigit(r1.charAt(i)) && !Character.isLetter(r1.charAt(i)), "r1 contains numeric");
         }
         r2 = CommonsLang3RandomStringUtils.randomNumeric(50);
-        assertTrue("!r1.equals(r2)", !r1.equals(r2));
+        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
         
         String set = "abcdefg";
         r1 = CommonsLang3RandomStringUtils.random(50, set);
-        assertEquals("random(50, \"abcdefg\")", 50, r1.length());
+        assertEquals(50, r1.length(), "random(50, \"abcdefg\")");
         for(int i = 0; i < r1.length(); i++) {
-            assertTrue("random char in set", set.indexOf(r1.charAt(i)) > -1);
+            assertTrue(set.indexOf(r1.charAt(i)) > -1, "random char in set");
         }
         r2 = CommonsLang3RandomStringUtils.random(50, set);
-        assertTrue("!r1.equals(r2)", !r1.equals(r2));
+        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
         
         r1 = CommonsLang3RandomStringUtils.random(50, (String) null);
-        assertEquals("random(50) length", 50, r1.length());
+        assertEquals(50, r1.length(), "random(50) length");
         r2 = CommonsLang3RandomStringUtils.random(50, (String) null);
-        assertEquals("random(50) length", 50, r2.length());
-        assertTrue("!r1.equals(r2)", !r1.equals(r2));
+        assertEquals(50, r2.length(), "random(50) length");
+        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
         
         set = "stuvwxyz";
         r1 = CommonsLang3RandomStringUtils.random(50, set.toCharArray());
-        assertEquals("random(50, \"stuvwxyz\")", 50, r1.length());
+        assertEquals(50, r1.length(), "random(50, \"stuvwxyz\")");
         for(int i = 0; i < r1.length(); i++) {
-            assertTrue("random char in set", set.indexOf(r1.charAt(i)) > -1);
+            assertTrue(set.indexOf(r1.charAt(i)) > -1, "random char in set");
         }
         r2 = CommonsLang3RandomStringUtils.random(50, set);
-        assertTrue("!r1.equals(r2)", !r1.equals(r2));
+        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
         
         r1 = CommonsLang3RandomStringUtils.random(50, (char[]) null);
-        assertEquals("random(50) length", 50, r1.length());
+        assertEquals(50, r1.length(), "random(50) length");
         r2 = CommonsLang3RandomStringUtils.random(50, (char[]) null);
-        assertEquals("random(50) length", 50, r2.length());
-        assertTrue("!r1.equals(r2)", !r1.equals(r2));
+        assertEquals(50, r2.length(), "random(50) length");
+        assertTrue(!r1.equals(r2), "!r1.equals(r2)");
 
         final long seed = System.currentTimeMillis();
         r1 = CommonsLang3RandomStringUtils.random(50,0,0,true,true,null,new Random(seed));
         r2 = CommonsLang3RandomStringUtils.random(50,0,0,true,true,null,new Random(seed));
-        assertEquals("r1.equals(r2)", r1, r2);
+        assertEquals(r1, r2, "r1.equals(r2)");
 
         r1 = CommonsLang3RandomStringUtils.random(0);
-        assertEquals("random(0).equals(\"\")", "", r1);
+        assertEquals("", r1, "random(0).equals(\"\")");
     }
 
     @Test
@@ -141,8 +137,8 @@ public class CommonsLang3RandomStringUtilsTest {
             fail("Expected IllegalArgumentException");
         } catch (final IllegalArgumentException ex) { // distinguish from Random#nextInt message
             final String msg = ex.getMessage();
-            assertTrue("Message (" + msg + ") must contain 'start'", msg.contains("start"));
-            assertTrue("Message (" + msg + ") must contain 'end'", msg.contains("end"));
+            assertTrue(msg.contains("start"), "Message (" + msg + ") must contain 'start'");
+            assertTrue(msg.contains("end"), "Message (" + msg + ") must contain 'end'");
         }
     }
 
@@ -151,39 +147,39 @@ public class CommonsLang3RandomStringUtilsTest {
         final char[] DUMMY = new char[]{'a'}; // valid char array
         try {
             CommonsLang3RandomStringUtils.random(-1);
-            fail();
+            fail("");
         } catch (final IllegalArgumentException ex) {}
         try {
             CommonsLang3RandomStringUtils.random(-1, true, true);
-            fail();
+            fail("");
         } catch (final IllegalArgumentException ex) {}
         try {
             CommonsLang3RandomStringUtils.random(-1, DUMMY);
-            fail();
+            fail("");
         } catch (final IllegalArgumentException ex) {}
         try {
             CommonsLang3RandomStringUtils.random(1, new char[0]); // must not provide empty array => IAE
-            fail();
+            fail("");
         } catch (final IllegalArgumentException ex) {}
         try {
             CommonsLang3RandomStringUtils.random(-1, "");
-            fail();
+            fail("");
         } catch (final IllegalArgumentException ex) {}
         try {
             CommonsLang3RandomStringUtils.random(-1, (String)null);
-            fail();
+            fail("");
         } catch (final IllegalArgumentException ex) {}
         try {
             CommonsLang3RandomStringUtils.random(-1, 'a', 'z', false, false);
-            fail();
+            fail("");
         } catch (final IllegalArgumentException ex) {}
         try {
             CommonsLang3RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY);
-            fail();
+            fail("");
         } catch (final IllegalArgumentException ex) {}
         try {
             CommonsLang3RandomStringUtils.random(-1, 'a', 'z', false, false, DUMMY, new Random());
-            fail();
+            fail("");
         } catch (final IllegalArgumentException ex) {}
     }
     
@@ -294,7 +290,7 @@ public class CommonsLang3RandomStringUtilsTest {
     public void testCommonsLang3RandomStringUtilsHomog() {
         final String set = "abc";
         final char[] chars = set.toCharArray();
-        String gen = "";
+        String gen;
         final int[] counts = {0,0,0};
         final int[] expected = {200,200,200};
         for (int i = 0; i< 100; i++) {
@@ -309,8 +305,7 @@ public class CommonsLang3RandomStringUtilsTest {
            }
         } 
         // Perform chi-square test with df = 3-1 = 2, testing at .001 level
-        assertTrue("test homogeneity -- will fail about 1 in 1000 times",
-            chiSquare(expected,counts) < 13.82);  
+        assertTrue(chiSquare(expected,counts) < 13.82, "test homogeneity -- will fail about 1 in 1000 times");
     }
     
     /**
@@ -320,7 +315,7 @@ public class CommonsLang3RandomStringUtilsTest {
      */
     private double chiSquare(final int[] expected, final int[] observed) {
         double sumSq = 0.0d;
-        double dev = 0.0d;
+        double dev;
         for (int i = 0; i < observed.length; i++) {
             dev = observed[i] - expected[i];
             sumSq += dev * dev / expected[i];
@@ -346,8 +341,8 @@ public class CommonsLang3RandomStringUtilsTest {
         for (int i=0; i < orig.length() && i < copy.length(); i++) {
             final char o = orig.charAt(i);
             final char c = copy.charAt(i);
-            assertEquals("differs at " + i + "(" + Integer.toHexString(new Character(o).hashCode()) + "," +
-            Integer.toHexString(new Character(c).hashCode()) + ")", o, c);
+            assertEquals(o, c, "differs at " + i + "(" + Integer.toHexString(new Character(o).hashCode()) + "," +
+                    Integer.toHexString(new Character(c).hashCode()) + ")");
         }
         // compare length also
         assertEquals(orig.length(), copy.length());

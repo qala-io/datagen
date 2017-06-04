@@ -1,9 +1,8 @@
 package io.qala.datagen;
 
-import org.junit.gen5.api.DisplayName;
-import org.junit.gen5.api.Test;
-import org.junit.gen5.junit4.runner.JUnit5;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +13,9 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.gen5.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@RunWith(JUnit5.class)
 @DisplayName("Functional Randomizer")
-@SuppressWarnings("unused")
 public class RandomShortApiTest {
     @Test void onlyOneFunctionIsCalled() {
         List<Person> people = repeat((p) -> oneOf(
