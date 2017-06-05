@@ -1,5 +1,6 @@
 package io.qala.datagen;
 
+@SuppressWarnings("WeakerAccess")
 public class RandomValueRecorder {
     private final RandomValue value;
     private final RandomString.Type stringType;

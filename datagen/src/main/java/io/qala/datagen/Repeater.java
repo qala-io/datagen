@@ -10,6 +10,7 @@ import static io.qala.datagen.RandomShortApi.integer;
  * the repeats which should be trimmed at the end - and this trimming is the default behaviour. To switch it off
  * use {@link #includeLastSymbol()}.
  */
+@SuppressWarnings("WeakerAccess")
 public class Repeater {
     private final List<Object> toRepeat = new ArrayList<Object>();
     private int nOfLastSymbolsToRemove = 1;

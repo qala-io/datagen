@@ -12,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import static io.qala.datagen.adaptors.CommonsLang3RandomStringUtils.random;
 
-@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"/*To support Java < 7*/})
 public class RandomValue implements RandomString {
     static final JavaRandom RANDOM = new JavaRandom();
     private final List<StringModifier> modifiers = new CopyOnWriteArrayList<StringModifier>();

@@ -14,7 +14,9 @@ import static io.qala.datagen.RandomValue.*;
  * If you need a more flexible way of generating the values including different string modifiers like prefixes and
  * suffixes, use {@link RandomValue}.
  */
-@SuppressWarnings({"WeakerAccess", "Convert2Diamond", "Convert2streamapi"})
+@SuppressWarnings({"Convert2Diamond"/*To support Java < 7*/, "Convert2streamapi"/*To support Java < 8*/,
+        // IntelliJ became too paranoid about warnings, these are not real problems.
+        "WeakerAccess", "SameParameterValue"})
 public class RandomShortApi {
     private RandomShortApi() {}
 
