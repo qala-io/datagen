@@ -5,13 +5,13 @@ Java library to generate random data (numbers, strings, dates) - to facilitate
 [Randomized Testing](http://qala.io/blog/randomized-testing.html). Randomization helps writing and running tests quicker
 as well improving the coverage. Just _some_ use cases for randomization:
 
-* [Combinatorial Testing](./datagen-examples/combinatorial.md) - helps reducing the number of test cases you need 
+* [Combinatorial Testing](./examples/combinatorial.md) - helps reducing the number of test cases you need 
 to write and run
-* [Fighting with Unique Constraints](./datagen-examples/unique-constraints.md) - a test registered a user with unique 
+* [Fighting with Unique Constraints](./examples/unique-constraints.md) - a test registered a user with unique 
 username? The next time you run the test it fails because such user already exists.
-* ["Wow, I didn't know about that"](./datagen-examples/wow-i-did-not-know-that.md) effect - sometimes randomization
+* ["Wow, I didn't know about that"](./examples/wow-i-did-not-know-that.md) effect - sometimes randomization
 may discover tricky cases that you couldn't think of.
-* [Which one to pick?](./datagen-examples/which-one-to-pick.md) - often when choosing test data there is no clear winner
+* [Which one to pick?](./examples/which-one-to-pick.md) - often when choosing test data there is no clear winner
 of what value to pick. Randomization helps with that and ensures we're not prone to Pesticides Effect. 
 
 ### Strings

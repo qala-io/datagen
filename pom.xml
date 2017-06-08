@@ -29,8 +29,9 @@
 
     <modules>
         <module>datagen</module>
-        <module>datagen-java8types</module>
-        <module>datagen-examples</module>
+        <module>java8types</module>
+        <module>examples</module>
+        <module>junit5</module>
     </modules>
 
     <properties>
