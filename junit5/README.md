@@ -7,7 +7,6 @@ You can use Datagen + JUnit5 integration to facilitate randomization in paramete
     @Alphanumeric(length = 1, name = "min boundary")
     @Alphanumeric(min = 2, max = 29, name = "middle value")
     @Alphanumeric(length = 30, name = "max boundary")
-    @Unicode(min = 1, max = 30
     void validationPasses_forValidValues(String dogName) {
         assertTrue(new Dog(dogName).isValid());
     }
@@ -26,8 +25,8 @@ This will run the test 4 times with different parameters according to the annota
 Though if you need to run a test only once and you want to use randomization - it's going to be more concise to use 
 [Datagen API](./../README.md) directly.
 
-This integration is not stable yet because JUnit5 itself is not stable. But if you're not afraid if the API changes
-in the future, you can give it a try. In order for this to work you need the latest snapshot of JUnit5:
+This integration is not stable yet because JUnit5 itself is not stable. But if you're not afraid of the fact that the 
+API may change in the future, you can give it a try. In order for this to work you need the latest snapshot of JUnit5:
 ```
     <dependencies>
         <dependency>
@@ -36,6 +35,7 @@ in the future, you can give it a try. In order for this to work you need the lat
             <version>1.11.0</version>
             <scope>test</scope>
         </dependency>
+        
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
@@ -61,6 +61,7 @@ in the future, you can give it a try. In order for this to work you need the lat
             <scope>test</scope>
         </dependency>
     </dependencies>     
+    
     <build>
         <plugins>
             <plugin>
