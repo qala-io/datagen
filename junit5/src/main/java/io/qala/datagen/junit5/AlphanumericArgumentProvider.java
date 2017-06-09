@@ -19,9 +19,10 @@ class AlphanumericArgumentProvider implements ArgumentsProvider, AnnotationConsu
 
     @Override
     public Stream<? extends Arguments> provideArguments(ContainerExtensionContext containerExtensionContext) throws Exception {
-        int paramCount = containerExtensionContext.getTestMethod().get().getParameterCount();
-        if (paramCount == 2) return Stream.of(new Object[][]{generateParams(annotation)}).map(Arguments::of);
-        else                 return Stream.of(generateParam(annotation)).map(Arguments::of);
+        if (injectCaseName(containerExtensionContext))
+            return Stream.of(new Object[][]{generateParams(annotation)}).map(Arguments::of);
+        else
+            return Stream.of(generateParam(annotation)).map(Arguments::of);
     }
 
     static String generateParam(Alphanumeric annotation) {
@@ -30,5 +31,9 @@ class AlphanumericArgumentProvider implements ArgumentsProvider, AnnotationConsu
     }
     static Object[] generateParams(Alphanumeric annotation) {
         return new Object[]{generateParam(annotation), annotation.name()};
+    }
+    static boolean injectCaseName(ContainerExtensionContext containerExtensionContext) {
+        //noinspection OptionalGetWithoutIsPresent Hm.. the docs doesn't state when the test method may be abscent. Will need to check.
+        return containerExtensionContext.getTestMethod().get().getParameterCount() == 2;
     }
 }

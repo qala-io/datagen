@@ -16,5 +16,10 @@ public @interface Alphanumeric {
     int max() default 100;
     String name() default "";
 
+    /**
+     * Set it if you need a fixed-length string generated. {@link #max()} and {@link #min()} are ignored in that case.
+     *
+     * @return length of the string to generate
+     */
     int length() default -1;
 }
