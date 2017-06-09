@@ -4,6 +4,19 @@ Change Log
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project SOMEWHAT (but not strictly) 
 adheres to [Semantic Versioning](http://semver.org/).
 
+## [release-1.11.0] - 2017-06-09
+### Added
+* Pilot JUni5 Integration, see in [docs](./junit5/README.md)
+```
+    @Alphanumeric(length = 1, name = "min boundary")
+    @Alphanumeric(min = 2, max = 29, name = "middle value")
+    @Alphanumeric(length = 30, name = "max boundary")
+    void validationPasses_forValidName(String dogName) {
+        assertTrue(new Dog(dogName).isValid());
+    }
+```
+
+
 ## [release-1.10.1] - 2017-01-06
 ### Fixed
 * `unicodeWithoutBoundarySpaces()` returned symbols that were treated as whitespaces by `String#trim()`. Now these 

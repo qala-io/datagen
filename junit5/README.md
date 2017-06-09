@@ -23,7 +23,8 @@ This will run the test 4 times with different parameters according to the annota
 ```
 
 Though if you need to run a test only once and you want to use randomization - it's going to be more concise to use 
-[Datagen API](./../README.md) directly.
+[Datagen API](./../README.md) directly. More examples are available in 
+[the test](src/test/java/io/qala/datagen/junit5/Junit5ParameterizedTest.java).
 
 This integration is not stable yet because JUnit5 itself is not stable. But if you're not afraid of the fact that the 
 API may change in the future, you can give it a try. In order for this to work you need the latest snapshot of JUnit5:
