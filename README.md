@@ -1,6 +1,8 @@
 Datagen
 -------
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.qala.datagen/qala-datagen/badge.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.qala.datagen%22)
+
 Java library to generate random data (numbers, strings, dates) - to facilitate 
 [Randomized Testing](http://qala.io/blog/randomized-testing.html). Randomization helps writing and running tests quicker
 as well improving the coverage. Just _some_ use cases for randomization:
