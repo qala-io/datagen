@@ -7,7 +7,7 @@ You can use Datagen + JUnit5 integration to facilitate randomization in paramete
     @Alphanumeric(length = 1, name = "min boundary")
     @Alphanumeric(min = 2, max = 29, name = "middle value")
     @Alphanumeric(length = 30, name = "max boundary")
-    void validationPasses_forValidValues(String dogName) {
+    void validationPasses_forValidName(String dogName) {
         assertTrue(new Dog(dogName).isValid());
     }
 ```
