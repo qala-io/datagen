@@ -12,7 +12,7 @@ You can use Datagen + JUnit5 integration to facilitate randomization in paramete
     }
 ```
 
-This will run the test 4 times with different parameters according to the annotations. This test will run 2 times: 
+This will run the test 3 times with different parameters according to the annotations. This test will run 2 times: 
 
 ```
     @RandomInt(min = 1, name = "greater than zero")
