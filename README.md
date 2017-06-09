@@ -182,8 +182,6 @@ callOneOrMore(() -> person.firstName = english(5),
 
 ### Other
 
-- For convenience the repo is available both 
-  [at BitBucket](https://bitbucket.org/qala/datagen/) and [at GitHub](https://github.com/qala-io/datagen)
 - [Maven Central coordinates](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.qala.datagen%22%20a%3A%22qala-datagen%22%20)
 
 ### Special thanks
