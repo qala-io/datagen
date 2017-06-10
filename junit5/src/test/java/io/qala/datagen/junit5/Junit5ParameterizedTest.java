@@ -3,8 +3,8 @@ package io.qala.datagen.junit5;
 import org.junit.jupiter.api.Nested;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-public class Junit5ParameterizedTest {
+@SuppressWarnings("unused"/*some tests just check that the method param doesn't break anything but don't use it*/)
+class Junit5ParameterizedTest {
     @Nested class RandomIntTest {
         @RandomInt(min = 1, max = 10)
         void generatesIntInBoundaries(int param) {

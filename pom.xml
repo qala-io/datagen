@@ -38,6 +38,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.jupiter.version>5.0.0-SNAPSHOT</junit.jupiter.version>
         <junit.platform.version>1.0.0-SNAPSHOT</junit.platform.version>
+        <compiler.target.version>1.8</compiler.target.version>
+        <compiler.source.version>1.8</compiler.source.version>
     </properties>
 
     <build>
@@ -64,8 +66,8 @@
                 <configuration>
                     <testSource>1.8</testSource>
                     <testTarget>1.8</testTarget>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${compiler.source.version}</source>
+                    <target>${compiler.target.version}</target>
                 </configuration>
             </plugin>
             <plugin>

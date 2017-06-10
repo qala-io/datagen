@@ -16,7 +16,7 @@ import static org.hamcrest.core.IsNot.not;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("Functional Randomizer")
-public class RandomShortApiTest {
+class RandomShortApiTest {
     @Test void onlyOneFunctionIsCalled() {
         List<Person> people = repeat((p) -> oneOf(
                 () -> p.firstName = english(5),
