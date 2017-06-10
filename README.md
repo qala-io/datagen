@@ -16,6 +16,23 @@ may discover tricky cases that you couldn't think of.
 * [Which one to pick?](./examples/which-one-to-pick.md) - often when choosing test data there is no clear winner
 of what value to pick. Randomization helps with that and ensures we're not prone to Pesticides Effect. 
 
+### [JUnit5 Integration](./junit5/README.md)
+
+```java
+@Alphanumeric(min = 2, max = 29, name = "middle value")
+@Alphanumeric(length = 30, name = "max boundary")
+@English(max=30)
+void eachAnnotationInvokesTheTestOnceAndPassesParameters(String value, String name) {
+    assertTrue(value.length() >= 1 && value.length() <= 31, "Failed case: " + name);
+}
+
+@RandomInt(min = 1, name = "greater than zero")
+@RandomInt(max = -1, name = "less than zero")
+void zeroInt_isNotPassed(int param, String name) {
+    assertNotEquals(0, param, "Failed case: " + name);
+}
+```
+
 ### Strings
 ```java
 import static io.qala.datagen.RandomValue.*;

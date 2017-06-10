@@ -34,6 +34,9 @@ void zeroLong_isNotPassed(long value, String name) {
 }
 ```
 
+In the end results look like this:
+[![IntelliJ output](https://photos-5.dropbox.com/t/2/AACIkd98lehh4_fHF_rdQjlLy-LLzK9py25tN2REmwfIFw/12/2397949/png/32x32/3/1497142800/0/2/datagen-docs-junit5-test-results.png/ENCQ7gEYsuOnQSAHKAc/AUjOZ0Euueb_afqFHiShdqv2DRuwzqf8DwRxMq8qsRI?dl=0&size=1280x960&size_mode=3)](../examples/src/test/java/io/qala/datagen/examples/junit5/JUnit5ExampleTest.java)
+
 Though if you need to run a test only once and you want to use randomization - it's going to be more concise to use 
 [Datagen API](./../README.md) directly. More examples are available in 
 [the test](src/test/java/io/qala/datagen/junit5/Junit5ParameterizedTest.java).
