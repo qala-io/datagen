@@ -97,6 +97,52 @@ class Junit5ParameterizedTest {
         }
     }
 
+    @Nested class RandomDoubleGenerator {
+        @RandomDouble(min = 1, max = 10)
+        void generatesIntInBoundaries(double param) {
+            assertTrue(param <= 10);
+            assertTrue(param >= 1);
+        }
+
+        @RandomDouble @RandomDouble @SuppressWarnings("ConstantConditions")
+        void generatesAnyNumberByDefault(double param) {
+            assertTrue(param >= Long.MIN_VALUE);
+            assertTrue(param <= Long.MAX_VALUE);
+            assertChangedFromLastTime(param);
+        }
+
+        @RandomDouble(name = "zero")
+        void ignoresName_if2ndParamIsNotPresent(double param) {
+        }
+
+        @RandomDouble(name = "blah")
+        void passesName_asSecondParam(double param, String name) {
+            assertEquals("blah", name);
+        }
+    }
+    @Nested class RandomDoublesGenerator {
+        @RandomDouble(min = 1, name = "greater than zero")
+        @RandomDouble(max = -1, name = "less than zero")
+        void canGenerateMultipleNumbers(double param) {
+            assertNotEquals(0, param);
+            assertChangedFromLastTime(param);
+        }
+
+        @RandomDouble(name = "zero") @RandomDouble
+        void ignoresName_if2ndParamIsNotPresent(double param) {
+        }
+
+        @RandomDouble(name = "blah") @RandomDouble(name = "blah")
+        void passesName_asSecondParam(double param, String name) {
+            assertEquals("blah", name);
+        }
+
+        @RandomDouble(min = 2, max = 10) @RandomDouble(min = 2, max = 10)
+        void nameIsGeneric_byDefault(double value, String name) {
+            assertEquals("double from 2.0 to 10.0", name);
+        }
+    }
+
     @Nested class AlphanumericGenerator {
         @Alphanumeric void generatesStringWithCorrectSymbols(String value) {
             assertEquals(value.getBytes().length, value.length());

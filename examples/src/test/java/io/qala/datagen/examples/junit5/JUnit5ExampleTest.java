@@ -2,6 +2,7 @@ package io.qala.datagen.examples.junit5;
 
 import io.qala.datagen.junit5.*;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -26,5 +27,11 @@ class JUnit5ExampleTest {
     @RandomLong(max = -1, name = "less than zero")
     void zeroLong_isNotPassed(long value, String name) {
         assertNotEquals(0, value, "Failed case: " + name);
+    }
+
+    @RandomDouble(min = 1, name = "greater than zero")
+    @RandomDouble(max = -1, name = "less than zero")
+    void zeroLong_isNotPassed(double value, String name) {
+        assertFalse(value > -1 && value < 1, "Failed case: " + name);
     }
 }
