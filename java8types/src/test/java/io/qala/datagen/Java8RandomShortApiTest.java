@@ -11,7 +11,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
-public class Java8RandomShortApiTest {
+class Java8RandomShortApiTest {
+
+    @Test void defaultPeriodIsBetweenMinAndMaxLongs() {
+        Instant min = Instant.ofEpochMilli(Long.MIN_VALUE + 808);
+        Instant max = Instant.ofEpochMilli(Long.MAX_VALUE);
+        assertThat(instant(), allOf(greaterThan(min), lessThan(max)));
+    }
 
     @Test void temporalCanBeBothBeforeAndAfterNow() {
         Instant now = Instant.now();

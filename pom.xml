@@ -7,7 +7,7 @@
     <groupId>io.qala.datagen</groupId>
     <artifactId>qala-datagen-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.13.0</version>
+    <version>1.13.1</version>
 
     <licenses>
         <license>

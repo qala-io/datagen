@@ -13,8 +13,16 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 
 @SuppressWarnings("WeakerAccess")
 public class RandomDate {
-    private Instant from = LocalDateTime.MIN.toInstant(systemOffset());
-    private Instant to = LocalDateTime.MAX.toInstant(systemOffset());
+    // Java8 Time API goes beyond of what DBs can hold so we explicitly generate the dates in the boundaries
+    // that a DB can hold. Which looks like in boundaries of long type.
+    // Also 808 comes presumably from the bug somewhere around Timestamp, Date, Calendar.. For some reason
+    // dates near Long.MIN_VALUE underflow when we convert them to Timestamp. Starting from MIN + 808 they start
+    // to work fine. Looks like another instance of http://bugs.java.com/view_bug.do?bug_id=7000693 Will need to
+    // research at some point. Why don't they use randomized testing in Sun/Oracle..
+    private Instant from = Instant.ofEpochMilli(Long.MIN_VALUE + 808);
+    // Java8 Time API goes beyond of what most systems can handle (e.g. DBs or integrations), so for practical reasons
+    // let's default max time to the max {@link java.util.Date}.
+    private Instant to = Instant.ofEpochMilli(Long.MAX_VALUE);
 
     public static RandomDate between(Instant from, Instant to) {
         if (from.isAfter(to))
