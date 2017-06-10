@@ -4,6 +4,13 @@ Change Log
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project SOMEWHAT (but not strictly) 
 adheres to [Semantic Versioning](http://semver.org/).
 
+## [release-1.13.0] - 2017-06-10
+### Added
+* `@Unicode`
+* `@Numeric`
+* `@English`
+* `@RandomLong`
+
 ## [release-1.11.0] - 2017-06-09
 ### Added
 * Pilot JUni5 Integration, see in [docs](./junit5/README.md)
