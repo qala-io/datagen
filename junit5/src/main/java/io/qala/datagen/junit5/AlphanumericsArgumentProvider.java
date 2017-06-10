@@ -5,8 +5,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.support.AnnotationConsumer;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 class AlphanumericsArgumentProvider implements ArgumentsProvider, AnnotationConsumer<Alphanumerics> {
@@ -19,16 +18,13 @@ class AlphanumericsArgumentProvider implements ArgumentsProvider, AnnotationCons
 
     @Override
     public Stream<? extends Arguments> provideArguments(ContainerExtensionContext containerExtensionContext) throws Exception {
-        Alphanumeric[] annotations = annotation.value();
-        if(AlphanumericArgumentProvider.injectCaseName(containerExtensionContext)) {
-            List<Object[]> result = new ArrayList<>(annotations.length);
-            for (Alphanumeric next : annotations) result.add(AlphanumericArgumentProvider.generateParams(next));
-            return result.stream().map(Arguments::of);
-        } else {
-            List<String> result = new ArrayList<>(annotations.length);
-            for (Alphanumeric next : annotations) result.add(AlphanumericArgumentProvider.generateParam(next));
-            return result.stream().map(Arguments::of);
-        }
+        if (Utils.injectCaseName(containerExtensionContext))
+            return Arrays.stream(annotation.value())
+                    .map(AlphanumericArgumentProvider::generateParams)
+                    .map(Arguments::of);
+        return Arrays.stream(annotation.value())
+                .map(AlphanumericArgumentProvider::generateParam)
+                .map(Arguments::of);
     }
 
 }

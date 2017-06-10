@@ -5,10 +5,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.support.AnnotationConsumer;
 
-import java.util.stream.IntStream;
+import java.util.Arrays;
 import java.util.stream.Stream;
-
-import static io.qala.datagen.RandomShortApi.integer;
 
 class RandomIntsArgumentProvider implements ArgumentsProvider, AnnotationConsumer<RandomInts> {
     private RandomInts annotation;
@@ -19,12 +17,14 @@ class RandomIntsArgumentProvider implements ArgumentsProvider, AnnotationConsume
     }
 
     @Override
-    public Stream<? extends Arguments> provideArguments(ContainerExtensionContext containerExtensionContext) throws Exception {
-        int result[] = new int[annotation.value().length];
-        for(int i = 0; i < result.length; i++) {
-            RandomInt rInt = annotation.value()[i];
-            result[i] = integer(rInt.min(), rInt.max());
+    public Stream<? extends Arguments> provideArguments(ContainerExtensionContext extensionContext) throws Exception {
+        if (Utils.injectCaseName(extensionContext)) {
+            return Arrays.stream(annotation.value())
+                    .map(RandomIntArgumentProvider::generateParams)
+                    .map(Arguments::of);
         }
-        return IntStream.of(result).mapToObj(Arguments::of);
+        return Arrays.stream(annotation.value())
+                .map(RandomIntArgumentProvider::generateParam)
+                .map(Arguments::of);
     }
 }
