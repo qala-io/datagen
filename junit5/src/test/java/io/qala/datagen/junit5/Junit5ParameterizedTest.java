@@ -51,6 +51,52 @@ class Junit5ParameterizedTest {
         }
     }
 
+    @Nested class RandomLongGenerator {
+        @RandomLong(min = 1, max = 10)
+        void generatesIntInBoundaries(long param) {
+            assertTrue(param <= 10);
+            assertTrue(param >= 1);
+        }
+
+        @RandomLong @RandomLong @SuppressWarnings("ConstantConditions")
+        void generatesAnyNumberByDefault(long param) {
+            assertTrue(param >= Long.MIN_VALUE);
+            assertTrue(param <= Long.MAX_VALUE);
+            assertChangedFromLastTime(param);
+        }
+
+        @RandomLong(name = "zero")
+        void ignoresName_if2ndParamIsNotPresent(long param) {
+        }
+
+        @RandomLong(name = "blah")
+        void passesName_asSecondParam(long param, String name) {
+            assertEquals("blah", name);
+        }
+    }
+    @Nested class RandomLongsGenerator {
+        @RandomLong(min = 1, name = "greater than zero")
+        @RandomLong(max = -1, name = "less than zero")
+        void canGenerateMultipleNumbers(long param) {
+            assertNotEquals(0, param);
+            assertChangedFromLastTime(param);
+        }
+
+        @RandomLong(name = "zero") @RandomLong
+        void ignoresName_if2ndParamIsNotPresent(long param) {
+        }
+
+        @RandomLong(name = "blah") @RandomLong(name = "blah")
+        void passesName_asSecondParam(long param, String name) {
+            assertEquals("blah", name);
+        }
+
+        @RandomLong(min = 2, max = 10) @RandomLong(min = 2, max = 10)
+        void nameIsGeneric_byDefault(long value, String name) {
+            assertEquals("long from 2 to 10", name);
+        }
+    }
+
     @Nested class AlphanumericGenerator {
         @Alphanumeric void generatesStringWithCorrectSymbols(String value) {
             assertEquals(value.getBytes().length, value.length());
@@ -85,8 +131,7 @@ class Junit5ParameterizedTest {
             assertChangedFromLastTime(value);
         }
 
-        @Alphanumeric(length = 1, name = "min boundary")
-        @Alphanumeric(min = 2, max = 29, name = "middle value")
+        @Alphanumeric(min = 20, max = 29, name = "middle value")
         @Alphanumeric(length = 30, name = "max boundary")
         void ignoresCaseName_ifItIsNotPassed(String value) {
             assertTrue(value.length() >= 1 && value.length() <= 31);

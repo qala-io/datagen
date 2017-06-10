@@ -18,13 +18,19 @@ You can use Datagen + JUnit5 integration to facilitate randomization in paramete
     }
 ```
 
-This will run the test 6 times with different parameters according to the annotations. This test will run 2 times:
+This will run the test 6 times with different parameters according to the annotations. These tests will run 2 times
+each:
 
 ```
     @RandomInt(min = 1, name = "greater than zero")
     @RandomInt(max = -1, name = "less than zero")
-    void zeroIsNotPassed(int param) {
-        assertNotEquals(0, param);
+    void zeroInt_isNotPassed(int param, String name) {
+        assertNotEquals(0, param, "Failed case: " + name);
+    }
+    @RandomLong(min = 1, name = "greater than zero")
+    @RandomLong(max = -1, name = "less than zero")
+    void zeroLong_isNotPassed(long value, String name) {
+        assertNotEquals(0, value, "Failed case: " + name);
     }
 ```
 
@@ -39,7 +45,7 @@ API may change in the future, you can give it a try. In order for this to work y
         <dependency>
             <groupId>io.qala.datagen</groupId>
             <artifactId>qala-datagen-junit5</artifactId>
-            <version>1.12.0</version>
+            <version>1.13.0</version>
             <scope>test</scope>
         </dependency>
         

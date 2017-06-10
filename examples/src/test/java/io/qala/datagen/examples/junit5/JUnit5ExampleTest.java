@@ -1,10 +1,8 @@
 package io.qala.datagen.examples.junit5;
 
-import io.qala.datagen.junit5.Alphanumeric;
-import io.qala.datagen.junit5.English;
-import io.qala.datagen.junit5.Numeric;
-import io.qala.datagen.junit5.Unicode;
+import io.qala.datagen.junit5.*;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class JUnit5ExampleTest {
@@ -16,5 +14,15 @@ class JUnit5ExampleTest {
     @Numeric(max=30)
     void canGenerateMultipleAlphanumerics(String value, String name) {
         assertTrue(value.length() >= 1 && value.length() <= 31, "Failed case: " + name);
+    }
+    @RandomInt(min = 1, name = "greater than zero")
+    @RandomInt(max = -1, name = "less than zero")
+    void zeroInt_isNotPassed(int param, String name) {
+        assertNotEquals(0, param, "Failed case: " + name);
+    }
+    @RandomLong(min = 1, name = "greater than zero")
+    @RandomLong(max = -1, name = "less than zero")
+    void zeroLong_isNotPassed(long value, String name) {
+        assertNotEquals(0, value, "Failed case: " + name);
     }
 }
