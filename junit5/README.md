@@ -10,12 +10,13 @@ You can use Datagen + JUnit5 integration to facilitate randomization in paramete
     @Alphanumeric(length = 1, name = "min boundary")
     @Alphanumeric(min = 2, max = 29, name = "middle value")
     @Alphanumeric(length = 30, name = "max boundary")
-    void validationPasses_forValidName(String dogName) {
-        assertTrue(new Dog(dogName).isValid());
+    @English(max=30, name = "letters without digits")
+    void canGenerateMultipleAlphanumerics(String value, String name) {
+        assertTrue(value.length() >= 1 && value.length() <= 31, "Failed case: " + name);
     }
 ```
 
-This will run the test 3 times with different parameters according to the annotations. This test will run 2 times: 
+This will run the test 4 times with different parameters according to the annotations. This test will run 2 times:
 
 ```
     @RandomInt(min = 1, name = "greater than zero")
@@ -36,7 +37,7 @@ API may change in the future, you can give it a try. In order for this to work y
         <dependency>
             <groupId>io.qala.datagen</groupId>
             <artifactId>qala-datagen-junit5</artifactId>
-            <version>1.11.1</version>
+            <version>1.12.0</version>
             <scope>test</scope>
         </dependency>
         

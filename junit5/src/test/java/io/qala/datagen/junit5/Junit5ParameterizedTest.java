@@ -2,10 +2,11 @@ package io.qala.datagen.junit5;
 
 import org.junit.jupiter.api.Nested;
 
+import static io.qala.datagen.RandomShortApi.numeric;
 import static org.junit.jupiter.api.Assertions.*;
 @SuppressWarnings("unused"/*some tests just check that the method param doesn't break anything but don't use it*/)
 class Junit5ParameterizedTest {
-    @Nested class RandomIntTest {
+    @Nested class RandomIntGenerator {
         @RandomInt(min = 1, max = 10)
         void generatesIntInBoundaries(int param) {
             assertTrue(param <= 10);
@@ -26,8 +27,7 @@ class Junit5ParameterizedTest {
             assertEquals("blah", name);
         }
     }
-
-    @Nested class RandomIntsTest {
+    @Nested class RandomIntsGenerator {
         @RandomInt(min = 1, name = "greater than zero")
         @RandomInt(max = -1, name = "less than zero")
         void canGenerateMultipleInts(int param) {
@@ -51,7 +51,7 @@ class Junit5ParameterizedTest {
         }
     }
 
-    @Nested class AlphanumericTest {
+    @Nested class AlphanumericGenerator {
         @Alphanumeric void generatesAlphanumeric_from1_to100_byDefault(String value) {
             assertTrue(value.trim().length() >= 1);
             assertTrue(value.length() <= 100);
@@ -69,8 +69,7 @@ class Junit5ParameterizedTest {
             assertTrue(value.length() >= 2 && value.length() <= 3);
         }
     }
-
-    @Nested class AlphanumericsTest {
+    @Nested class AlphanumericsGenerator {
         @Alphanumeric(length = 1)
         @Alphanumeric(min = 2, max = 29)
         @Alphanumeric(length = 30)
@@ -98,6 +97,68 @@ class Junit5ParameterizedTest {
         }
         @Alphanumeric(min = 2, max = 3, name = "name")
         @Alphanumeric(length = 1)
+        void nameIsEmpty_byDefault(String value, String name) {
+            assertTrue(name.equals("name") || name.isEmpty());
+            assertChangedFromLastTime(name);
+        }
+    }
+
+    @Nested class EnglishGenerator {
+        @English void generatesString_from1_to100_byDefault(String value) {
+            assertTrue(value.trim().length() >= 1);
+            assertTrue(value.length() <= 100);
+        }
+        @English void generatesStringWithCorrectSymbols(String english) {
+            assertFalse(english.contains(numeric(1)));
+            assertFalse(english.contains(" "));
+        }
+
+        @English(name = "name") void setsNameAsArgumentIf2ndParameterExists(String value, String name) {
+            assertEquals("name", name);
+        }
+        @English(name = "name") void ignoresName_if2ndParamIsAbsent(String value) {}
+
+        @English(length = 29) void generatesFixedLengthAlphanumeric_ifLengthIsSet(String value) {
+            assertEquals(29, value.length());
+        }
+        @English(min = 2, max = 3) void lengthIsTakenFrom_minMaxParams_ifLengthIsAbsent(String value) {
+            assertTrue(value.length() >= 2 && value.length() <= 3);
+        }
+    }
+    @Nested class EnglishesGenerator {
+        @English @English
+        void generatesStringWithCorrectSymbols(String english) {
+            assertFalse(english.contains(numeric(1)));
+            assertFalse(english.contains(" "));
+        }
+        @English(length = 1)
+        @English(min = 2, max = 29)
+        @English(length = 30)
+        void canGenerateMultipleStrings(String value) {
+            assertTrue(value.length() >= 1 && value.length() <= 31);
+            assertFalse(value.contains("1"));
+            assertChangedFromLastTime(value);
+        }
+
+        @English(length = 1, name = "min boundary")
+        @English(min = 2, max = 29, name = "middle value")
+        @English(length = 30, name = "max boundary")
+        void ignoresCaseName_ifItIsNotPassed(String value) {
+            assertTrue(value.length() >= 1 && value.length() <= 31);
+            assertChangedFromLastTime(value);
+        }
+
+        @English(min = 2, max = 3, name = "name1")
+        @English(length = 1, name = "name2")
+        void passesName_if2ndParam_isPresent(String value, String name) {
+            assertTrue(name.startsWith("name"));
+            assertChangedFromLastTime(name);
+
+            assertTrue(value.length() >= 1 && value.length() <= 31);
+            assertChangedFromLastTime(value);
+        }
+        @English(min = 2, max = 3, name = "name")
+        @English(length = 1)
         void nameIsEmpty_byDefault(String value, String name) {
             assertTrue(name.equals("name") || name.isEmpty());
             assertChangedFromLastTime(name);
