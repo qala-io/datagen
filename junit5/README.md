@@ -11,13 +11,14 @@ You can use Datagen + JUnit5 integration to facilitate randomization in paramete
     @Alphanumeric(min = 2, max = 29, name = "middle value")
     @Alphanumeric(length = 30, name = "max boundary")
     @English(max=30)
-    @Unicode
+    @Unicode(max=30)
+    @Numeric(max=30)
     void canGenerateMultipleAlphanumerics(String value, String name) {
         assertTrue(value.length() >= 1 && value.length() <= 31, "Failed case: " + name);
     }
 ```
 
-This will run the test 4 times with different parameters according to the annotations. This test will run 2 times:
+This will run the test 6 times with different parameters according to the annotations. This test will run 2 times:
 
 ```
     @RandomInt(min = 1, name = "greater than zero")

@@ -2,6 +2,7 @@ package io.qala.datagen.junit5;
 
 import org.junit.jupiter.api.Nested;
 
+import static io.qala.datagen.RandomShortApi.english;
 import static io.qala.datagen.RandomShortApi.numeric;
 import static org.junit.jupiter.api.Assertions.*;
 @SuppressWarnings("unused"/*some tests just check that the method param doesn't break anything but don't use it*/)
@@ -128,6 +129,9 @@ class Junit5ParameterizedTest {
             assertEquals("name", name);
         }
         @English(name = "name") void ignoresName_if2ndParamIsAbsent(String value) {}
+        @English(min = 2, max = 3) void nameIsGeneric_byDefault(String value, String name) {
+            assertEquals("latin letters", name);
+        }
 
         @English(length = 29) void generatesFixedLengthAlphanumeric_ifLengthIsSet(String value) {
             assertEquals(29, value.length());
@@ -174,6 +178,81 @@ class Junit5ParameterizedTest {
         @English(length = 1)
         void nameIsGeneric_byDefault(String value, String name) {
             assertEquals("latin letters", name);
+        }
+    }
+
+    @Nested class NumericGenerator {
+        @Numeric void generatesString_from1_to100_byDefault(String value) {
+            assertTrue(value.trim().length() >= 1);
+            assertTrue(value.length() <= 100);
+        }
+        @Numeric(min = 90) void generatesStringWithCorrectSymbols(String s) {
+            assertTrue(s.contains(numeric(1)));
+            assertFalse(s.contains(" "));
+            assertFalse(s.contains(english(1)));
+            assertEquals(s.length(), s.getBytes().length);
+        }
+        @Numeric(length = 300) void generatesStringWithCorrectSymbols_whenLengthUsed(String s) {
+            assertTrue(s.contains(numeric(1)));
+            assertFalse(s.contains(" "));
+            assertFalse(s.contains(english(1)));
+            assertEquals(s.length(), s.getBytes().length);
+        }
+
+        @Numeric(name = "name") void setsNameAsArgumentIf2ndParameterExists(String value, String name) {
+            assertEquals("name", name);
+        }
+        @Numeric(name = "name") void ignoresName_if2ndParamIsAbsent(String value) {}
+        @Numeric(length = 1)
+        void nameIsGeneric_byDefault(String value, String name) {
+            assertEquals("digits", name);
+        }
+
+        @Numeric(length = 29) void generatesFixedLengthAlphanumeric_ifLengthIsSet(String value) {
+            assertEquals(29, value.length());
+        }
+        @Numeric(min = 2, max = 3) void lengthIsTakenFrom_minMaxParams_ifLengthIsAbsent(String value) {
+            assertTrue(value.length() >= 2 && value.length() <= 3);
+        }
+    }
+    @Nested class NumericsGenerator {
+        @Numeric(min = 150, max = 160) @Numeric(length = 200)
+        void generatesStringWithCorrectSymbols(String s) {
+            assertTrue(s.contains(numeric(1)));
+            assertFalse(s.contains(" "));
+            assertFalse(s.contains(english(1)));
+            assertEquals(s.length(), s.getBytes().length);
+        }
+
+        @Numeric(length = 1)
+        @Numeric(min = 2, max = 29)
+        @Numeric(length = 30)
+        void canGenerateMultipleStrings(String value) {
+            assertTrue(value.length() >= 1 && value.length() <= 31);
+            assertChangedFromLastTime(value);
+        }
+
+        @Numeric(length = 1, name = "min boundary")
+        @Numeric(min = 2, max = 29, name = "middle value")
+        @Numeric(length = 30, name = "max boundary")
+        void ignoresCaseName_ifItIsNotPassed(String value) {
+            assertTrue(value.length() >= 1 && value.length() <= 31);
+            assertChangedFromLastTime(value);
+        }
+
+        @Numeric(min = 2, max = 3, name = "name1")
+        @Numeric(length = 1, name = "name2")
+        void passesName_if2ndParam_isPresent(String value, String name) {
+            assertTrue(name.startsWith("name"));
+            assertChangedFromLastTime(name);
+
+            assertTrue(value.length() >= 1 && value.length() <= 31);
+            assertChangedFromLastTime(value);
+        }
+        @Numeric(min = 2, max = 3)
+        @Numeric(length = 1)
+        void nameIsGeneric_byDefault(String value, String name) {
+            assertEquals("digits", name);
         }
     }
 
