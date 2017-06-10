@@ -1,13 +1,15 @@
 package io.qala.datagen.junit5;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 
 import static io.qala.datagen.RandomShortApi.english;
 import static io.qala.datagen.RandomShortApi.numeric;
 import static org.junit.jupiter.api.Assertions.*;
 @SuppressWarnings("unused"/*some tests just check that the method param doesn't break anything but don't use it*/)
+@DisplayName("JUnit5 Parameterized")
 class Junit5ParameterizedTest {
-    @Nested class RandomIntGenerator {
+    @Nested class IntGenerator {
         @RandomInt(min = 1, max = 10)
         void generatesIntInBoundaries(int param) {
             assertTrue(param <= 10);
@@ -28,7 +30,7 @@ class Junit5ParameterizedTest {
             assertEquals("blah", name);
         }
     }
-    @Nested class RandomIntsGenerator {
+    @Nested class IntsGenerator {
         @RandomInt(min = 1, name = "greater than zero")
         @RandomInt(max = -1, name = "less than zero")
         void canGenerateMultipleInts(int param) {
@@ -51,7 +53,7 @@ class Junit5ParameterizedTest {
         }
     }
 
-    @Nested class RandomLongGenerator {
+    @Nested class LongGenerator {
         @RandomLong(min = 1, max = 10)
         void generatesIntInBoundaries(long param) {
             assertTrue(param <= 10);
@@ -74,7 +76,7 @@ class Junit5ParameterizedTest {
             assertEquals("blah", name);
         }
     }
-    @Nested class RandomLongsGenerator {
+    @Nested class LongsGenerator {
         @RandomLong(min = 1, name = "greater than zero")
         @RandomLong(max = -1, name = "less than zero")
         void canGenerateMultipleNumbers(long param) {
@@ -97,7 +99,7 @@ class Junit5ParameterizedTest {
         }
     }
 
-    @Nested class RandomDoubleGenerator {
+    @Nested class DoubleGenerator {
         @RandomDouble(min = 1, max = 10)
         void generatesIntInBoundaries(double param) {
             assertTrue(param <= 10);
@@ -120,7 +122,7 @@ class Junit5ParameterizedTest {
             assertEquals("blah", name);
         }
     }
-    @Nested class RandomDoublesGenerator {
+    @Nested class DoublesGenerator {
         @RandomDouble(min = 1, name = "greater than zero")
         @RandomDouble(max = -1, name = "less than zero")
         void canGenerateMultipleNumbers(double param) {
