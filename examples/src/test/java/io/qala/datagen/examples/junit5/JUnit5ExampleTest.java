@@ -12,14 +12,16 @@ class JUnit5ExampleTest {
     @English(max=30)
     @Unicode(max=30)
     @Numeric(max=30)
-    void canGenerateMultipleAlphanumerics(String value, String name) {
+    void eachAnnotationInvokesTheTestOnceAndPassesParameters(String value, String name) {
         assertTrue(value.length() >= 1 && value.length() <= 31, "Failed case: " + name);
     }
+
     @RandomInt(min = 1, name = "greater than zero")
     @RandomInt(max = -1, name = "less than zero")
     void zeroInt_isNotPassed(int param, String name) {
         assertNotEquals(0, param, "Failed case: " + name);
     }
+
     @RandomLong(min = 1, name = "greater than zero")
     @RandomLong(max = -1, name = "less than zero")
     void zeroLong_isNotPassed(long value, String name) {

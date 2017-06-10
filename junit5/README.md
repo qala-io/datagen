@@ -6,14 +6,14 @@ Randomized Tests with JUnit5
 
 You can use Datagen + JUnit5 integration to facilitate randomization in parameterized tests. Examples:
 
-```
+```java
     @Alphanumeric(length = 1, name = "min boundary")
     @Alphanumeric(min = 2, max = 29, name = "middle value")
     @Alphanumeric(length = 30, name = "max boundary")
     @English(max=30)
     @Unicode(max=30)
     @Numeric(max=30)
-    void canGenerateMultipleAlphanumerics(String value, String name) {
+    void eachAnnotationInvokesTheTestOnceAndPassesParameters(String value, String name) {
         assertTrue(value.length() >= 1 && value.length() <= 31, "Failed case: " + name);
     }
 ```
@@ -21,7 +21,7 @@ You can use Datagen + JUnit5 integration to facilitate randomization in paramete
 This will run the test 6 times with different parameters according to the annotations. These tests will run 2 times
 each:
 
-```
+```java
     @RandomInt(min = 1, name = "greater than zero")
     @RandomInt(max = -1, name = "less than zero")
     void zeroInt_isNotPassed(int param, String name) {
