@@ -33,6 +33,8 @@ class RandomIntArgumentProvider implements ArgumentsProvider, AnnotationConsumer
     }
 
     static Object[] generateParams(RandomInt annotation) {
-        return new Object[]{integer(annotation.min(), annotation.max()), annotation.name()};
+        String name = annotation.name();
+        if(name.isEmpty()) name = "int from " + annotation.min() + " to " + annotation.max();
+        return new Object[]{integer(annotation.min(), annotation.max()), name};
     }
 }

@@ -24,6 +24,8 @@ public @interface RandomInt {
      * Name of the test case, useful when you have multiple annotations and you want to give title to each of the
      * generated string. Can be obtained in the test if there is a second param of type String. Ignored if the 2nd
      * param is not present in the test method.
+     *
+     * Defaults to "int from [min] to [max]".
      */
     String name() default "";
 }

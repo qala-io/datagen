@@ -27,7 +27,7 @@ public @interface Alphanumeric {
      * generated string. Can be obtained in the test if there is a second param of type String. Ignored if the 2nd
      * param is not present in the test method.
      */
-    String name() default "";
+    String name() default "latin letters and digits";
 
     /**
      * Set it if you need a fixed-length string generated. {@link #max()} and {@link #min()} are ignored in that case.

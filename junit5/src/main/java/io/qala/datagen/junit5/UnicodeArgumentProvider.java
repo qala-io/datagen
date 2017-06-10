@@ -7,13 +7,13 @@ import org.junit.jupiter.params.support.AnnotationConsumer;
 
 import java.util.stream.Stream;
 
-import static io.qala.datagen.RandomShortApi.english;
+import static io.qala.datagen.RandomShortApi.unicode;
 
-class EnglishArgumentProvider implements ArgumentsProvider, AnnotationConsumer<English> {
-    private English annotation;
+class UnicodeArgumentProvider implements ArgumentsProvider, AnnotationConsumer<Unicode> {
+    private Unicode annotation;
 
     @Override
-    public void accept(English annotation) {
+    public void accept(Unicode annotation) {
         this.annotation = annotation;
     }
 
@@ -21,18 +21,18 @@ class EnglishArgumentProvider implements ArgumentsProvider, AnnotationConsumer<E
     public Stream<? extends Arguments> provideArguments(ContainerExtensionContext containerExtensionContext) throws Exception {
         if (Utils.injectCaseName(containerExtensionContext))
             return Stream.of(annotation)
-                    .map(EnglishArgumentProvider::generateParams)
+                    .map(UnicodeArgumentProvider::generateParams)
                     .map(Arguments::of);
         return Stream.of(annotation)
-                .map(EnglishArgumentProvider::generateParam)
+                .map(UnicodeArgumentProvider::generateParam)
                 .map(Arguments::of);
     }
 
-    static String generateParam(English annotation) {
-        if (annotation.length() > 0) return english(annotation.length());
-        return english(annotation.min(), annotation.max());
+    static String generateParam(Unicode annotation) {
+        if (annotation.length() > 0) return unicode(annotation.length());
+        return unicode(annotation.min(), annotation.max());
     }
-    static Object[] generateParams(English annotation) {
+    static Object[] generateParams(Unicode annotation) {
         return new Object[]{generateParam(annotation), annotation.name()};
     }
 }

@@ -10,7 +10,8 @@ You can use Datagen + JUnit5 integration to facilitate randomization in paramete
     @Alphanumeric(length = 1, name = "min boundary")
     @Alphanumeric(min = 2, max = 29, name = "middle value")
     @Alphanumeric(length = 30, name = "max boundary")
-    @English(max=30, name = "letters without digits")
+    @English(max=30)
+    @Unicode
     void canGenerateMultipleAlphanumerics(String value, String name) {
         assertTrue(value.length() >= 1 && value.length() <= 31, "Failed case: " + name);
     }

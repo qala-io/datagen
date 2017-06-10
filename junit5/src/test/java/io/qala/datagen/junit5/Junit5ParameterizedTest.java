@@ -44,14 +44,16 @@ class Junit5ParameterizedTest {
             assertEquals("blah", name);
         }
 
-        @RandomInt(name = "name") @RandomInt
-        void nameIsEmpty_byDefault(int value, String name) {
-            assertTrue(name.equals("name") || name.isEmpty());
-            assertChangedFromLastTime(name);
+        @RandomInt(min = 2, max = 10) @RandomInt(min = 2, max = 10)
+        void nameIsGeneric_byDefault(int value, String name) {
+            assertEquals("int from 2 to 10", name);
         }
     }
 
     @Nested class AlphanumericGenerator {
+        @Alphanumeric void generatesStringWithCorrectSymbols(String value) {
+            assertEquals(value.getBytes().length, value.length());
+        }
         @Alphanumeric void generatesAlphanumeric_from1_to100_byDefault(String value) {
             assertTrue(value.trim().length() >= 1);
             assertTrue(value.length() <= 100);
@@ -70,6 +72,10 @@ class Junit5ParameterizedTest {
         }
     }
     @Nested class AlphanumericsGenerator {
+        @Alphanumeric @Alphanumeric(length = 10) void generatesStringWithCorrectSymbols(String value) {
+            assertEquals(value.getBytes().length, value.length());
+        }
+
         @Alphanumeric(length = 1)
         @Alphanumeric(min = 2, max = 29)
         @Alphanumeric(length = 30)
@@ -95,11 +101,10 @@ class Junit5ParameterizedTest {
             assertTrue(value.length() >= 1 && value.length() <= 31);
             assertChangedFromLastTime(value);
         }
-        @Alphanumeric(min = 2, max = 3, name = "name")
+        @Alphanumeric(min = 2, max = 3)
         @Alphanumeric(length = 1)
         void nameIsEmpty_byDefault(String value, String name) {
-            assertTrue(name.equals("name") || name.isEmpty());
-            assertChangedFromLastTime(name);
+            assertEquals("latin letters and digits", name);
         }
     }
 
@@ -111,6 +116,12 @@ class Junit5ParameterizedTest {
         @English void generatesStringWithCorrectSymbols(String english) {
             assertFalse(english.contains(numeric(1)));
             assertFalse(english.contains(" "));
+            assertEquals(english.length(), english.getBytes().length);
+        }
+        @English(length = 10) void generatesStringWithCorrectSymbols_whenLengthUsed(String english) {
+            assertFalse(english.contains(numeric(1)));
+            assertFalse(english.contains(" "));
+            assertEquals(english.length(), english.getBytes().length);
         }
 
         @English(name = "name") void setsNameAsArgumentIf2ndParameterExists(String value, String name) {
@@ -126,11 +137,13 @@ class Junit5ParameterizedTest {
         }
     }
     @Nested class EnglishesGenerator {
-        @English @English
+        @English @English(length = 20)
         void generatesStringWithCorrectSymbols(String english) {
             assertFalse(english.contains(numeric(1)));
             assertFalse(english.contains(" "));
+            assertEquals(english.length(), english.getBytes().length);
         }
+
         @English(length = 1)
         @English(min = 2, max = 29)
         @English(length = 30)
@@ -157,11 +170,72 @@ class Junit5ParameterizedTest {
             assertTrue(value.length() >= 1 && value.length() <= 31);
             assertChangedFromLastTime(value);
         }
-        @English(min = 2, max = 3, name = "name")
+        @English(min = 2, max = 3)
         @English(length = 1)
-        void nameIsEmpty_byDefault(String value, String name) {
-            assertTrue(name.equals("name") || name.isEmpty());
+        void nameIsGeneric_byDefault(String value, String name) {
+            assertEquals("latin letters", name);
+        }
+    }
+
+    @Nested class UnicodeGenerator {
+        @Unicode void generatesString_from1_to100_byDefault(String value) {
+            assertTrue(value.trim().length() >= 1);
+            assertTrue(value.length() <= 100);
+        }
+        @Unicode(min = 90) void generatesStringWithCorrectSymbols(String string) {
+            assertNotEquals(string.getBytes().length, string.length());
+        }
+        @Unicode(length = 100) void generatesStringWithCorrectSymbols_whenLengthUsed(String string) {
+            assertNotEquals(string.getBytes().length, string.length());
+        }
+
+        @Unicode(name = "name") void setsNameAsArgumentIf2ndParameterExists(String value, String name) {
+            assertEquals("name", name);
+        }
+        @Unicode(name = "name") void ignoresName_if2ndParamIsAbsent(String value) {}
+
+        @Unicode(length = 29) void generatesFixedLengthAlphanumeric_ifLengthIsSet(String value) {
+            assertEquals(29, value.length());
+        }
+        @Unicode(min = 2, max = 3) void lengthIsTakenFrom_minMaxParams_ifLengthIsAbsent(String value) {
+            assertTrue(value.length() >= 2 && value.length() <= 3);
+        }
+    }
+    @Nested class UnicodesGenerator {
+        @Unicode(length = 100) @Unicode(min = 90)
+        void generatesStringWithCorrectSymbols(String string) {
+            assertNotEquals(string.getBytes().length, string.length());//most unicodes >1 byte
+        }
+        @Unicode(length = 1)
+        @Unicode(min = 2, max = 29)
+        @Unicode(length = 30)
+        void canGenerateMultipleStrings(String value) {
+            assertTrue(value.length() >= 1 && value.length() <= 31);
+            assertFalse(value.contains("1"));
+            assertChangedFromLastTime(value);
+        }
+
+        @Unicode(length = 1, name = "min boundary")
+        @Unicode(min = 2, max = 29, name = "middle value")
+        @Unicode(length = 30, name = "max boundary")
+        void ignoresCaseName_ifItIsNotPassed(String value) {
+            assertTrue(value.length() >= 1 && value.length() <= 31);
+            assertChangedFromLastTime(value);
+        }
+
+        @Unicode(min = 2, max = 3, name = "name1")
+        @Unicode(length = 1, name = "name2")
+        void passesName_if2ndParam_isPresent(String value, String name) {
+            assertTrue(name.startsWith("name"));
             assertChangedFromLastTime(name);
+
+            assertTrue(value.length() >= 1 && value.length() <= 31);
+            assertChangedFromLastTime(value);
+        }
+        @Unicode(min = 2, max = 3)
+        @Unicode(length = 1)
+        void nameIsGeneric_byDefault(String value, String name) {
+            assertEquals("unicode symbols", name);
         }
     }
 
