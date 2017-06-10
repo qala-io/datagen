@@ -184,7 +184,7 @@ callOneOrMore(() -> person.firstName = english(5),
 
 ### Other
 
-- [Maven Central coordinates](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.qala.datagen%22%20a%3A%22qala-datagen%22%20)
+- [Maven Central coordinates](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.qala.datagen%22)
 
 ### Special thanks
 
