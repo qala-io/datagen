@@ -9,8 +9,8 @@ as well improving the coverage. Just _some_ use cases for randomization:
 
 * [Combinatorial Testing](./examples/combinatorial.md) - helps reducing the number of test cases you need 
 to write and run
-* [Fighting with Unique Constraints](./examples/unique-constraints.md) - a test registered a user with unique 
-username? The next time you run the test it fails because such user already exists.
+* [Fighting with Unique Constraints](./examples/unique-constraints.md) - do you have a test that registers users with
+unique username? And the next time you run the test it fails because such user already exists..
 * ["Wow, I didn't know about that"](./examples/wow-i-did-not-know-that.md) effect - sometimes randomization
 may discover tricky cases that you couldn't think of.
 * [Which one to pick?](./examples/which-one-to-pick.md) - often when choosing test data there is no clear winner
