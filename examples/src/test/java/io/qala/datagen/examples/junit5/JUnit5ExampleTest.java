@@ -15,7 +15,7 @@ class JUnit5ExampleTest {
     @English(max=30)
     @Unicode(max=30)
     @Numeric(max=30)
-    void eachAnnotationInvokesTheTestOnceAndPassesParameters(String value, String name) {
+    void invokedForEachAnnotation(String value, String name) {
         assertTrue(value.length() >= 1 && value.length() <= 31, "Failed case: " + name);
     }
 
