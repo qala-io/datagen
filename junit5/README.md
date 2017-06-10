@@ -24,13 +24,20 @@ each:
 ```java
 @RandomInt(min = 1, name = "greater than zero")
 @RandomInt(max = -1, name = "less than zero")
-void zeroInt_isNotPassed(int param, String name) {
+void zeroIsNotPassed(int param, String name) {
     assertNotEquals(0, param, "Failed case: " + name);
 }
+
 @RandomLong(min = 1, name = "greater than zero")
 @RandomLong(max = -1, name = "less than zero")
-void zeroLong_isNotPassed(long value, String name) {
+void zeroIsNotPassed(long value, String name) {
     assertNotEquals(0, value, "Failed case: " + name);
+}
+
+@RandomDouble(min = 1, name = "greater than zero")
+@RandomDouble(max = -1, name = "less than zero")
+void zeroIsNotPassed(double value, String name) {
+    assertFalse(value > -1 && value < 1, "Failed case: " + name);
 }
 ```
 
