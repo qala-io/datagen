@@ -1,15 +1,10 @@
 package io.qala.datagen.junit5;
 
-import org.junit.jupiter.api.extension.ContainerExtensionContext;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.ArgumentsProvider;
-import org.junit.jupiter.params.support.AnnotationConsumer;
-
 import java.util.stream.Stream;
 
 import static io.qala.datagen.RandomShortApi.english;
 
-class EnglishArgumentProvider implements ArgumentsProvider, AnnotationConsumer<English> {
+class EnglishArgumentProvider extends RandomizedArgumentProvider<English> {
     private English annotation;
 
     @Override
@@ -17,15 +12,11 @@ class EnglishArgumentProvider implements ArgumentsProvider, AnnotationConsumer<E
         this.annotation = annotation;
     }
 
-    @Override
-    public Stream<? extends Arguments> provideArguments(ContainerExtensionContext containerExtensionContext) throws Exception {
-        if (Utils.injectCaseName(containerExtensionContext))
-            return Stream.of(annotation)
-                    .map(EnglishArgumentProvider::generateParams)
-                    .map(Arguments::of);
-        return Stream.of(annotation)
-                .map(EnglishArgumentProvider::generateParam)
-                .map(Arguments::of);
+    @Override Stream<Object[]> getValueWithDescription() {
+        return Stream.of(annotation).map(EnglishArgumentProvider::generateParams);
+    }
+    @Override Stream<Object> getValue() {
+        return Stream.of(annotation).map(EnglishArgumentProvider::generateParam);
     }
 
     static String generateParam(English annotation) {

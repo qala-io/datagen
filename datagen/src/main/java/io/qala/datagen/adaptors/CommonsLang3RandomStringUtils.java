@@ -40,7 +40,7 @@ public class CommonsLang3RandomStringUtils {
      * to the random method so as to not return the same value in the 
      * same millisecond.</p>
      */
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new DatagenRandom();
 
     /**
      * <p>{@code RandomStringUtils} instances should NOT be constructed in

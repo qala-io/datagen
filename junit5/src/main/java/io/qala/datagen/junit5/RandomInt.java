@@ -10,7 +10,7 @@ import java.lang.annotation.*;
  * If multiple of these annotations are specified, the test will be run multiple times each time with a different value.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.PARAMETER})
+@Target({ElementType.METHOD})
 @Repeatable(RandomInts.class)
 
 @ArgumentsSource(RandomIntArgumentProvider.class)

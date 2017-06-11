@@ -1,12 +1,16 @@
 package io.qala.datagen.junit5;
 
+import io.qala.datagen.junit5.seed.DatagenSeedExtension;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static io.qala.datagen.RandomShortApi.english;
 import static io.qala.datagen.RandomShortApi.numeric;
 import static org.junit.jupiter.api.Assertions.*;
+
 @SuppressWarnings("unused"/*some tests just check that the method param doesn't break anything but don't use it*/)
+@ExtendWith(DatagenSeedExtension.class)
 @DisplayName("JUnit5 Parameterized")
 class Junit5ParameterizedTest {
     @Nested class IntGenerator {

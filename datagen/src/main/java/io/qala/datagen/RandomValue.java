@@ -2,7 +2,7 @@ package io.qala.datagen;
 
 import io.qala.datagen.adaptors.CommonsLang3RandomStringUtils;
 import io.qala.datagen.adaptors.CommonsMath4;
-import io.qala.datagen.adaptors.JavaRandom;
+import io.qala.datagen.adaptors.DatagenRandom;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +14,7 @@ import static io.qala.datagen.adaptors.CommonsLang3RandomStringUtils.random;
 
 @SuppressWarnings({"WeakerAccess", "Convert2Diamond"/*To support Java < 7*/})
 public class RandomValue implements RandomString {
-    static final JavaRandom RANDOM = new JavaRandom();
+    static final DatagenRandom RANDOM = new DatagenRandom();
     private final List<StringModifier> modifiers = new CopyOnWriteArrayList<StringModifier>();
     private final Long min;
     private final Long max;

@@ -1,15 +1,10 @@
 package io.qala.datagen.junit5;
 
-import org.junit.jupiter.api.extension.ContainerExtensionContext;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.ArgumentsProvider;
-import org.junit.jupiter.params.support.AnnotationConsumer;
-
 import java.util.stream.Stream;
 
 import static io.qala.datagen.RandomShortApi.Long;
 
-class RandomLongArgumentProvider implements ArgumentsProvider, AnnotationConsumer<RandomLong> {
+class RandomLongArgumentProvider extends RandomizedArgumentProvider<RandomLong> {
     private RandomLong annotation;
 
     @Override
@@ -17,15 +12,11 @@ class RandomLongArgumentProvider implements ArgumentsProvider, AnnotationConsume
         this.annotation = annotation;
     }
 
-    @Override
-    public Stream<? extends Arguments> provideArguments(ContainerExtensionContext extensionContext) throws Exception {
-        if (Utils.injectCaseName(extensionContext))
-            return Stream.of(annotation)
-                    .map(RandomLongArgumentProvider::generateParams)
-                    .map(Arguments::of);
-        return Stream.of(annotation)
-                .map(RandomLongArgumentProvider::generateParam)
-                .map(Arguments::of);
+    @Override Stream<Object[]> getValueWithDescription() {
+        return Stream.of(annotation).map(RandomLongArgumentProvider::generateParams);
+    }
+    @Override Stream<Object> getValue() {
+        return Stream.of(annotation).map(RandomLongArgumentProvider::generateParam);
     }
 
     static long generateParam(RandomLong annotation) {

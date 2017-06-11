@@ -95,7 +95,7 @@ public class CommonsMath4 {
         throw new IllegalStateException("Not strictly positive" + n);
     }
 
-    public static double nextUniform(JavaRandom random, double lower, double upper, boolean lowerInclusive) throws IllegalArgumentException {
+    public static double nextUniform(DatagenRandom random, double lower, double upper, boolean lowerInclusive) throws IllegalArgumentException {
         if (lower >= upper) {
             throw new IllegalArgumentException("lower bound " + lower + " must be strictly less than upper bound " + upper);
         }
@@ -120,7 +120,7 @@ public class CommonsMath4 {
         return u * upper + (1.0 - u) * lower;
     }
 
-    private static double nextDouble(JavaRandom random) {
+    private static double nextDouble(DatagenRandom random) {
         final long high = ((long) random.next(26)) << 26;
         final int low = random.next(26);
         return (high | low) * 0x1.0p-52d;

@@ -18,8 +18,9 @@ class AlphanumericArgumentProvider implements ArgumentsProvider, AnnotationConsu
     }
 
     @Override
-    public Stream<? extends Arguments> provideArguments(ContainerExtensionContext containerExtensionContext) throws Exception {
-        if (Utils.injectCaseName(containerExtensionContext))
+    public Stream<? extends Arguments> provideArguments(ContainerExtensionContext context) throws Exception {
+        DatagenUtils.setCurrentSeedIfNotSetYet(context);
+        if (DatagenUtils.passCaseNameToTestMethod(context))
             return Stream.of(annotation)
                     .map(AlphanumericArgumentProvider::generateParams)
                     .map(Arguments::of);

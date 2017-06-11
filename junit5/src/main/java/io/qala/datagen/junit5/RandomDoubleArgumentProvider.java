@@ -1,15 +1,10 @@
 package io.qala.datagen.junit5;
 
-import org.junit.jupiter.api.extension.ContainerExtensionContext;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.ArgumentsProvider;
-import org.junit.jupiter.params.support.AnnotationConsumer;
-
 import java.util.stream.Stream;
 
 import static io.qala.datagen.RandomShortApi.Double;
 
-class RandomDoubleArgumentProvider implements ArgumentsProvider, AnnotationConsumer<RandomDouble> {
+class RandomDoubleArgumentProvider extends RandomizedArgumentProvider<RandomDouble> {
     private RandomDouble annotation;
 
     @Override
@@ -17,15 +12,11 @@ class RandomDoubleArgumentProvider implements ArgumentsProvider, AnnotationConsu
         this.annotation = annotation;
     }
 
-    @Override
-    public Stream<? extends Arguments> provideArguments(ContainerExtensionContext extensionContext) throws Exception {
-        if (Utils.injectCaseName(extensionContext))
-            return Stream.of(annotation)
-                    .map(RandomDoubleArgumentProvider::generateParams)
-                    .map(Arguments::of);
-        return Stream.of(annotation)
-                .map(RandomDoubleArgumentProvider::generateParam)
-                .map(Arguments::of);
+    @Override Stream<Object[]> getValueWithDescription() {
+        return Stream.of(annotation).map(RandomDoubleArgumentProvider::generateParams);
+    }
+    @Override Stream<Object> getValue() {
+        return Stream.of(annotation).map(RandomDoubleArgumentProvider::generateParam);
     }
 
     static Double generateParam(RandomDouble annotation) {

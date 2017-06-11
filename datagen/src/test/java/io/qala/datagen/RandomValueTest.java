@@ -24,7 +24,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SuppressWarnings({"ThrowableResultOfMethodCallIgnored", "unchecked"})
-public class RandomValueTest {
+class RandomValueTest {
     @Nested @DisplayName("Integer Generator") class Integers {
         @Test void returnsPositiveIntegers() {
             assertThat(upTo(Integer.MAX_VALUE).integer(), greaterThan(0));
@@ -40,7 +40,7 @@ public class RandomValueTest {
             assertEquals(boundary, integer(boundary, boundary));
         }
         @Test void returnsAnyInteger() {
-            assertNotNull(integer());
+            integer();
         }
 
         @Test void throwsIfMaxBoundaryGreaterThanInteger() {
@@ -141,7 +141,7 @@ public class RandomValueTest {
             assertThat(length(100).english(), not(containsNonAlphanumerics()));
             assertThat(english(100), not(containsNonAlphanumerics()));
         }
-        @Test public void createsUnicodeStringThatContainsNonAlphanumerics() {
+        @Test void createsUnicodeStringThatContainsNonAlphanumerics() {
             assertThat(length(1000).unicode(), containsNonAlphanumerics());
             assertThat(unicode(100, 1000), containsNonAlphanumerics());
         }
@@ -171,6 +171,7 @@ public class RandomValueTest {
         }
 
         @Test void addsSymbolsOccasionally() {
+            bools(10);
             List<String> alphanumerics = length(5).with(occasional("!#")).alphanumerics(500);
             assertThat(alphanumerics, hasItems(containsString("!")));
             assertThat(alphanumerics, hasItems(containsString("#")));

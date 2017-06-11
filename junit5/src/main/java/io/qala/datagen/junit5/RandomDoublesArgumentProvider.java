@@ -1,14 +1,9 @@
 package io.qala.datagen.junit5;
 
-import org.junit.jupiter.api.extension.ContainerExtensionContext;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.ArgumentsProvider;
-import org.junit.jupiter.params.support.AnnotationConsumer;
-
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-class RandomDoublesArgumentProvider implements ArgumentsProvider, AnnotationConsumer<RandomDoubles> {
+class RandomDoublesArgumentProvider extends RandomizedArgumentProvider<RandomDoubles> {
     private RandomDoubles annotation;
 
     @Override
@@ -16,15 +11,10 @@ class RandomDoublesArgumentProvider implements ArgumentsProvider, AnnotationCons
         this.annotation = annotation;
     }
 
-    @Override
-    public Stream<? extends Arguments> provideArguments(ContainerExtensionContext extensionContext) throws Exception {
-        if (Utils.injectCaseName(extensionContext)) {
-            return Arrays.stream(annotation.value())
-                    .map(RandomDoubleArgumentProvider::generateParams)
-                    .map(Arguments::of);
-        }
-        return Arrays.stream(annotation.value())
-                .map(RandomDoubleArgumentProvider::generateParam)
-                .map(Arguments::of);
+    @Override Stream<Object[]> getValueWithDescription() {
+        return Arrays.stream(annotation.value()).map(RandomDoubleArgumentProvider::generateParams);
+    }
+    @Override Stream<Object> getValue() {
+        return Arrays.stream(annotation.value()).map(RandomDoubleArgumentProvider::generateParam);
     }
 }
