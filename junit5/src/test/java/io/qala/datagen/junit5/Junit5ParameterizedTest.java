@@ -1,17 +1,23 @@
 package io.qala.datagen.junit5;
 
+import io.qala.datagen.Seed;
 import io.qala.datagen.junit5.seed.DatagenSeedExtension;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static io.qala.datagen.RandomShortApi.english;
-import static io.qala.datagen.RandomShortApi.numeric;
+import java.util.stream.Stream;
+
+import static io.qala.datagen.RandomShortApi.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SuppressWarnings("unused"/*some tests just check that the method param doesn't break anything but don't use it*/)
-@ExtendWith(DatagenSeedExtension.class)
 @DisplayName("JUnit5 Parameterized")
+@ExtendWith(DatagenSeedExtension.class)
 class Junit5ParameterizedTest {
     @Nested class IntGenerator {
         @RandomInt(min = 1, max = 10)
@@ -361,8 +367,8 @@ class Junit5ParameterizedTest {
         @Unicode(min = 90) void generatesStringWithCorrectSymbols(String string) {
             assertNotEquals(string.getBytes().length, string.length());
         }
-        @Unicode(length = 100) void generatesStringWithCorrectSymbols_whenLengthUsed(String string) {
-            assertNotEquals(string.getBytes().length, string.length());
+        @Unicode(length = 100) void generatesStringWithCorrectSymbols_whenLengthUsed(String string) throws Exception {
+            assertNotEquals(string.getBytes("UTF-8").length, string.length(), "value: " +string);
         }
 
         @Unicode(name = "name") void setsNameAsArgumentIf2ndParameterExists(String value, String name) {
@@ -414,6 +420,30 @@ class Junit5ParameterizedTest {
             assertEquals("unicode symbols", name);
         }
     }
+
+    // Such tests are impossible to set seed for as for now, JUnit5 doesn't have callbacks that are run before
+    // Argument Providers are invoked.
+    @Seed(1234)
+    @ParameterizedTest
+    @MethodSource("numericsMethod")
+    void test(String value) {
+        assertFalse(value.contains(english(1)));
+    }
+    private static Stream<? extends Arguments> numericsMethod() {
+        return Stream.of(numeric(10)).map(Arguments::of);
+    }
+
+    @Test @Seed(123)
+    void explicitSeed_generatesSameDataEveryTime() {
+        assertEquals("56847945", numeric(integer(1, 10)));
+        assertEquals("0o2V9KpUJc6", alphanumeric(integer(1, 20)));
+        assertEquals("lfBi", english(1, 10));
+        assertEquals(1876573356364443993L, Long());
+        assertEquals(-8.9316016195567002E18, Double());
+        assertEquals(false, bool());
+        assertEquals("\uF26B喕", unicode(integer(1, 5)));
+    }
+
 
     private static void assertChangedFromLastTime(Object newValue) {
         assertNotEquals(PREV_VALUE, newValue);

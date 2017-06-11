@@ -5,7 +5,7 @@
     <parent>
         <artifactId>qala-datagen-parent</artifactId>
         <groupId>io.qala.datagen</groupId>
-        <version>1.14.0</version>
+        <version>2.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,6 +15,14 @@
         <dependency>
             <groupId>io.qala.datagen</groupId>
             <artifactId>qala-datagen</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
