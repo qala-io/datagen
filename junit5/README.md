@@ -104,7 +104,7 @@ methods instead.
 [current restrictions of JUnit5](https://github.com/junit-team/junit5/issues/883) which doesn't have any callbacks
 to impact `@MethodSource`. So this seed will not work:
 
-```
+```java
 @Seed(1234)
 @ParameterizedTest
 @MethodSource("numericsMethod")
