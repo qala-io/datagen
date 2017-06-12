@@ -421,6 +421,16 @@ class Junit5ParameterizedTest {
         }
     }
 
+    @BlankString void passesNull_empty_or_space_string(String string) {
+        assertTrue(string == null || string.trim().isEmpty());
+    }
+    @BlankString void blankString_nameDefaultToWhateverIsPassedInValue(String string, String caseName) {
+        if(string == null) assertEquals("null", caseName);
+        else if(string.isEmpty()) assertEquals("empty string", caseName);
+        else if(string.trim().isEmpty()) assertEquals("string with spaces only", caseName);
+        else fail("Something weird was passed but it wasn't a blank: " + string);
+    }
+
     // Such tests are impossible to set seed for as for now, JUnit5 doesn't have callbacks that are run before
     // Argument Providers are invoked.
     @Seed(1234)

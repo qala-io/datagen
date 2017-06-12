@@ -39,6 +39,12 @@ void zeroIsNotPassed(long value, String name) {
 void zeroIsNotPassed(double value, String name) {
     assertFalse(value > -1 && value < 1, "Failed case: " + name);
 }
+
+@English(max=1)
+@BlankString
+void canAlsoPassNullsOrBlankStrings(String value, String name) {
+    assertTrue(value == null || value.trim().length() < 2, name);
+}
 ```
 
 In the end results look like this:
@@ -125,7 +131,7 @@ API may change in the future, you can give it a try. In order for this to work y
     <dependency>
         <groupId>io.qala.datagen</groupId>
         <artifactId>qala-datagen-junit5</artifactId>
-        <version>2.0.0</version>
+        <version>2.1.0</version>
         <scope>test</scope>
     </dependency>
 

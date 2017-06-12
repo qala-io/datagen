@@ -36,4 +36,10 @@ class JUnit5ExampleTest {
     void zeroIsNotPassed(double value, String name) {
         assertFalse(value > -1 && value < 1, "Failed case: " + name);
     }
+
+    @English(max=1)
+    @BlankString
+    void canAlsoPassNullsOrBlankStrings(String value, String name) {
+        assertTrue(value == null || value.trim().length() < 2, name);
+    }
 }

@@ -1,14 +1,9 @@
 package io.qala.datagen.junit5;
 
-import org.junit.jupiter.api.extension.ContainerExtensionContext;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.ArgumentsProvider;
-import org.junit.jupiter.params.support.AnnotationConsumer;
-
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-class AlphanumericsArgumentProvider implements ArgumentsProvider, AnnotationConsumer<Alphanumerics> {
+class AlphanumericsArgumentProvider extends RandomizedArgumentProvider<Alphanumerics> {
     private Alphanumerics annotation;
 
     @Override
@@ -16,16 +11,10 @@ class AlphanumericsArgumentProvider implements ArgumentsProvider, AnnotationCons
         this.annotation = annotation;
     }
 
-    @Override
-    public Stream<? extends Arguments> provideArguments(ContainerExtensionContext context) throws Exception {
-        DatagenUtils.setCurrentSeedIfNotSetYet(context);
-        if (DatagenUtils.passCaseNameToTestMethod(context))
-            return Arrays.stream(annotation.value())
-                    .map(AlphanumericArgumentProvider::generateParams)
-                    .map(Arguments::of);
-        return Arrays.stream(annotation.value())
-                .map(AlphanumericArgumentProvider::generateParam)
-                .map(Arguments::of);
+    @Override Stream<Object[]> getValueWithDescription() {
+        return Arrays.stream(annotation.value()).map(AlphanumericArgumentProvider::generateParams);
     }
-
+    @Override Stream<Object> getValue() {
+        return Arrays.stream(annotation.value()).map(AlphanumericArgumentProvider::generateParam);
+    }
 }
