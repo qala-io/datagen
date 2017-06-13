@@ -131,7 +131,7 @@ API may change in the future, you can give it a try. In order for this to work y
     <dependency>
         <groupId>io.qala.datagen</groupId>
         <artifactId>qala-datagen-junit5</artifactId>
-        <version>2.1.0</version>
+        <version>2.2.0</version>
         <scope>test</scope>
     </dependency>
 
