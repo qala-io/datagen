@@ -48,7 +48,7 @@ void canAlsoPassNullsOrBlankStrings(String value, String name) {
 ```
 
 In the end results look like this:
-[![IntelliJ output](https://photos-4.dropbox.com/t/2/AAAi1YOwCWxnHazbveXXR-L3WWb39wlrcTaXTruYZ0R86A/12/2397949/png/32x32/3/1497351600/0/2/datagen-docs-junit5-test-results.png/ENCQ7gEYs-OnQSAHKAc/jJI1HI8_Zl_IzmC14CNLg3VrsyKjSZIJRiEzlimctMs?dl=0&size=2048x1536&size_mode=3)](../examples/src/test/java/io/qala/datagen/examples/junit5/JUnit5ExampleTest.java)
+[![IntelliJ output](https://user-images.githubusercontent.com/702510/27068275-e6450934-5017-11e7-825c-c231d845eb3c.png)](../examples/src/test/java/io/qala/datagen/examples/junit5/JUnit5ExampleTest.java)
 
 Though if you need to run a test only once and you want to use randomization - it's going to be more concise to use 
 [Datagen API](./../README.md) directly. More examples are available in 
