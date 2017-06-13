@@ -1,1 +1,1 @@
-io.qala.datagen.junit5.seed.DatagenSeedExtension
+io.qala.datagen.junit.jupiter.seed.DatagenSeedExtension

@@ -1,7 +1,8 @@
 package io.qala.datagen.junit5;
 
 import io.qala.datagen.Seed;
-import io.qala.datagen.junit5.seed.DatagenSeedExtension;
+import io.qala.datagen.junit.jupiter.*;
+import io.qala.datagen.junit.jupiter.seed.DatagenSeedExtension;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
 package io.qala.datagen.examples.junit5;
 
-import io.qala.datagen.junit5.*;
+import io.qala.datagen.junit.jupiter.*;
 import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
