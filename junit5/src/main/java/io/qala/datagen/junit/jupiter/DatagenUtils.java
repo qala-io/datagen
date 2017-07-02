@@ -2,7 +2,6 @@ package io.qala.datagen.junit.jupiter;
 
 import io.qala.datagen.adaptors.DatagenRandom;
 import io.qala.datagen.Seed;
-import org.junit.jupiter.api.extension.ContainerExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ExtensionContext.Namespace;
 import org.junit.jupiter.api.extension.ExtensionContext.Store;
@@ -17,7 +16,7 @@ import java.util.Optional;
 public class DatagenUtils {
     private static final Logger LOG = LoggerFactory.getLogger(DatagenUtils.class);
 
-    static boolean passCaseNameToTestMethod(ContainerExtensionContext context) {
+    static boolean passCaseNameToTestMethod(ExtensionContext context) {
         Optional<Method> testMethod = context.getTestMethod();
         return testMethod.filter(method -> method.getParameterCount() == 2).isPresent();
     }
