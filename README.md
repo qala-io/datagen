@@ -74,9 +74,6 @@ import static io.qala.datagen.RandomShortApi.*;
 | `between(1, 10).numeric()`                               |`numeric(1, 10)`      | `"7167162"`
 | `length(5).unicode()`                                    |`unicode(5)`          | `"䂞ꂣ뢧䯺婜"`
 | `length(5).string("A_ B")`                               |                      | `" _B B"`
-|                                                          | `nullOrEmpty()`      | `""`
-|                                                          | `nullOrBlank()`      | `"   "`
-|                                                          | `blankOr("string")`  | `null`
 | `length(10).with(specialSymbol()).english()`             |                      | `"hOzKEV#iWv"`
 | `length(10).with(oneOf("_,")).english()`                 |                      | `"dwei,cNTfW"`
 | `length(5).with(spaces()).numeric()`                     |                      | `"874 9 "`
@@ -84,6 +81,16 @@ import static io.qala.datagen.RandomShortApi.*;
 | `length(4).with(spacesRight(2)).english()`               |                      | `"hF  "`
 | `length(10).with(prefix("BLAH")).numeric()`              |                      | `"BLAH453677"`
 | `upTo(10).alphanumerics(4)`                              |                      | `["cvA", "mTMDj0", "N", ""]`
+
+## Nulls & Blanks
+
+|       API            | Result
+|----------------------|------------------------
+| `nullOrEmpty()`      | `""`, `null`
+| `nullOrBlank()`      | `""`, `"  "`, `null`
+| `nullOr(10L)`        | `null`, `10L`
+| `nullOr("string")`   | `null`, `"string"`
+| `blankOr("string")`  | `""`, `"  "`, `null`, `"string"`
 
 ## Repeats
 
@@ -124,7 +131,6 @@ import static io.qala.datagen.RandomShortApi.*;
 |`from("A", "B", "C", "D").sample()`                      | `sample("A", "B", "C")`                | `"C"`
 |`from("A", "B", "C", "D").sample(2)`                     | `sampleMultiple(2, "A", "B", "C")`     | `["B", "A"]`
 |`from("A", "B").sampleWithReplacement(3)`                |                                        | `["A", "A", "B"]`
-|                                                         | `nullOr("string")`                     | `"string"`
 
 ## Java Date
 
