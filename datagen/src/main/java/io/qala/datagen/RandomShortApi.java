@@ -21,15 +21,15 @@ public class RandomShortApi {
     private RandomShortApi() {}
 
     /**
-     * @param max inclusive, must be greater than 0
+     * @param max inclusive, must be greater than or equal to 0
      * @return integer between 0 (inclusive) to {@code max}
      */
     public static int integer(int max) {
         return upTo(max).integer();
     }
     /**
-     * @param min inclusive, must be less than {@code max}
-     * @param max inclusive, must be greater than {@code min}
+     * @param min inclusive, must be less than or equal to {@code max}
+     * @param max inclusive, must be greater than or equal to {@code min}
      * @return integer from {@code min} to {@code max}
      */
     public static int integer(int min, int max) {
