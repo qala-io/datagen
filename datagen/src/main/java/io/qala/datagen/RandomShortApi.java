@@ -20,18 +20,30 @@ import static io.qala.datagen.RandomValue.*;
 public class RandomShortApi {
     private RandomShortApi() {}
 
+    /**
+     * @param max inclusive, must be greater than 0
+     * @return integer between 0 (inclusive) to {@code max}
+     */
     public static int integer(int max) {
         return upTo(max).integer();
     }
+    /**
+     * @param min inclusive, must be less than {@code max}
+     * @param max inclusive, must be greater than {@code min}
+     * @return integer from {@code min} to {@code max}
+     */
     public static int integer(int min, int max) {
         return between(min, max).integer();
     }
     public static int integer() {
         return between(Integer.MIN_VALUE, Integer.MAX_VALUE).integer();
     }
+
+    /** @return value between 0 (inclusive) and {@link Integer#MAX_VALUE} (inclusive) */
     public static int positiveInteger() {
         return upTo(Integer.MAX_VALUE).integer();
     }
+    /** @return value between {@link Long#MIN_VALUE} (inclusive) and {@link Long#MAX_VALUE} (inclusive) */
     public static long Long() {
         return between(Long.MIN_VALUE, Long.MAX_VALUE).Long();
     }
