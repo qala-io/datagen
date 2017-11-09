@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.qala.datagen.RandomShortApi.sample;
-import static io.qala.datagen.RandomValue.upTo;
 import static java.time.temporal.ChronoUnit.HOURS;
 import static java.time.temporal.ChronoUnit.SECONDS;
 
@@ -115,7 +114,7 @@ public class RandomDate {
         int toNano = to.getNano();
         long nano = 0;
         if (minSecond == maxSecond) nano = RandomValue.between(fromNano, toNano).Long();
-        else if (randomSeconds == maxSecond) nano = upTo(toNano).Long();
+        else if (randomSeconds == maxSecond) nano = RandomValue.between(0, toNano).Long();
         else if (randomSeconds == minSecond) nano = RandomValue.between(fromNano, MAX_NANO).Long();
 
         return Instant.ofEpochSecond(randomSeconds, nano);

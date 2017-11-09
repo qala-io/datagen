@@ -69,8 +69,7 @@ import static io.qala.datagen.RandomShortApi.*;
 | Flexible API                                             | Short API            | Result
 |----------------------------------------------------------|----------------------|--------
 | `length(10).english()`                                   |`english(10)`         | `"DcRZUNPrED"`
-| `upTo(10).alphanumeric()`                                |`alphanumeric(0, 10)` | `"zG9G"`
-| `upTo(10).alphanumeric()`                                |`alphanumeric(0, 10)` | `"zG9G"`
+| `between(1, 10).alphanumeric()`                          |`alphanumeric(0, 10)` | `"zG9G"`
 | `between(1, 10).numeric()`                               |`numeric(1, 10)`      | `"7167162"`
 | `length(5).unicode()`                                    |`unicode(5)`          | `"䂞ꂣ뢧䯺婜"`
 | `length(5).string("A_ B")`                               |                      | `" _B B"`
@@ -80,7 +79,7 @@ import static io.qala.datagen.RandomShortApi.*;
 | `length(3).with(spaceLeft()).english()`                  |                      | `" mT"`
 | `length(4).with(spacesRight(2)).english()`               |                      | `"hF  "`
 | `length(10).with(prefix("BLAH")).numeric()`              |                      | `"BLAH453677"`
-| `upTo(10).alphanumerics(4)`                              |                      | `["cvA", "mTMDj0", "N", ""]`
+| `between(1, 10).alphanumerics(4)`                        |                      | `["cvA", "mTMDj0", "N", ""]`
 
 ## Nulls & Blanks
 
@@ -113,7 +112,7 @@ import static io.qala.datagen.RandomShortApi.*;
 
 |Flexible API                                             | Short API            | Result
 |---------------------------------------------------------|----------------------|--------
-|`upTo(100).integer()`                                    | `integer(100)`       | `89`
+|`between(0, 100).integer()`                              | `integer(100)`       | `89`
 |`between(-100, 100).integer()`                           | `integer(-100, 100)` | `-19`
 |                                                         | `positiveInteger()`  | `3432145`
 |                                                         | `Long()`             | `7635811362052252913`

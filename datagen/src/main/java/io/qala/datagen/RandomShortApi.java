@@ -25,7 +25,7 @@ public class RandomShortApi {
      * @return integer between 0 (inclusive) to {@code max}
      */
     public static int integer(int max) {
-        return upTo(max).integer();
+        return between(0, max).integer();
     }
     /**
      * @param min inclusive, must be less than or equal to {@code max}
@@ -41,7 +41,7 @@ public class RandomShortApi {
 
     /** @return value between 0 (inclusive) and {@link Integer#MAX_VALUE} (inclusive) */
     public static int positiveInteger() {
-        return upTo(Integer.MAX_VALUE).integer();
+        return between(0, Integer.MAX_VALUE).integer();
     }
     /** @return value between {@link Long#MIN_VALUE} (inclusive) and {@link Long#MAX_VALUE} (inclusive) */
     public static long Long() {

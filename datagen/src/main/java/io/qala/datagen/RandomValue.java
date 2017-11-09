@@ -32,6 +32,7 @@ public class RandomValue implements RandomString {
         return new RandomValue(from.getTime(), to.getTime());
     }
 
+    /** @deprecated see https://github.com/qala-io/datagen/issues/10 */@Deprecated
     public static RandomValue upTo(long to) {
         return new RandomValue(0L, to);
     }

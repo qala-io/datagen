@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static io.qala.datagen.RandomShortApi.bool;
+import static io.qala.datagen.RandomShortApi.integer;
 import static io.qala.datagen.RandomValue.*;
 
 /**
@@ -76,7 +77,7 @@ public interface StringModifier {
         public static StringModifier oneOf(final char... chars) {
             return new WithDefaultBatchModify() {
                 @Override public String modify(String original) {
-                    int index = upTo(original.length() - 1).integer();
+                    int index = integer(original.length() - 1);
                     String symbol = CommonsLang3RandomStringUtils.random(1, chars);
                     return new StringBuilder(original).replace(index, index + 1, symbol).toString();
                 }
@@ -117,7 +118,7 @@ public interface StringModifier {
                     int nOfSymbols = between(1, original.length()).integer();
                     StringBuilder stringBuilder = new StringBuilder(original);
                     for (int i = 0; i < nOfSymbols; i++) {
-                        int index = upTo(original.length() - 1).integer();
+                        int index = integer(original.length() - 1);
                         String symbol = length(1).string(chars);
                         stringBuilder.replace(index, index + 1, symbol);
                     }

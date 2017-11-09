@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import static io.qala.datagen.RandomValue.upTo;
+import static io.qala.datagen.RandomShortApi.integer;
 
 @SuppressWarnings({"Convert2Diamond", "WeakerAccess"})
 public class RandomElements<T> {
@@ -45,7 +45,7 @@ public class RandomElements<T> {
      * @return a random element from the collection
      */
     public T sample() {
-        int index = upTo(size() - 1).integer();
+        int index = integer(size() - 1);
         return this.elements.get(index);
     }
 
@@ -66,7 +66,7 @@ public class RandomElements<T> {
         List<T> elements = new ArrayList<T>(this.elements);
         List<T> result = new ArrayList<T>(nToReturn);
         for(int i = 0; i < nToReturn; i++) {
-            int index = upTo(elements.size() - 1).integer();
+            int index = integer(elements.size() - 1);
             result.add(elements.remove(index));
         }
         return result;
@@ -84,7 +84,7 @@ public class RandomElements<T> {
     public List<T> sampleWithReplacement(int nToReturn) {
         List<T> result = new ArrayList<T>(nToReturn);
         for(int i = 0; i < nToReturn; i++) {
-            int index = upTo(size() - 1).integer();
+            int index = integer(size() - 1);
             result.add(this.elements.get(index));
         }
         return result;
