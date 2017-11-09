@@ -2,7 +2,6 @@ Randomized Tests with JUnit5
 ----------------------------
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.qala.datagen/qala-datagen-junit5/badge.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.qala.datagen%22)
-[![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
 You can use Datagen + JUnit5 integration to facilitate randomization in parameterized tests. Examples:
 
@@ -124,8 +123,8 @@ private static Stream<? extends Arguments> numericsMethod() {
 
 # Add to your project
 
-This integration is not stable yet because JUnit5 itself is not stable. But if you're not afraid of the fact that the 
-API may change in the future, you can give it a try. In order for this to work you need the latest snapshot of JUnit5:
+Choose JUnit5 dependencies and versions suitable for your project, this is just an example:
+
 ```xml
 <dependencies>
     <dependency>
@@ -138,25 +137,25 @@ API may change in the future, you can give it a try. In order for this to work y
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-params</artifactId>
-        <version>5.0.0-SNAPSHOT</version>
+        <version>5.0.1</version>
         <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.0.0-SNAPSHOT</version>
+        <version>5.0.1</version>
         <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>org.junit.platform</groupId>
         <artifactId>junit-platform-commons</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1</version>
         <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>org.junit.platform</groupId>
         <artifactId>junit-platform-surefire-provider</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.1</version>
         <scope>test</scope>
     </dependency>
 </dependencies>
@@ -170,12 +169,12 @@ API may change in the future, you can give it a try. In order for this to work y
                 <dependency>
                     <groupId>org.junit.platform</groupId>
                     <artifactId>junit-platform-surefire-provider</artifactId>
-                    <version>1.0.0-SNAPSHOT</version>
+                    <version>1.0.1</version>
                 </dependency>
                 <dependency>
                     <groupId>org.junit.jupiter</groupId>
                     <artifactId>junit-jupiter-engine</artifactId>
-                    <version>5.0.0-SNAPSHOT</version>
+                    <version>5.0.1</version>
                 </dependency>
             </dependencies>
         </plugin>
