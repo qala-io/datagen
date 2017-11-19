@@ -197,6 +197,8 @@ Result: `Person["LjxYh", "UXoBt"]`
 ## Other
 
 - [Maven Central coordinates](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22io.qala.datagen%22)
+- Occasional updates are posted in [Twitter](https://twitter.com/Qala_io)
+- [Our blog](http://qala.io/blog.html)
 
 ## Special thanks
 
