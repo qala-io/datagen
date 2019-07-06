@@ -293,10 +293,10 @@ public class RandomShortApi {
      * Returns multiple random elements from the specified collection.
      *
      * @param toSampleFrom the population of the elements you'd like to get a random value from
-     * @return 0 or more elements of the specified collection, elements don't repeat
+     * @return 1 or more elements of the specified collection, elements don't repeat
      */
     public static <T> List<T> sampleMultiple(Collection<T> toSampleFrom) {
-        return sampleMultiple(integer(toSampleFrom.size()), toSampleFrom);
+        return sampleMultiple(integer(1, toSampleFrom.size()), toSampleFrom);
     }
 
     /**

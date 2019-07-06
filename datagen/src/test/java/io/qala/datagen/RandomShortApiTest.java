@@ -1,6 +1,5 @@
 package io.qala.datagen;
 
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,16 +8,18 @@ import java.util.List;
 import java.util.Objects;
 
 import static io.qala.datagen.RandomShortApi.*;
+import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DisplayName("Functional Randomizer")
 class RandomShortApiTest {
     @Test void onlyOneFunctionIsCalled() {
-        List<Person> people = repeat((p) -> oneOf(
+        List<Person> people = repeat((p) -> callOneOf(
                 () -> p.firstName = english(5),
                 () -> p.lastName = english(5))
         );
@@ -26,7 +27,7 @@ class RandomShortApiTest {
     }
 
     @Test void sometimesNoneOfFunctionsAreCalled() {
-        List<Person> people = repeat((p) -> noneOrMore(
+        List<Person> people = repeat((p) -> callNoneOrMore(
                 () -> p.firstName = english(5),
                 () -> p.lastName = english(5))
         );
@@ -34,11 +35,15 @@ class RandomShortApiTest {
     }
 
     @Test void atLeastOneFunctionIsAlwaysCalled() {
-        List<Person> people = repeat((p) -> oneOrMore(
+        List<Person> people = repeat((p) -> callOneOrMore(
                 () -> p.firstName = english(5),
                 () -> p.lastName = english(5))
         );
         assertThat(people, not(hasItem(equalTo(new Person()))));
+    }
+
+    @Test void atLeastOneElementIsReturned() {
+        assertFalse(sampleMultiple(asList(integer(), integer())).isEmpty());
     }
 
     private void assertOnlyOneIsNull(Object o1, Object o2) {
