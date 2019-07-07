@@ -16,7 +16,9 @@ public class DatagenRandom extends Random {
         return (int)(nextseed >>> (48 - bits));
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static void overrideSeed(long seed) { SEEDS.set(seed)   ;}
+    @SuppressWarnings("WeakerAccess")
     public static long getCurrentSeed()        { return SEEDS.get();}
 
     private static final long multiplier = 0x5DEECE66DL;

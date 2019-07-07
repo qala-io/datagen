@@ -23,8 +23,9 @@ public class ContainsOneOfMatcher<T> extends BaseMatcher<T> {
         if (expected != null && actual instanceof String && isArray(expected)) {
             String actualString = (String) actual;
             for(int i = 0; i < Array.getLength(expected); i++) {
-                String s = String.valueOf(Array.get(expected, i));
-                if(actualString.contains(s)) return true;
+                char s = (char) Array.get(expected, i);
+                if(actualString.indexOf(s) >= 0)
+                    return true;
             }
         }
         return false;
