@@ -130,7 +130,7 @@ Choose JUnit5 dependencies and versions suitable for your project, this is just 
     <dependency>
         <groupId>io.qala.datagen</groupId>
         <artifactId>qala-datagen-junit5</artifactId>
-        <version>2.2.1</version>
+        <version>2.3.0</version>
         <scope>test</scope>
     </dependency>
 
