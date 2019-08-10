@@ -130,6 +130,7 @@ import static io.qala.datagen.RandomShortApi.*;
 |`from("A", "B", "C", "D").sample()`                      | `sample("A", "B", "C")`                | `"C"`
 |`from("A", "B", "C", "D").sample(2)`                     | `sampleMultiple(2, "A", "B", "C")`     | `["B", "A"]`
 |`from("A", "B").sampleWithReplacement(3)`                |                                        | `["A", "A", "B"]`
+|`from("A", "B", "C").sampleWithReplacement(3)`           | shuffled("A", "B", "C")                | `["C", "A", "B"]`
 
 ## Java Date
 

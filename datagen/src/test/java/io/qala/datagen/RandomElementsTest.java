@@ -9,21 +9,20 @@ import java.util.Set;
 
 import static io.qala.datagen.RandomElements.from;
 import static io.qala.datagen.RandomShortApi.*;
-import static io.qala.datagen.RandomValue.length;
-import static io.qala.datagen.RandomValue.upTo;
+import static io.qala.datagen.RandomValue.*;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Random Elements")
-public class RandomElementsTest {
+class RandomElementsTest {
     @Test void canSampleTheOnlyElementOfList() {
         assertEquals("ABC", from("ABC").sample());
     }
 
     @Test void canSampleOneElementFromList() {
-        List<String> list = upTo(10).alphanumerics();
+        List<String> list = between(0, 10).alphanumerics();
         assertThat(list, hasItem(from(list).sample()));
         assertThat(list, hasItem(sample(list)));
     }
@@ -58,21 +57,48 @@ public class RandomElementsTest {
     @Test void throwsIfCollectionToSampleFromIsEmpty() {
         assertThrows(IllegalArgumentException.class, () -> from().sample(3));
         assertThrows(IllegalArgumentException.class, () -> sampleMultiple(0));
-        assertThrows(IllegalArgumentException.class, () -> sample());
+        assertThrows(IllegalArgumentException.class, RandomShortApi::sample);
     }
     @Test void canSampleMultipleElementsFromList() {
-        List<String> population = upTo(10).alphanumerics(5, 10);
+        List<String> population = between(0, 10).alphanumerics(5, 10);
         List<String> sample = from(population).sample(5);
 
         assertEquals(5, sample.size());
-        assertThat(population, hasItems(sample.toArray(new String[sample.size()])));
+        assertThat(population, hasItems(sample.toArray(new String[0])));
     }
     @Test void samplesDuplicateElements_ifSampleSizeLargerThanPopulation_andSamplingIsWithReplacement() {
-        List<String> population = upTo(10).alphanumerics(2);
+        System.out.println(from("A", "B", "C").shuffled());
+        List<String> population = between(0, 10).alphanumerics(2);
         List<String> sample = from(population).sampleWithReplacement(5);
 
         assertEquals(5, sample.size());
-        assertThat(population, hasItems(sample.toArray(new String[sample.size()])));
+        assertThat(population, hasItems(sample.toArray(new String[0])));
+    }
+    @Test void shuffledCollectionSharesAllElementsWithOriginalCollection() {
+        List<String> original = between(0, 10).alphanumerics(2);
+        List<String> shuffled = from(original).shuffled();
+
+        assertNotSame(original, shuffled);
+        assertEquals(original.size(), shuffled.size());
+        assertTrue(original.containsAll(shuffled));
+        assertTrue(shuffled.containsAll(original));
+    }
+    @Test void shuffledCollectionHasElementsInDifferentOrder_fromOriginalCollection() {
+        List<String> original = length(10).alphanumerics(200);
+        List<String> shuffled = shuffled(original);
+
+        assertNotEquals(original, shuffled);
+        assertTrue(original.containsAll(shuffled));
+        assertTrue(shuffled.containsAll(original));
+    }
+    @Test void shuffledCollectionHasElementsInDifferentOrder_fromOriginalArray() {
+        List<String> original = length(10).alphanumerics(200);
+        String[] originalArray = original.toArray(new String[]{});
+        List<String> shuffled = shuffled(originalArray);
+
+        assertNotEquals(original, shuffled);
+        assertTrue(original.containsAll(shuffled));
+        assertTrue(shuffled.containsAll(original));
     }
 
     @Test void nullOrObj_returnsNull_sometimes() {

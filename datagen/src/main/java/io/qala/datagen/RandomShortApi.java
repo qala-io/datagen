@@ -330,6 +330,24 @@ public class RandomShortApi {
     @SafeVarargs public static <T> List<T> sampleMultiple(int nToReturn, T... toSampleFrom) {
         return from(toSampleFrom).sample(nToReturn);
     }
+    /**
+     * Returns new collection with the same elements but in random order.
+     *
+     * @param toShuffle collection to shuffle
+     * @return new List of the same size, but with elements in random order
+     */
+    public static <T> List<T> shuffled(Collection<T> toShuffle) {
+        return from(toShuffle).shuffled();
+    }
+    /**
+     * Returns a List with the specified elements in random order.
+     *
+     * @param toShuffle elements to shuffle
+     * @return a List with the specified elements in random order
+     */
+    @SafeVarargs public static <T> List<T> shuffled(T... toShuffle) {
+        return from(toShuffle).shuffled();
+    }
 
     /**
      * Invokes one and only one of the specified functions. This is an API for Java8 Lambdas.

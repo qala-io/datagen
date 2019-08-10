@@ -1,9 +1,6 @@
 package io.qala.datagen;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static io.qala.datagen.RandomShortApi.integer;
 
@@ -87,6 +84,17 @@ public class RandomElements<T> {
             int index = integer(size() - 1);
             result.add(this.elements.get(index));
         }
+        return result;
+    }
+
+    /**
+     * Returns a collection with the elements passed in the constructor but with a random order.
+     *
+     * @return new List of the same size, but with elements in random order
+     */
+    public List<T> shuffled() {
+        List<T> result = new ArrayList<T>(this.elements);
+        Collections.shuffle(result);
         return result;
     }
 
