@@ -175,6 +175,20 @@ public class RandomShortApi {
     public static String specialSymbols(int min, int max) {
         return between(min, max).specialSymbols();
     }
+    /**
+     * Returns a string with upper/lower case changed in random places, e.g. {@code Blah -> bLaH}
+     *
+     * @param original string to change the case of its letters, can't be null
+     * @return a string with upper/lower case letters in random places
+     */
+    public static String mixedCase(String original) {
+        char[] result = original.toCharArray();
+        for (int i = 0; i < result.length; i++) {
+            char c = result[i];
+            result[i] = bool() ? Character.toUpperCase(c) : Character.toLowerCase(c);
+        }
+        return new String(result);
+    }
 
     /**
      * Returns an array of random booleans (true/false).

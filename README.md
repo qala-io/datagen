@@ -80,6 +80,7 @@ import static io.qala.datagen.RandomShortApi.*;
 | `length(4).with(spacesRight(2)).english()`               |                      | `"hF  "`
 | `length(10).with(prefix("BLAH")).numeric()`              |                      | `"BLAH453677"`
 | `between(1, 10).alphanumerics(4)`                        |                      | `["cvA", "mTMDj0", "N", ""]`
+|                                                          | `mixedCase("blah")`  | `"bLaH"`
 
 ## Nulls & Blanks
 

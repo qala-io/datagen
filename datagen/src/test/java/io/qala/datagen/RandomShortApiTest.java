@@ -13,8 +13,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Functional Randomizer")
 class RandomShortApiTest {
@@ -44,6 +43,16 @@ class RandomShortApiTest {
 
     @Test void atLeastOneElementIsReturned() {
         assertFalse(sampleMultiple(asList(integer(), integer())).isEmpty());
+    }
+
+    @Test void mixedCaseReturnsSameStringWithDifferentCases() {
+        String original = alphanumeric(200);
+        String mixed = mixedCase(original);
+        assertNotEquals(original, mixed);
+        assertEquals(original.toLowerCase(), mixed.toLowerCase());
+    }
+    @Test void emptyStringInMixedCaseIsEmptyString() {
+        assertEquals("", mixedCase(blankOr("")));
     }
 
     private void assertOnlyOneIsNull(Object o1, Object o2) {
