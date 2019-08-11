@@ -306,7 +306,7 @@ public class RandomShortApi {
     /**
      * Returns multiple random elements from the specified collection.
      *
-     * @param toSampleFrom the population of the elements you'd like to get a random value from
+     * @param toSampleFrom the population of the elements you'd like to get a random value from, can't be empty
      * @return 1 or more elements of the specified collection, elements don't repeat
      */
     public static <T> List<T> sampleMultiple(Collection<T> toSampleFrom) {
@@ -316,7 +316,7 @@ public class RandomShortApi {
     /**
      * Returns multiple random elements from the specified collection.
      *
-     * @param toSampleFrom the population of the elements you'd like to get a random value from
+     * @param toSampleFrom the population of the elements you'd like to get a random value from, can't be empty
      * @return a random element from the collection
      */
     public static <T> Set<T> sampleMultiple(Set<T> toSampleFrom) {
@@ -327,7 +327,8 @@ public class RandomShortApi {
      * Returns multiple random elements from the specified collection.
      *
      * @param toSampleFrom the population of the elements you'd like to get a random value from
-     * @param nToReturn    number of elements to be returned, must be smaller than the collection size
+     * @param nToReturn    number of elements to be returned, must be smaller than the collection size.
+     *                     0 will return an empty collection.
      * @return list of size {@code nToReturn} - contains random elements from the specified collection
      */
     public static <T> List<T> sampleMultiple(int nToReturn, Collection<T> toSampleFrom) {
@@ -338,7 +339,8 @@ public class RandomShortApi {
      * Returns random element from the collection.
      *
      * @param toSampleFrom the population of the elements you'd like to get a random value from
-     * @param nToReturn    number of elements to be returned, must be smaller than the collection size
+     * @param nToReturn    number of elements to be returned, must be smaller than the collection size.
+     *                     0 will return an empty collection.
      * @return list of size {@code nToReturn} - contains random elements from the specified array
      */
     @SafeVarargs public static <T> List<T> sampleMultiple(int nToReturn, T... toSampleFrom) {
@@ -347,7 +349,7 @@ public class RandomShortApi {
     /**
      * Returns new collection with the same elements but in random order.
      *
-     * @param toShuffle collection to shuffle
+     * @param toShuffle collection to shuffle. Empty is allowed -> results in empty.
      * @return new List of the same size, but with elements in random order
      */
     public static <T> List<T> shuffled(Collection<T> toShuffle) {
