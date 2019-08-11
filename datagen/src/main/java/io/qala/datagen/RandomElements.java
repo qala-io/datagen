@@ -13,8 +13,6 @@ public class RandomElements<T> {
     }
 
     private RandomElements(Collection<T> elements) {
-        if(elements == null || elements.isEmpty())
-            throw new IllegalArgumentException("Can't sample from zero elements: " + elements);
         this.elements = new ArrayList<T>(elements);
     }
 
@@ -42,6 +40,7 @@ public class RandomElements<T> {
      * @return a random element from the collection
      */
     public T sample() {
+        assertCollectionIsNotEmpty();
         int index = integer(size() - 1);
         return this.elements.get(index);
     }
@@ -79,6 +78,8 @@ public class RandomElements<T> {
      * @return collection of random elements picked from the initial collection
      */
     public List<T> sampleWithReplacement(int nToReturn) {
+        if(nToReturn > 0)
+            assertCollectionIsNotEmpty();
         List<T> result = new ArrayList<T>(nToReturn);
         for(int i = 0; i < nToReturn; i++) {
             int index = integer(size() - 1);
@@ -100,5 +101,10 @@ public class RandomElements<T> {
 
     private int size() {
         return elements.size();
+    }
+
+    private void assertCollectionIsNotEmpty() {
+        if(elements.isEmpty())
+            throw new IllegalArgumentException("Can't sample from zero elements: " + elements);
     }
 }

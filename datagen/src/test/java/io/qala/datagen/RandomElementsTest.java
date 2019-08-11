@@ -9,7 +9,8 @@ import java.util.Set;
 
 import static io.qala.datagen.RandomElements.from;
 import static io.qala.datagen.RandomShortApi.*;
-import static io.qala.datagen.RandomValue.*;
+import static io.qala.datagen.RandomValue.between;
+import static io.qala.datagen.RandomValue.length;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -49,6 +50,10 @@ class RandomElementsTest {
         assertThat(from("element1", "element2").sample(2), containsInAnyOrder("element1", "element2"));
         assertThat(sampleMultiple(2, "element1", "element2"), containsInAnyOrder("element1", "element2"));
     }
+    @Test void sampleMultiple_returnsEmptyList_ifSampling0elements() {
+        assertEquals(0, sampleMultiple(0).size());
+        assertEquals(0, from().sampleWithReplacement(0).size());
+    }
 
     @Test void mustThrowIfSampleIsLargerThanPopulation() {
         assertThrows(IllegalArgumentException.class, () -> from("el", "el2").sample(3));
@@ -56,7 +61,7 @@ class RandomElementsTest {
     }
     @Test void throwsIfCollectionToSampleFromIsEmpty() {
         assertThrows(IllegalArgumentException.class, () -> from().sample(3));
-        assertThrows(IllegalArgumentException.class, () -> sampleMultiple(0));
+        assertThrows(IllegalArgumentException.class, () -> from().sampleWithReplacement(1));
         assertThrows(IllegalArgumentException.class, RandomShortApi::sample);
     }
     @Test void canSampleMultipleElementsFromList() {
@@ -67,7 +72,6 @@ class RandomElementsTest {
         assertThat(population, hasItems(sample.toArray(new String[0])));
     }
     @Test void samplesDuplicateElements_ifSampleSizeLargerThanPopulation_andSamplingIsWithReplacement() {
-        System.out.println(from("A", "B", "C").shuffled());
         List<String> population = between(0, 10).alphanumerics(2);
         List<String> sample = from(population).sampleWithReplacement(5);
 
@@ -99,6 +103,10 @@ class RandomElementsTest {
         assertNotEquals(original, shuffled);
         assertTrue(original.containsAll(shuffled));
         assertTrue(shuffled.containsAll(original));
+    }
+    @Test void shufflingEmptyCollection_returnsEmptyCollection() {
+        assertEquals(0, shuffled(emptyList()).size());
+        assertEquals(0, shuffled().size());
     }
 
     @Test void nullOrObj_returnsNull_sometimes() {
